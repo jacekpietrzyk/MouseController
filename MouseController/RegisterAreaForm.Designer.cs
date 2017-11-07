@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
+            this.infoLabel = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mouseToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -44,15 +44,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.areaPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // infoLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(12, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(535, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Upewnij się, ze poszukiwany element jest widoczny i zaznacz obszar na ekranie";
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.infoLabel.Location = new System.Drawing.Point(61, 20);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(426, 18);
+            this.infoLabel.TabIndex = 0;
+            this.infoLabel.Text = "Make sure the element you want to save is visible on the screen";
             // 
             // statusStrip1
             // 
@@ -123,6 +123,7 @@
             // 
             // areaPictureBox
             // 
+            this.areaPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.areaPictureBox.Location = new System.Drawing.Point(15, 136);
             this.areaPictureBox.Name = "areaPictureBox";
             this.areaPictureBox.Size = new System.Drawing.Size(532, 122);
@@ -153,9 +154,10 @@
             this.Controls.Add(this.dimensionsLabel);
             this.Controls.Add(this.startPositionLabel);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.infoLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "RegisterAreaForm";
-            this.Text = "RegisterAreaForm";
+            this.Text = "Register Area";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterAreaForm_KeyDown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -167,7 +169,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel mouseToolStripStatusLabel;
         private System.Windows.Forms.Timer timer;

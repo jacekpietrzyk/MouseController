@@ -74,6 +74,16 @@ namespace MouseController
         {
             return false;
         }
+
+        public bool AreaNotEmpty(Area area)
+        {
+            if (area.Width != 0 && area.Height != 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+
     }
     public class Area
     {
@@ -98,6 +108,18 @@ namespace MouseController
                 return StartPositionY + Height / 2;
             }
             
+        }
+    }
+
+    public class User
+    {
+        private Area _conditionalArea;
+        private Area _actionArea;
+
+        public User(Area conditionalArea, Area actionArea)
+        {
+            _conditionalArea = conditionalArea;
+            _actionArea = actionArea;
         }
     }
 }

@@ -41,21 +41,14 @@ namespace MouseController
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            if(AreaNotEmpty(conditionalArea) && AreaNotEmpty(actionArea))
+            if(analyze.AreaNotEmpty(conditionalArea) && analyze.AreaNotEmpty(actionArea))
             {
                 runTimer.Enabled = true;
-                FillCompareObjects();
+                FillAreasToScreenCompare();
             }
         }
-        public bool AreaNotEmpty(Area area)
-        {
-            if (area.Width != 0 && area.Height != 0)
-            {
-                return true;
-            }
-            else return false;
-        }
-        public void FillCompareObjects()
+        
+        public void FillAreasToScreenCompare()
         {
             compareAction.StartPositionX = actionArea.StartPositionX;
             compareAction.StartPositionY = actionArea.StartPositionY;
@@ -188,6 +181,98 @@ namespace MouseController
         {
 
         }
+
+        private void toolStrip1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        #region MouseHover
+
+        private void openButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Open existing Mouse Controller profile";
+        }
+
+        private void openButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void resetButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Erase all current settings";
+        }
+
+        private void resetButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void conditionalAreaButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Select the conditional area";
+        }
+
+        private void conditionalAreaButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void actionAreaButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Select the main action area";
+        }
+
+        private void actionAreaButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void actionSettingsButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Action Settings";
+        }
+
+        private void actionSettingsButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void runButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Start to check the conditional area";
+        }
+
+        private void runButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void stopButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Stop checking the conditional area";
+        }
+
+        private void stopButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void closeButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Close the application";
+        }
+
+        private void closeButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+        #endregion
+
     }
 
     
