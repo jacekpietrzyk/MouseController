@@ -56,7 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyzeImages.cs" />
+    <Compile Include="Area.cs" />
     <Compile Include="Constans.cs" />
+    <Compile Include="CustomizedToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +75,7 @@
     <Compile Include="RegisterAreaForm.Designer.cs">
       <DependentUpon>RegisterAreaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkProfile.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

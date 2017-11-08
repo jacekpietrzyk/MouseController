@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Security.Cryptography;
@@ -7,7 +8,9 @@ namespace MouseController
 {
 	public class AnalyzeImages
 	{
-		public enum CompareResult
+        
+
+        public enum CompareResult
 		{
 			ciCompareOk,
 			ciPixelMismatch,
@@ -69,11 +72,7 @@ namespace MouseController
             area.Bitmap.Save(area.FileName, ImageFormat.Bmp);
             return area.FileName;
         }
-
-        public bool CompareBitmapAndScreen(Area area)
-        {
-            return false;
-        }
+    
 
         public bool AreaNotEmpty(Area area)
         {
@@ -85,41 +84,7 @@ namespace MouseController
         }
 
     }
-    public class Area
-    {
-        public int StartPositionX { get; set; }
-        public int StartPositionY { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public string FileName { get; set; }
-        public Bitmap Bitmap { get; set; }
-        public int ClickX
-        {
-            get
-            {
-                return StartPositionX + Width / 2;
-            }
+    
 
-        }
-        public int ClickY
-        {
-            get
-            {
-                return StartPositionY + Height / 2;
-            }
-            
-        }
-    }
-
-    public class User
-    {
-        private Area _conditionalArea;
-        private Area _actionArea;
-
-        public User(Area conditionalArea, Area actionArea)
-        {
-            _conditionalArea = conditionalArea;
-            _actionArea = actionArea;
-        }
-    }
+    
 }

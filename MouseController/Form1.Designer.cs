@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.runButton = new System.Windows.Forms.Button();
-            this.conditionalAreaButton = new System.Windows.Forms.Button();
-            this.actionAreaButton = new System.Windows.Forms.Button();
+            this.areaButton = new System.Windows.Forms.Button();
+            this.actionButton = new System.Windows.Forms.Button();
             this.actionSettingsButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
@@ -63,40 +63,40 @@
             this.runButton.MouseLeave += new System.EventHandler(this.runButton_MouseLeave);
             this.runButton.MouseHover += new System.EventHandler(this.runButton_MouseHover);
             // 
-            // conditionalAreaButton
+            // areaButton
             // 
-            this.conditionalAreaButton.BackColor = System.Drawing.Color.ForestGreen;
-            this.conditionalAreaButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("conditionalAreaButton.BackgroundImage")));
-            this.conditionalAreaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.conditionalAreaButton.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.conditionalAreaButton.FlatAppearance.BorderSize = 0;
-            this.conditionalAreaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conditionalAreaButton.Location = new System.Drawing.Point(173, 7);
-            this.conditionalAreaButton.Margin = new System.Windows.Forms.Padding(4);
-            this.conditionalAreaButton.Name = "conditionalAreaButton";
-            this.conditionalAreaButton.Size = new System.Drawing.Size(75, 75);
-            this.conditionalAreaButton.TabIndex = 5;
-            this.conditionalAreaButton.UseVisualStyleBackColor = false;
-            this.conditionalAreaButton.Click += new System.EventHandler(this.conditionalAreaButton_Click);
-            this.conditionalAreaButton.MouseLeave += new System.EventHandler(this.conditionalAreaButton_MouseLeave);
-            this.conditionalAreaButton.MouseHover += new System.EventHandler(this.conditionalAreaButton_MouseHover);
+            this.areaButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.areaButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("areaButton.BackgroundImage")));
+            this.areaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.areaButton.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.areaButton.FlatAppearance.BorderSize = 0;
+            this.areaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.areaButton.Location = new System.Drawing.Point(173, 7);
+            this.areaButton.Margin = new System.Windows.Forms.Padding(4);
+            this.areaButton.Name = "areaButton";
+            this.areaButton.Size = new System.Drawing.Size(75, 75);
+            this.areaButton.TabIndex = 5;
+            this.areaButton.UseVisualStyleBackColor = false;
+            this.areaButton.Click += new System.EventHandler(this.areaButton_Click);
+            this.areaButton.MouseLeave += new System.EventHandler(this.areaButton_MouseLeave);
+            this.areaButton.MouseHover += new System.EventHandler(this.areaButton_MouseHover);
             // 
-            // actionAreaButton
+            // actionButton
             // 
-            this.actionAreaButton.BackColor = System.Drawing.Color.Orange;
-            this.actionAreaButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("actionAreaButton.BackgroundImage")));
-            this.actionAreaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.actionAreaButton.FlatAppearance.BorderSize = 0;
-            this.actionAreaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.actionAreaButton.Location = new System.Drawing.Point(256, 7);
-            this.actionAreaButton.Margin = new System.Windows.Forms.Padding(4);
-            this.actionAreaButton.Name = "actionAreaButton";
-            this.actionAreaButton.Size = new System.Drawing.Size(75, 75);
-            this.actionAreaButton.TabIndex = 5;
-            this.actionAreaButton.UseVisualStyleBackColor = false;
-            this.actionAreaButton.Click += new System.EventHandler(this.actionAreaButton_Click);
-            this.actionAreaButton.MouseLeave += new System.EventHandler(this.actionAreaButton_MouseLeave);
-            this.actionAreaButton.MouseHover += new System.EventHandler(this.actionAreaButton_MouseHover);
+            this.actionButton.BackColor = System.Drawing.Color.Orange;
+            this.actionButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("actionButton.BackgroundImage")));
+            this.actionButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.actionButton.FlatAppearance.BorderSize = 0;
+            this.actionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.actionButton.Location = new System.Drawing.Point(256, 7);
+            this.actionButton.Margin = new System.Windows.Forms.Padding(4);
+            this.actionButton.Name = "actionButton";
+            this.actionButton.Size = new System.Drawing.Size(75, 75);
+            this.actionButton.TabIndex = 5;
+            this.actionButton.UseVisualStyleBackColor = false;
+            this.actionButton.Click += new System.EventHandler(this.actionButton_Click);
+            this.actionButton.MouseLeave += new System.EventHandler(this.actionButton_MouseLeave);
+            this.actionButton.MouseHover += new System.EventHandler(this.actionButton_MouseHover);
             // 
             // actionSettingsButton
             // 
@@ -228,8 +228,8 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(671, 112);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.actionAreaButton);
-            this.Controls.Add(this.conditionalAreaButton);
+            this.Controls.Add(this.actionButton);
+            this.Controls.Add(this.areaButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.actionSettingsButton);
@@ -251,8 +251,8 @@
         #endregion
 
         private System.Windows.Forms.Button runButton;
-        private System.Windows.Forms.Button conditionalAreaButton;
-        private System.Windows.Forms.Button actionAreaButton;
+        private System.Windows.Forms.Button areaButton;
+        private System.Windows.Forms.Button actionButton;
         private System.Windows.Forms.Button actionSettingsButton;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button closeButton;

@@ -16,6 +16,9 @@ namespace MouseController
     public partial class Form1 : Form
     {
         AnalyzeImages analyze = new AnalyzeImages();
+        WorkProfile profile = new WorkProfile();
+        
+
 
         Area actionArea = new Area();
         Area conditionalArea = new Area();
@@ -24,13 +27,9 @@ namespace MouseController
 
         int resultCounter = 0;
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
+        
 
-        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
+        
         
         public Form1()
         {
@@ -76,16 +75,17 @@ namespace MouseController
             
         }
 
-        private void actionAreaButton_Click(object sender, EventArgs e)
-        {
-            RegisterAreaForm form = new RegisterAreaForm(actionArea);
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK)
-            {
-                actionAreaButton.Text = "Saved";
-            }
-        }
-       
+
+        #region Make Form Movable
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -94,6 +94,16 @@ namespace MouseController
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+        private void toolStrip1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        #endregion
+
         private void CreateTemporaryFilesDirectory()
         {
             Constans.FilesDirectory = new System.IO.DirectoryInfo(Path.Combine(Path.GetTempPath(), Properties.Settings.Default.TempFilesFolderName));
@@ -135,23 +145,12 @@ namespace MouseController
             }
         }
 
-        private void conditionalAreaButton_Click(object sender, EventArgs e)
-        {
-            using (RegisterAreaForm form = new RegisterAreaForm(conditionalArea))
-            {
-                form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK)
-                {
-                    conditionalAreaButton.Text = "Saved";
-                }
-            }
-            
-        }
+       
 
         private void resetButton_Click(object sender, EventArgs e)
         {
-            conditionalAreaButton.Text = "Select the conditional area";
-            actionAreaButton.Text = "Select the action area";
+            areaButton.Text = "Select the conditional area";
+            actionButton.Text = "Select the action area";
             actionArea = new Area();
             conditionalArea = new Area();
         }
@@ -182,13 +181,23 @@ namespace MouseController
 
         }
 
-        private void toolStrip1_MouseDown(object sender, MouseEventArgs e)
+        
+        private void areaButton_Click(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            Area newArea = new Area();
+
+            RegisterAreaForm form = new RegisterAreaForm(newArea);
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                profile.AddArea(newArea);
             }
+            
+        }
+
+        private void actionButton_Click(object sender, EventArgs e)
+        {
+            
         }
         #region MouseHover
 
@@ -211,27 +220,7 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
-
-        private void conditionalAreaButton_MouseHover(object sender, EventArgs e)
-        {
-            toolTipLabel.Text = "Select the conditional area";
-        }
-
-        private void conditionalAreaButton_MouseLeave(object sender, EventArgs e)
-        {
-            toolTipLabel.Text = "";
-        }
-
-        private void actionAreaButton_MouseHover(object sender, EventArgs e)
-        {
-            toolTipLabel.Text = "Select the main action area";
-        }
-
-        private void actionAreaButton_MouseLeave(object sender, EventArgs e)
-        {
-            toolTipLabel.Text = "";
-        }
-
+        
         private void actionSettingsButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Action Settings";
@@ -271,7 +260,27 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
+        private void actionButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
+
+        private void actionButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Define a new action ";
+        }
+
+        private void areaButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "Define a new area";
+        }
+
+        private void areaButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipLabel.Text = "";
+        }
         #endregion
+
 
     }
 
