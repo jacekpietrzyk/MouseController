@@ -76,7 +76,7 @@ namespace MouseController
 
         public bool AreaNotEmpty(Area area)
         {
-            if (area.Width != 0 && area.Height != 0)
+            if (area.Width != 0 && area.Height != 0 && area.Name != "")
             {
                 return true;
             }

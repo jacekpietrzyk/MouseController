@@ -17,19 +17,14 @@ namespace MouseController
     {
         AnalyzeImages analyze = new AnalyzeImages();
         WorkProfile profile = new WorkProfile();
+
         
 
-
-        Area actionArea = new Area();
-        Area conditionalArea = new Area();
-        Area compareAction = new Area();
-        Area compareConditional = new Area();
+        Area area = new Area();
+        Area compareArea = new Area();
+        
 
         int resultCounter = 0;
-
-        
-
-        
         
         public Form1()
         {
@@ -40,24 +35,22 @@ namespace MouseController
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            if(analyze.AreaNotEmpty(conditionalArea) && analyze.AreaNotEmpty(actionArea))
+            List<Area> areas = profile.GetAreas();
+            if(areas.Count != 0)
             {
                 runTimer.Enabled = true;
-                FillAreasToScreenCompare();
+                //FillAreasToScreenCompare();
             }
         }
         
-        public void FillAreasToScreenCompare()
+        public void FillAreasToScreenCompare(Area area, Area compareArea)
         {
-            compareAction.StartPositionX = actionArea.StartPositionX;
-            compareAction.StartPositionY = actionArea.StartPositionY;
-            compareAction.Width = actionArea.Width;
-            compareAction.Height = actionArea.Height;
+            compareArea.StartPositionX = area.StartPositionX;
+            compareArea.StartPositionY = area.StartPositionY;
+            compareArea.Width = area.Width;
+            compareArea.Height = area.Height;
 
-            compareConditional.StartPositionX = conditionalArea.StartPositionX;
-            compareConditional.StartPositionY = conditionalArea.StartPositionY;
-            compareConditional.Width = conditionalArea.Width;
-            compareConditional.Height = conditionalArea.Height;
+           
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -151,36 +144,34 @@ namespace MouseController
         {
             areaButton.Text = "Select the conditional area";
             actionButton.Text = "Select the action area";
-            actionArea = new Area();
-            conditionalArea = new Area();
+            area = new Area();
+            compareArea  = new Area();
         }
 
         private void runTimer_Tick(object sender, EventArgs e)
         {
-            analyze.MakeScreenShot(compareConditional);
-            if(analyze.Compare(conditionalArea.Bitmap, compareConditional.Bitmap) == 0)
-            {
-                resultLabel.Text = String.Format("Result: {0} task completed", resultCounter+1);
-                RealizeClick(conditionalArea);
-            }
+            //CompareAreas();
             
         }
-        public void RealizeClick(Area area)
+        public bool CompareAreas(Area conditionalArea, Area compareArea)
         {
-            Mouse.Instance.Location = new System.Windows.Point(area.ClickX, area.ClickY);
-            Thread.Sleep(1500);
-            Mouse.Instance.Click();
+            analyze.MakeScreenShot(compareArea);
+            if (analyze.Compare(conditionalArea.Bitmap, compareArea.Bitmap) == 0)
+            {
+                resultLabel.Text = String.Format("Result: {0} task completed", resultCounter + 1);
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        
         private void stopButton_Click(object sender, EventArgs e)
         {
             runTimer.Enabled = false;
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         
         private void areaButton_Click(object sender, EventArgs e)
         {
@@ -197,7 +188,8 @@ namespace MouseController
 
         private void actionButton_Click(object sender, EventArgs e)
         {
-            
+            RegisterActivityForm form = new RegisterActivityForm();
+            form.ShowDialog();
         }
         #region MouseHover
 
