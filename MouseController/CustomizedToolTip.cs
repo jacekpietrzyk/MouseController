@@ -43,7 +43,7 @@ namespace MouseController
 
         #region Fields
 
-        private static Color myBorderColor = Color.Red;
+        private static Color myBorderColor = Color.White;
         private static Font myFont = new Font("Arial", 8);
 
         private StringFormat myTextFormat = new StringFormat();
@@ -330,7 +330,7 @@ namespace MouseController
                 Image toolTipImage = parent.Tag as Image;
                 if (toolTipImage != null)
                 {
-                    myImageRectangle.Width = mySize.Width;
+                    myImageRectangle.Width = mySize.Width-BORDER_THICKNESS*2;
                     myTextRectangle = new Rectangle(myImageRectangle.Right, myImageRectangle.Top,
                         (myToolTipRectangle.Width - myImageRectangle.Right - BORDER_THICKNESS), myImageRectangle.Height);
                     myTextRectangle.Location = new Point(myImageRectangle.Right, myImageRectangle.Top);

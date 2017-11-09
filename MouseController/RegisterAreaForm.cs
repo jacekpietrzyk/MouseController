@@ -28,7 +28,7 @@ namespace MouseController
             InitializeComponent();
             this.area = area;
             this.Focus();
-            myToolTip.SetToolTip(previewPictureBox, " ");
+            myToolTip.SetToolTip(previewPictureBox, "Preview");
             myToolTip.InitialDelay = 1;
             
             
@@ -65,7 +65,7 @@ namespace MouseController
                     CaptureAndShowArea();
                     _readingAreaPoints = false;
 
-                    
+                    previewPictureBox.BackColor = Color.DarkGreen;
                     
                 }
             }
@@ -91,9 +91,13 @@ namespace MouseController
             resetButton.Enabled = false;
             captureButton.Enabled = true;
             
-            areaPictureBox.ImageLocation = null;
-            dimensionsValueLabel.Text = "  Go to destination point end press E key";
-            startPositionValueLabel.Text = " Go to destination point end press S key";
+            
+            dimensionsValueLabel.Text = " No bitmap captured";
+            startPositionValueLabel.Text = "  Go to start point and press S key. Then go to end point and press E key";
+            previewPictureBox.Tag = null;
+            myToolTip.AutoSize = true;
+            previewPictureBox.BackColor = Color.Firebrick;
+            nameTextBox.Enabled = false;
         }
 
         public void CaptureAndShowArea()
@@ -102,9 +106,7 @@ namespace MouseController
             previewPictureBox.Tag = area.Bitmap;
             myToolTip.AutoSize = false;
             myToolTip.Size = area.Bitmap.Size;
-            
-
-            areaPictureBox.Image = area.Bitmap;
+            myToolTip.ToolTipTitle = " ";
         }
         
         public void CleanAreaObject()
@@ -147,10 +149,20 @@ namespace MouseController
             this.Close();
         }
 
-        private void RegisterAreaForm_Shown(object sender, EventArgs e)
+        private void nameTextBox_Enter(object sender, EventArgs e)
         {
-            
-            
+            if(nameTextBox.Text == "Type a name here...")
+            {
+                nameTextBox.Text = "";
+            }
+        }
+
+        private void nameTextBox_Leave(object sender, EventArgs e)
+        {
+            if (nameTextBox.Text == "")
+            {
+                nameTextBox.Text = "Type a name here...";
+            }
         }
     }
 
