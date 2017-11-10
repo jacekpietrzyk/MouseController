@@ -39,6 +39,9 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(354, 196);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.AutoGenerateColumns = false;
+            //this.dataGridView1.AutoGenerateColumns = false;
             // 
             // RegisterActivityForm
             // 

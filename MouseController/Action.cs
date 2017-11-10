@@ -8,32 +8,39 @@ using TestStack.White.InputDevices;
 
 namespace MouseController
 {
-   
-    public class WaitAction : IAction
-    {
-        public string Name { get; set; }
-        public int DelayTime { get; set; }
-        public void Execute()
-        {
-            Thread.Sleep(1500);
-        }
-    }
+
     public class MoveAction : IAction
     {
+        public Type Type { get; set; } = Type.MoveAction;
         public string Name { get; set; }
-        Area area = new Area();
+
+        public bool Active { get; set; } = true;
+        public int DelayTime { get; set; }
+
+        private Area _area;
+
+        public Area Area
+        {
+            get { return _area; }
+            set { _area = value; }
+        }
+
         public MoveAction(Area area)
         {
-            this.area = area;
+            this.Area = area;
         }
         public void Execute()
         {
-            Mouse.Instance.Location = new System.Windows.Point(area.ClickX, area.ClickY);
+            Thread.Sleep(DelayTime);
+            Mouse.Instance.Location = new System.Windows.Point(Area.ClickX, Area.ClickY);
         }
     }
     public class ClickAction : IAction
     {
+        public Type Type { get; set; } = Type.ClickAction;
         public string Name { get; set; }
+        public int DelayTime { get; set; }
+        public bool Active { get; set; }
 
         public ClickAction()
         {
@@ -41,7 +48,7 @@ namespace MouseController
         }
         public void Execute()
         {
-
+            Thread.Sleep(DelayTime);
             Mouse.Instance.Click();
         }
     }
