@@ -15,7 +15,7 @@ namespace MouseController
         public string Name { get; set; }
 
         public bool Active { get; set; } = true;
-        public int DelayTime { get; set; }
+        public int DelayTime { get; set; } = 0;
 
         private Area _area;
 
@@ -35,12 +35,14 @@ namespace MouseController
             Mouse.Instance.Location = new System.Windows.Point(Area.ClickX, Area.ClickY);
         }
     }
+
+
     public class ClickAction : IAction
     {
         public Type Type { get; set; } = Type.ClickAction;
         public string Name { get; set; }
-        public int DelayTime { get; set; }
-        public bool Active { get; set; }
+        public int DelayTime { get; set; } = 0;
+        public bool Active { get; set; } = false;
 
         public ClickAction()
         {

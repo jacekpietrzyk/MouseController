@@ -9,6 +9,7 @@ namespace MouseController
 
     public class Activity: IActivity
     {
+        public string Name { get; set; }
         List<IAction> _actions = new List<IAction>();
         public void AddAction(IAction action)
         {

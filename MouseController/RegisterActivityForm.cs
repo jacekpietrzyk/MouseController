@@ -13,78 +13,108 @@ namespace MouseController
 {
     public partial class RegisterActivityForm : Form
     {
-        List<IAction> actions = new List<IAction>();
-        List<Area> areas = new List<Area>();
-        public RegisterActivityForm()
+        List<IAction> currentActions;
+        List<Area> areas;
+        List<IActivity> activities;
+
+        public RegisterActivityForm(List<IActivity> activities, List<Area> areas)
         {
             InitializeComponent();
+            actionsDataGridView.AutoGenerateColumns = false;
+
+            this.activities = activities;
+            this.areas = areas;
+
+            #region Sample Data
+            Area area1 = new Area { Name = "Obszar" };
+            Area area2 = new Area { Name = "NowyObszar" };
+            areas.Add(area2);
+            areas.Add(area1);
+
+            Activity act1 = new Activity { Name = "Activ1" };
+            Activity act2 = new Activity { Name = "Activ2" };
+            
+            ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
+            ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
 
 
-            areas.Add(new Area() { Name = "Obszar1" });
-            areas.Add(new Area() { Name = "Obszar2" });
+            MoveAction action3 = new MoveAction(area1) { Name = "Move1", DelayTime = 1000, Active = true };
+            MoveAction action4 = new MoveAction(area2) { Name = "Move2", DelayTime = 1000, Active = true };
+            act1.AddAction(action1);
+            act1.AddAction(action3);
+            act1.AddAction(action4);
+            act2.AddAction(action2);
 
-            actions.Add(new ClickAction { DelayTime = 1000, Name = "Jeden" });
-            actions.Add(new MoveAction(new Area() { Name = "Obszar2" }) { DelayTime = 2000, Name = "dwa", });
-            //actions.Add(new ClickAction {  Name = "trzy" });
+            activities.Add(act1);
+            activities.Add(act2);
 
-            var bindingList = new BindingList<IAction>(actions);
-            var source = new BindingSource(bindingList, null);
-            dataGridView1.DataSource = actions;
-            //foreach(IAction action in actions)
-            //{
+            #endregion
 
-            //}
-
-            // Initialize and add a check box column.
-            DataGridViewCheckBoxColumn column0 = new DataGridViewCheckBoxColumn();
-            column0.DataPropertyName = "Active";
-            column0.Name = "Active";
-            dataGridView1.Columns.Add(column0);
-
-
-            // Initialize and add a text box column.
-            DataGridViewColumn column1 = new DataGridViewTextBoxColumn();
-            column1.DataPropertyName = "Name";
-            column1.Name = "Name";
-            dataGridView1.Columns.Add(column1);
-
-            dataGridView1.Columns.Add(CreateComboBoxWithEnums());
-
-            // Initialize and add a text box column.
-            DataGridViewColumn column3 = new DataGridViewTextBoxColumn();
-            column3.DataPropertyName = "DelayTime";
-
-            column3.Name = "Delay [ms]";
-            dataGridView1.Columns.Add(column3);
-
-            dataGridView1.Columns.Add(CreateComboBoxWithArea());
+            activitiesComboBox.DataSource = activities.Select(t => t.Name).ToList();
+            
+            AddDataGridViewColumns();
         }
-        DataGridViewComboBoxColumn CreateComboBoxWithEnums()
+
+        private void AddDataGridViewColumns()
         {
-            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
-            combo.DataSource = Enum.GetValues(typeof(Type));
-            combo.DataPropertyName = "Type";
-            combo.Name = "Type";
-            return combo;
+            actionsDataGridView.Columns.Add(CreateActiveCheckBoxColumn());
+            actionsDataGridView.Columns.Add(CreateNameColumn());
+            actionsDataGridView.Columns.Add(CreateTypeComboColumn());
+            actionsDataGridView.Columns.Add(CreateDelayTimeColumn());
+            actionsDataGridView.Columns.Add(CreateAreaComboColumn());
         }
 
-        DataGridViewComboBoxColumn CreateComboBoxWithArea()
+        DataGridViewCheckBoxColumn CreateActiveCheckBoxColumn()
         {
-            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
-            combo.DataSource = areas.Select(t => t.Name).ToArray();
+            DataGridViewCheckBoxColumn activeCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            activeCheckBoxColumn.DataPropertyName = "Active";
+            activeCheckBoxColumn.Name = "Active";
 
-            combo.DataPropertyName = "Area.Name";
-            combo.Name = "Area";
-            return combo;
+            return activeCheckBoxColumn;
         }
 
-
-        private void RegisterActivityForm_Load(object sender, EventArgs e)
+        DataGridViewColumn CreateNameColumn()
         {
+            DataGridViewColumn nameTextBoxColumn = new DataGridViewTextBoxColumn();
+            nameTextBoxColumn.DataPropertyName = "Name";
+            nameTextBoxColumn.Name = "Name";
+
+            return nameTextBoxColumn;
+        }
+
+        DataGridViewColumn CreateDelayTimeColumn()
+        {
+            DataGridViewColumn delayTimeTexTBoxColumn = new DataGridViewTextBoxColumn();
+            delayTimeTexTBoxColumn.DataPropertyName = "DelayTime";
+            delayTimeTexTBoxColumn.Name = "Delay [ms]";
+            
+
+            return delayTimeTexTBoxColumn;
 
 
         }
 
+        DataGridViewComboBoxColumn CreateTypeComboColumn()
+        {
+            DataGridViewComboBoxColumn typeComboColumn = new DataGridViewComboBoxColumn();
+            typeComboColumn.DataSource = Enum.GetValues(typeof(Type));
+            typeComboColumn.DataPropertyName = "Type";
+            typeComboColumn.Name = "Type";
+
+            return typeComboColumn;
+        }
+
+        DataGridViewComboBoxColumn CreateAreaComboColumn()
+        {
+            DataGridViewComboBoxColumn areaComboBoxColumn = new DataGridViewComboBoxColumn();
+            areaComboBoxColumn.DataSource = areas.Select(t => t.Name).ToArray();
+            areaComboBoxColumn.DataPropertyName = "Area.Name";
+            areaComboBoxColumn.Name = "Area";
+
+            return areaComboBoxColumn;
+        }
+
+        
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridView grid = (DataGridView)sender;
@@ -94,6 +124,7 @@ namespace MouseController
             {
                 string[] props = col.DataPropertyName.Split('.');
                 PropertyInfo propInfo = row.DataBoundItem.GetType().GetProperty(props[0]);
+
                 if (propInfo != null)
                 {
                     object val = propInfo.GetValue(row.DataBoundItem, null);
@@ -108,10 +139,20 @@ namespace MouseController
                 {
                     DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
                     DataGridViewComboBoxCell chkCell = cell as DataGridViewComboBoxCell;
-                    chkCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
-                    cell.ReadOnly = true;
+                    //chkCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
+                    chkCell.ReadOnly = true;
                 }
             }
+
+        }
+
+        private void activitiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentActions = activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).First().GetActions();
+            var bindingList = new BindingList<IAction>(currentActions);
+            var source = new BindingSource(bindingList, null);
+
+            actionsDataGridView.DataSource = source;
         }
     }
 }

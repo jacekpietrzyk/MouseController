@@ -188,7 +188,7 @@ namespace MouseController
 
         private void actionButton_Click(object sender, EventArgs e)
         {
-            RegisterActivityForm form = new RegisterActivityForm();
+            RegisterActivityForm form = new RegisterActivityForm(profile.Activities, profile.Areas);
             form.ShowDialog();
         }
         #region MouseHover
