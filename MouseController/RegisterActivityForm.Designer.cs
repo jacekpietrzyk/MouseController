@@ -37,7 +37,7 @@
             // 
             // actionsDataGridView
             // 
-            this.actionsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+ 
             this.actionsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.actionsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.actionsDataGridView.Location = new System.Drawing.Point(0, 0);

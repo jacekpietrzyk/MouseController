@@ -15,14 +15,14 @@ namespace MouseController
     {
         List<IAction> currentActions;
         List<Area> areas;
-        List<IActivity> activities;
+        List<IActivity> activities = new List<IActivity>();
 
-        public RegisterActivityForm(List<IActivity> activities, List<Area> areas)
+        public RegisterActivityForm(List<IActivity> activities1, List<Area> areas)
         {
             InitializeComponent();
             actionsDataGridView.AutoGenerateColumns = false;
 
-            this.activities = activities;
+            //this.activities = activities;
             this.areas = areas;
 
             #region Sample Data
@@ -139,7 +139,7 @@ namespace MouseController
                 {
                     DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
                     DataGridViewComboBoxCell chkCell = cell as DataGridViewComboBoxCell;
-                    //chkCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
+                    chkCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
                     chkCell.ReadOnly = true;
                 }
             }
