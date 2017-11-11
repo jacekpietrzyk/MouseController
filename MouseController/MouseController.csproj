@@ -57,6 +57,12 @@
   <ItemGroup>
     <Compile Include="Activity.cs" />
     <Compile Include="Action.cs" />
+    <Compile Include="AddActivityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddActivityForm.Designer.cs">
+      <DependentUpon>AddActivityForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AnalyzeImages.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="Constans.cs" />
@@ -86,6 +92,9 @@
       <DependentUpon>RegisterAreaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkProfile.cs" />
+    <EmbeddedResource Include="AddActivityForm.resx">
+      <DependentUpon>AddActivityForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

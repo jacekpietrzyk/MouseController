@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.runButton = new System.Windows.Forms.Button();
             this.areaButton = new System.Windows.Forms.Button();
-            this.actionButton = new System.Windows.Forms.Button();
+            this.activityButton = new System.Windows.Forms.Button();
             this.actionSettingsButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
@@ -81,22 +81,22 @@
             this.areaButton.MouseLeave += new System.EventHandler(this.areaButton_MouseLeave);
             this.areaButton.MouseHover += new System.EventHandler(this.areaButton_MouseHover);
             // 
-            // actionButton
+            // activityButton
             // 
-            this.actionButton.BackColor = System.Drawing.Color.Orange;
-            this.actionButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("actionButton.BackgroundImage")));
-            this.actionButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.actionButton.FlatAppearance.BorderSize = 0;
-            this.actionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.actionButton.Location = new System.Drawing.Point(256, 7);
-            this.actionButton.Margin = new System.Windows.Forms.Padding(4);
-            this.actionButton.Name = "actionButton";
-            this.actionButton.Size = new System.Drawing.Size(75, 75);
-            this.actionButton.TabIndex = 5;
-            this.actionButton.UseVisualStyleBackColor = false;
-            this.actionButton.Click += new System.EventHandler(this.actionButton_Click);
-            this.actionButton.MouseLeave += new System.EventHandler(this.actionButton_MouseLeave);
-            this.actionButton.MouseHover += new System.EventHandler(this.actionButton_MouseHover);
+            this.activityButton.BackColor = System.Drawing.Color.Orange;
+            this.activityButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("activityButton.BackgroundImage")));
+            this.activityButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.activityButton.FlatAppearance.BorderSize = 0;
+            this.activityButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.activityButton.Location = new System.Drawing.Point(256, 7);
+            this.activityButton.Margin = new System.Windows.Forms.Padding(4);
+            this.activityButton.Name = "activityButton";
+            this.activityButton.Size = new System.Drawing.Size(75, 75);
+            this.activityButton.TabIndex = 5;
+            this.activityButton.UseVisualStyleBackColor = false;
+            this.activityButton.Click += new System.EventHandler(this.actionButton_Click);
+            this.activityButton.MouseLeave += new System.EventHandler(this.activityButton_MouseLeave);
+            this.activityButton.MouseHover += new System.EventHandler(this.activityButton_MouseHover);
             // 
             // actionSettingsButton
             // 
@@ -154,6 +154,7 @@
             this.resetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.resetButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resetButton.BackgroundImage")));
             this.resetButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.resetButton.Enabled = false;
             this.resetButton.FlatAppearance.BorderSize = 0;
             this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetButton.Location = new System.Drawing.Point(90, 7);
@@ -176,6 +177,7 @@
             this.openButton.BackColor = System.Drawing.Color.Orange;
             this.openButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("openButton.BackgroundImage")));
             this.openButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.openButton.Enabled = false;
             this.openButton.FlatAppearance.BorderSize = 0;
             this.openButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openButton.Location = new System.Drawing.Point(7, 7);
@@ -228,7 +230,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(671, 112);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.actionButton);
+            this.Controls.Add(this.activityButton);
             this.Controls.Add(this.areaButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.openButton);
@@ -251,7 +253,7 @@
 
         private System.Windows.Forms.Button runButton;
         private System.Windows.Forms.Button areaButton;
-        private System.Windows.Forms.Button actionButton;
+        private System.Windows.Forms.Button activityButton;
         private System.Windows.Forms.Button actionSettingsButton;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button closeButton;

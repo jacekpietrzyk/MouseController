@@ -17,22 +17,28 @@ namespace MouseController
         List<Area> areas;
         List<IActivity> activities = new List<IActivity>();
 
-        public RegisterActivityForm(List<IActivity> activities1, List<Area> areas)
+        public event EventHandler ActivitiesListChanged;
+
+        protected virtual void OnActivitiesListChanged(EventArgs e)
+        {
+            EventHandler handler = ActivitiesListChanged;
+            handler?.Invoke(this, e);
+        }
+        
+        public RegisterActivityForm(List<IActivity> activities, List<Area> areas)
         {
             InitializeComponent();
             actionsDataGridView.AutoGenerateColumns = false;
-
-            //this.activities = activities;
-            this.areas = areas;
-
+            //activities
+            
             #region Sample Data
             Area area1 = new Area { Name = "Obszar" };
             Area area2 = new Area { Name = "NowyObszar" };
             areas.Add(area2);
             areas.Add(area1);
 
-            Activity act1 = new Activity { Name = "Activ1" };
-            Activity act2 = new Activity { Name = "Activ2" };
+            Activity act1 = new Activity { Name = "Przykład 1" };
+            Activity act2 = new Activity { Name = "Przykład 2" };
             
             ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
             ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
@@ -50,9 +56,19 @@ namespace MouseController
 
             #endregion
 
-            activitiesComboBox.DataSource = activities.Select(t => t.Name).ToList();
-            
+            this.activities = activities.GetRange(0, activities.Count);
+            this.areas = areas;
+
+            ReadActivitiesCollection();
+
+
             AddDataGridViewColumns();
+            //ActivitiesListChanged += ReadActivitiesCollection();
+        }
+
+        public void ReadActivitiesCollection()
+        {
+            activitiesComboBox.DataSource = activities.Select(t => t.Name).ToList();
         }
 
         private void AddDataGridViewColumns()
@@ -114,7 +130,26 @@ namespace MouseController
             return areaComboBoxColumn;
         }
 
+        #region Make Form Movable
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
         
+        private void RegisterActivityForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        #endregion
+
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridView grid = (DataGridView)sender;
@@ -153,6 +188,29 @@ namespace MouseController
             var source = new BindingSource(bindingList, null);
 
             actionsDataGridView.DataSource = source;
+        }
+
+        private void closeButtonPictureBox_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void addActivityPictureBox_Click(object sender, EventArgs e)
+        {
+            AddActivityForm addActivityForm = new AddActivityForm();
+
+            addActivityForm.ShowDialog();
+
+            if(addActivityForm.DialogResult == DialogResult.OK)
+            {
+                activities.Add(addActivityForm.Activity);
+
+            }
         }
     }
 }

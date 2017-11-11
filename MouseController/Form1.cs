@@ -143,7 +143,7 @@ namespace MouseController
         private void resetButton_Click(object sender, EventArgs e)
         {
             areaButton.Text = "Select the conditional area";
-            actionButton.Text = "Select the action area";
+            activityButton.Text = "Select the action area";
             area = new Area();
             compareArea  = new Area();
         }
@@ -252,12 +252,12 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
-        private void actionButton_MouseLeave(object sender, EventArgs e)
+        private void activityButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
 
-        private void actionButton_MouseHover(object sender, EventArgs e)
+        private void activityButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Define a new action ";
         }
@@ -271,9 +271,10 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
+
         #endregion
 
-
+    
     }
 
     

@@ -222,6 +222,7 @@
             this.Controls.Add(this.infoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RegisterAreaForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Register Area";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterAreaForm_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RegisterAreaForm_MouseDown);

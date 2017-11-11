@@ -51,25 +51,45 @@ namespace MouseController
                 }
                 if (e.KeyCode == Keys.E)
                 {
-                    area.Width = Math.Abs(Cursor.Position.X - area.StartPositionX);
-                    area.Height = Math.Abs(Cursor.Position.Y - area.StartPositionY);
-                    area.StartPositionX = Math.Min(area.StartPositionX, Cursor.Position.X);
-                    area.StartPositionY = Math.Min(area.StartPositionY, Cursor.Position.Y);
+                    if(IsNotTheSamePoint(area.StartPositionX, area.StartPositionY, Cursor.Position.X, Cursor.Position.Y))
+                    {
+                        area.Width = Math.Abs(Cursor.Position.X - area.StartPositionX);
+                        area.Height = Math.Abs(Cursor.Position.Y - area.StartPositionY);
+                        area.StartPositionX = Math.Min(area.StartPositionX, Cursor.Position.X);
+                        area.StartPositionY = Math.Min(area.StartPositionY, Cursor.Position.Y);
 
-                    startPositionValueLabel.Text = "X: " + area.StartPositionX + "  Y: " + area.StartPositionY;
-                    dimensionsValueLabel.Text = "Width: " + area.Width + ",  Height: " + area.Height;
+                        startPositionValueLabel.Text = "X: " + area.StartPositionX + "  Y: " + area.StartPositionY;
+                        dimensionsValueLabel.Text = "Width: " + area.Width + ",  Height: " + area.Height;
 
-                    acceptButton.Enabled = true;
-                    resetButton.Enabled = true;
-                    nameTextBox.Enabled = true;
-                    CaptureAndShowArea();
-                    _readingAreaPoints = false;
+                        acceptButton.Enabled = true;
+                        resetButton.Enabled = true;
+                        nameTextBox.Enabled = true;
+                        CaptureAndShowArea();
+                        _readingAreaPoints = false;
 
-                    previewPictureBox.BackColor = Color.DarkGreen;
+                        previewPictureBox.BackColor = Color.DarkGreen;
+                    }
+                    else
+                    {
+                        MessageBox.Show("You have to capture two different poinsts!");
+                    }
                     
                 }
             }
         }
+
+        private bool IsNotTheSamePoint(int x1, int y1, int x2, int y2)
+        {
+            if(x1 != x2 && y1 != y2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void acceptButton_Click(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(nameTextBox.Text) && nameTextBox.Text != "Type a name here...")
