@@ -44,10 +44,10 @@
             this.removeActivityPanel = new System.Windows.Forms.Panel();
             this.removeActivityLabel = new System.Windows.Forms.Label();
             this.activitiesManagerPanel = new System.Windows.Forms.Panel();
-            this.addActionPanel = new System.Windows.Forms.Panel();
-            this.addActionLabel = new System.Windows.Forms.Label();
             this.removeActionPanel = new System.Windows.Forms.Panel();
             this.removeActionLabel = new System.Windows.Forms.Label();
+            this.addActionPanel = new System.Windows.Forms.Panel();
+            this.addActionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.actionsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.activitiesComboBoxPanel.SuspendLayout();
@@ -55,8 +55,8 @@
             this.addActivityPanel.SuspendLayout();
             this.removeActivityPanel.SuspendLayout();
             this.activitiesManagerPanel.SuspendLayout();
-            this.addActionPanel.SuspendLayout();
             this.removeActionPanel.SuspendLayout();
+            this.addActionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // actionsDataGridView
@@ -242,28 +242,6 @@
             this.activitiesManagerPanel.TabIndex = 11;
             this.activitiesManagerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.activitiesManagerPanel_MouseDown);
             // 
-            // addActionPanel
-            // 
-            this.addActionPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.addActionPanel.Controls.Add(this.addActionLabel);
-            this.addActionPanel.Location = new System.Drawing.Point(96, 116);
-            this.addActionPanel.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.addActionPanel.Name = "addActionPanel";
-            this.addActionPanel.Size = new System.Drawing.Size(19, 19);
-            this.addActionPanel.TabIndex = 10;
-            this.addActionPanel.TabStop = true;
-            // 
-            // addActionLabel
-            // 
-            this.addActionLabel.AutoSize = true;
-            this.addActionLabel.Font = new System.Drawing.Font("Gulim", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.addActionLabel.Location = new System.Drawing.Point(-2, -4);
-            this.addActionLabel.Name = "addActionLabel";
-            this.addActionLabel.Size = new System.Drawing.Size(22, 23);
-            this.addActionLabel.TabIndex = 9;
-            this.addActionLabel.Text = "+";
-            this.addActionLabel.Click += new System.EventHandler(this.addActionLabel_Click);
-            // 
             // removeActionPanel
             // 
             this.removeActionPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -286,6 +264,28 @@
             this.removeActionLabel.Text = "-";
             this.removeActionLabel.Click += new System.EventHandler(this.removeActionLabel_Click);
             // 
+            // addActionPanel
+            // 
+            this.addActionPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.addActionPanel.Controls.Add(this.addActionLabel);
+            this.addActionPanel.Location = new System.Drawing.Point(96, 116);
+            this.addActionPanel.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.addActionPanel.Name = "addActionPanel";
+            this.addActionPanel.Size = new System.Drawing.Size(19, 19);
+            this.addActionPanel.TabIndex = 10;
+            this.addActionPanel.TabStop = true;
+            // 
+            // addActionLabel
+            // 
+            this.addActionLabel.AutoSize = true;
+            this.addActionLabel.Font = new System.Drawing.Font("Gulim", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.addActionLabel.Location = new System.Drawing.Point(-2, -4);
+            this.addActionLabel.Name = "addActionLabel";
+            this.addActionLabel.Size = new System.Drawing.Size(22, 23);
+            this.addActionLabel.TabIndex = 9;
+            this.addActionLabel.Text = "+";
+            this.addActionLabel.Click += new System.EventHandler(this.addActionLabel_Click);
+            // 
             // ActivitiesManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,10 +307,10 @@
             this.removeActivityPanel.PerformLayout();
             this.activitiesManagerPanel.ResumeLayout(false);
             this.activitiesManagerPanel.PerformLayout();
-            this.addActionPanel.ResumeLayout(false);
-            this.addActionPanel.PerformLayout();
             this.removeActionPanel.ResumeLayout(false);
             this.removeActionPanel.PerformLayout();
+            this.addActionPanel.ResumeLayout(false);
+            this.addActionPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }

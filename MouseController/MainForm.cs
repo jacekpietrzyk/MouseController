@@ -9,11 +9,12 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace MouseController
 {
    
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         AnalyzeImages analyze = new AnalyzeImages();
         WorkProfile profile = new WorkProfile();
@@ -26,33 +27,56 @@ namespace MouseController
 
         int resultCounter = 0;
         
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             CreateTemporaryFilesDirectory();
             CreateUserDirectory();
+            WriteSampleData();
+        }
+        
+        public void WriteSampleData()
+        {
+
+            Area area = new Area
+            {
+                Bitmap = analyze.MakeScreenShot(new Area
+                {
+                    StartPositionX = 10,
+                    StartPositionY = 10,
+                    Height = 100,
+                    Width = 300
+                }),
+                StartPositionX = 10,
+                StartPositionY = 10,
+                Height = 100,
+                Width = 300,
+                Name = "Przykładowy obszar"
+            };
+            profile.Areas.Add(area);
+
+            Activity act1 = new Activity { Name = "Przykład 1" };
+            Activity act2 = new Activity { Name = "Przykład 2" };
+
+            ClickAction action1 = new ClickAction { Name = "Akcja Click", DelayTime = 1000, Active = true };
+            ClickAction action2 = new ClickAction { Name = "Akcja Click Inna", DelayTime = 1000, Active = true };
+            MoveAction action3 = new MoveAction(area) { Name = "Akcja Move", DelayTime = 2000, Active = true };
+
+            act1.AddAction(action1);
+            act1.AddAction(action3);
+            act2.AddAction(action2);
+
+            profile.Activities.Add(act1);
+            profile.Activities.Add(act2);
+
         }
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            List<Area> areas = profile.GetAreas();
-            if(areas.Count != 0)
-            {
-                runTimer.Enabled = true;
-                //FillAreasToScreenCompare();
-            }
+            runTimer.Enabled = true;
+            // TO DO
         }
         
-        public void FillAreasToScreenCompare(Area area, Area compareArea)
-        {
-            compareArea.StartPositionX = area.StartPositionX;
-            compareArea.StartPositionY = area.StartPositionY;
-            compareArea.Width = area.Width;
-            compareArea.Height = area.Height;
-
-           
-        }
-
         private void closeButton_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Do you want to save this profile?", "Save the settings", MessageBoxButtons.YesNoCancel);
@@ -63,12 +87,11 @@ namespace MouseController
             }
             else if (result == DialogResult.Yes)
             {
-                //serialize and save
+                //serialize and save profile object
             }
             
         }
-
-
+        
         #region Make Form Movable
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -78,8 +101,17 @@ namespace MouseController
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
+        
+        private void toolStrip1_MouseDown_1(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void mainFormPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -87,14 +119,7 @@ namespace MouseController
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-        private void toolStrip1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
+        
         #endregion
 
         private void CreateTemporaryFilesDirectory()
@@ -142,15 +167,12 @@ namespace MouseController
 
         private void resetButton_Click(object sender, EventArgs e)
         {
-            areaButton.Text = "Select the conditional area";
-            activityButton.Text = "Select the action area";
-            area = new Area();
-            compareArea  = new Area();
+            profile = new WorkProfile();
         }
 
         private void runTimer_Tick(object sender, EventArgs e)
         {
-            //CompareAreas();
+            //TO DO
             
         }
         public bool CompareAreas(Area conditionalArea, Area compareArea)
@@ -173,44 +195,47 @@ namespace MouseController
             runTimer.Enabled = false;
         }
         
-        private void areaButton_Click(object sender, EventArgs e)
+        private void areasManagerButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
-            //Area newArea = new Area();
 
-            AreasManagerForm form = new AreasManagerForm(profile.Areas);
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK)
+            using (AreasManagerForm form = new AreasManagerForm(profile))
             {
-                profile.EndEdit();
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    profile.EndEdit();
+                }
+                else if (form.DialogResult == DialogResult.Cancel)
+                {
+                    profile.CancelEdit();
+                }
             }
-            else if (form.DialogResult == DialogResult.Cancel)
-            {
-                profile.CancelEdit();
-            }
-
         }
 
-        private void actionButton_Click(object sender, EventArgs e)
+        private void activitiesManagerButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
-            ActivitiesManagerForm form = new ActivitiesManagerForm(profile);
-            form.ShowDialog();
-            if(form.DialogResult == DialogResult.OK)
-            {
-                profile.EndEdit();
-            }
-            else if (form.DialogResult == DialogResult.Cancel)
-            {
-                profile.CancelEdit();
-            }
 
+            using (ActivitiesManagerForm form = new ActivitiesManagerForm(profile))
+            {
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    profile.EndEdit();
+                }
+                else if (form.DialogResult == DialogResult.Cancel)
+                {
+                    profile.CancelEdit();
+                }
+            }
         }
-        #region MouseHover
+
+        #region Mouse Hover Events
 
         private void openButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Open existing Mouse Controller profile";
+            toolTipLabel.Text = "Open existing Mouse Controller work profile";
         }
 
         private void openButton_MouseLeave(object sender, EventArgs e)
@@ -220,7 +245,7 @@ namespace MouseController
 
         private void resetButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Erase all current settings";
+            toolTipLabel.Text = "Clean work profile";
         }
 
         private void resetButton_MouseLeave(object sender, EventArgs e)
@@ -230,7 +255,7 @@ namespace MouseController
         
         private void actionSettingsButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Action Settings";
+            toolTipLabel.Text = "Connect areas with activities";
         }
 
         private void actionSettingsButton_MouseLeave(object sender, EventArgs e)
@@ -240,7 +265,7 @@ namespace MouseController
 
         private void runButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Start to check the conditional area";
+            toolTipLabel.Text = "Run";
         }
 
         private void runButton_MouseLeave(object sender, EventArgs e)
@@ -250,7 +275,7 @@ namespace MouseController
 
         private void stopButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Stop checking the conditional area";
+            toolTipLabel.Text = "Stop current work process";
         }
 
         private void stopButton_MouseLeave(object sender, EventArgs e)
@@ -267,29 +292,32 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
-        private void activityButton_MouseLeave(object sender, EventArgs e)
+        private void activitiesManagerButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
 
-        private void activityButton_MouseHover(object sender, EventArgs e)
+        private void activitiesManagerButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Define a new action ";
+            toolTipLabel.Text = "Open Activities Manager";
         }
 
-        private void areaButton_MouseHover(object sender, EventArgs e)
+        private void areasManagerButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Define a new area";
+            toolTipLabel.Text = "Open Areas Manager";
         }
 
-        private void areaButton_MouseLeave(object sender, EventArgs e)
+        private void areasManagerButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
+
+
+
 
         #endregion
 
-    
+        
     }
 
     

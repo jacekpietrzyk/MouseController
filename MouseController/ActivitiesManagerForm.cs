@@ -22,61 +22,34 @@ namespace MouseController
             actionsDataGridView.AutoGenerateColumns = false;
             
             this.profile = profile;
-
-            #region Sample Data
-
-            Area area1 = new Area { Name = "Obszar" };
-            Area area2 = new Area { Name = "NowyObszar" };
-            profile.Areas.Add(area2);
-            profile.Areas.Add(area1);
-
-            Activity act1 = new Activity { Name = "Przykład 1" };
-            Activity act2 = new Activity { Name = "Przykład 2" };
-
-            ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
-            ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
-
-
-            MoveAction action3 = new MoveAction(area1) { Name = "Move1", DelayTime = 1000, Active = true };
-            MoveAction action4 = new MoveAction(area2) { Name = "Move2", DelayTime = 1000, Active = true };
-            act1.AddAction(action1);
-            act1.AddAction(action3);
-            act1.AddAction(action4);
-            act2.AddAction(action2);
-
-            profile.Activities.Add(act1);
-            profile.Activities.Add(act2);
-
-            #endregion
             
             ReadActivitiesCollection();
             AddDataGridViewColumns();
+
             profile.Activities.CollectionChanged += Activities_CollectionChanged;
+            
         }
         
         private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             ReadActivitiesCollection();
         }
-
+        
         public void ReadActivitiesCollection()
         {
             if(profile.Activities.Count != 0)
             {
                 actionsDataGridView.Enabled = true;
                 activitiesComboBox.DataSource = profile.Activities.Select(t => t.Name).ToList();
-                //activitiesComboBox.SelectedIndex = -1;
-                
             }
             else
             {
                 activitiesComboBox.DataSource = null;
-                actionsDataGridView.DataSource = null;
+                actionsDataGridView.DataSource = new List<IAction>();
                 actionsDataGridView.Enabled = false;
             }
         }
-
-
+        
         #region DataGridView Columns
 
         private void AddDataGridViewColumns()
@@ -194,7 +167,11 @@ namespace MouseController
 
         private void activitiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(activitiesComboBox.SelectedValue != null)
+            SetGridSource();
+        }
+        private void SetGridSource()
+        {
+            if (activitiesComboBox.SelectedValue != null)
             {
                 if (profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).Any())
                 {
@@ -209,9 +186,8 @@ namespace MouseController
             {
                 actionsDataGridView.DataSource = null;
             }
-            
         }
-        
+
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -255,9 +231,10 @@ namespace MouseController
         private void addActionLabel_Click(object sender, EventArgs e)
         {
             currentActions.Add(new ClickAction());
+            SetGridSource();
         }
 
-        private void removeActionLabel_Click(object sender, EventArgs e)
+        private void removeActionLabel_Click(object sender, EventArgs ex)
         {
 
         }

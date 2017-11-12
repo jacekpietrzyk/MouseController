@@ -20,11 +20,11 @@ namespace MouseController
         private bool inTxn = false;
 
         public string Name { get; set; }
-        private List<Area> _areas = new List<Area>();
+        private ObservableCollection<Area> _areas = new ObservableCollection<Area>();
         private ObservableCollection<IActivity> _activities = new ObservableCollection<IActivity>();
 
 
-        public List<Area> Areas
+        public ObservableCollection<Area> Areas
         {
             get { return _areas; }
         }
@@ -40,9 +40,10 @@ namespace MouseController
         public void AddActivity(IActivity newActivity)
         {
             _activities.Add(newActivity);
+            
         }
         
-        public List<Area> GetAreas()
+        public ObservableCollection<Area> GetAreas()
         {
             return _areas;
         }

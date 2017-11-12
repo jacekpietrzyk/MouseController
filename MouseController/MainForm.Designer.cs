@@ -1,6 +1,6 @@
 ﻿namespace MouseController
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.runButton = new System.Windows.Forms.Button();
-            this.areaButton = new System.Windows.Forms.Button();
-            this.activityButton = new System.Windows.Forms.Button();
+            this.areasManagerButton = new System.Windows.Forms.Button();
+            this.activitiesManagerButton = new System.Windows.Forms.Button();
             this.actionSettingsButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.resetButton = new System.Windows.Forms.Button();
             this.runTimer = new System.Windows.Forms.Timer(this.components);
             this.openButton = new System.Windows.Forms.Button();
+            this.mainFormPanel = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.resultLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolTipLabel = new System.Windows.Forms.ToolStripLabel();
+            this.mainFormPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,40 +64,40 @@
             this.runButton.MouseLeave += new System.EventHandler(this.runButton_MouseLeave);
             this.runButton.MouseHover += new System.EventHandler(this.runButton_MouseHover);
             // 
-            // areaButton
+            // areasManagerButton
             // 
-            this.areaButton.BackColor = System.Drawing.Color.ForestGreen;
-            this.areaButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("areaButton.BackgroundImage")));
-            this.areaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.areaButton.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
-            this.areaButton.FlatAppearance.BorderSize = 0;
-            this.areaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.areaButton.Location = new System.Drawing.Point(173, 7);
-            this.areaButton.Margin = new System.Windows.Forms.Padding(4);
-            this.areaButton.Name = "areaButton";
-            this.areaButton.Size = new System.Drawing.Size(75, 75);
-            this.areaButton.TabIndex = 5;
-            this.areaButton.UseVisualStyleBackColor = false;
-            this.areaButton.Click += new System.EventHandler(this.areaButton_Click);
-            this.areaButton.MouseLeave += new System.EventHandler(this.areaButton_MouseLeave);
-            this.areaButton.MouseHover += new System.EventHandler(this.areaButton_MouseHover);
+            this.areasManagerButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.areasManagerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("areasManagerButton.BackgroundImage")));
+            this.areasManagerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.areasManagerButton.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
+            this.areasManagerButton.FlatAppearance.BorderSize = 0;
+            this.areasManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.areasManagerButton.Location = new System.Drawing.Point(173, 7);
+            this.areasManagerButton.Margin = new System.Windows.Forms.Padding(4);
+            this.areasManagerButton.Name = "areasManagerButton";
+            this.areasManagerButton.Size = new System.Drawing.Size(75, 75);
+            this.areasManagerButton.TabIndex = 5;
+            this.areasManagerButton.UseVisualStyleBackColor = false;
+            this.areasManagerButton.Click += new System.EventHandler(this.areasManagerButton_Click);
+            this.areasManagerButton.MouseLeave += new System.EventHandler(this.areasManagerButton_MouseLeave);
+            this.areasManagerButton.MouseHover += new System.EventHandler(this.areasManagerButton_MouseHover);
             // 
-            // activityButton
+            // activitiesManagerButton
             // 
-            this.activityButton.BackColor = System.Drawing.Color.Orange;
-            this.activityButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("activityButton.BackgroundImage")));
-            this.activityButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.activityButton.FlatAppearance.BorderSize = 0;
-            this.activityButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.activityButton.Location = new System.Drawing.Point(256, 7);
-            this.activityButton.Margin = new System.Windows.Forms.Padding(4);
-            this.activityButton.Name = "activityButton";
-            this.activityButton.Size = new System.Drawing.Size(75, 75);
-            this.activityButton.TabIndex = 5;
-            this.activityButton.UseVisualStyleBackColor = false;
-            this.activityButton.Click += new System.EventHandler(this.actionButton_Click);
-            this.activityButton.MouseLeave += new System.EventHandler(this.activityButton_MouseLeave);
-            this.activityButton.MouseHover += new System.EventHandler(this.activityButton_MouseHover);
+            this.activitiesManagerButton.BackColor = System.Drawing.Color.Orange;
+            this.activitiesManagerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("activitiesManagerButton.BackgroundImage")));
+            this.activitiesManagerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.activitiesManagerButton.FlatAppearance.BorderSize = 0;
+            this.activitiesManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.activitiesManagerButton.Location = new System.Drawing.Point(256, 7);
+            this.activitiesManagerButton.Margin = new System.Windows.Forms.Padding(4);
+            this.activitiesManagerButton.Name = "activitiesManagerButton";
+            this.activitiesManagerButton.Size = new System.Drawing.Size(75, 75);
+            this.activitiesManagerButton.TabIndex = 5;
+            this.activitiesManagerButton.UseVisualStyleBackColor = false;
+            this.activitiesManagerButton.Click += new System.EventHandler(this.activitiesManagerButton_Click);
+            this.activitiesManagerButton.MouseLeave += new System.EventHandler(this.activitiesManagerButton_MouseLeave);
+            this.activitiesManagerButton.MouseHover += new System.EventHandler(this.activitiesManagerButton_MouseHover);
             // 
             // actionSettingsButton
             // 
@@ -154,7 +155,6 @@
             this.resetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.resetButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resetButton.BackgroundImage")));
             this.resetButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.resetButton.Enabled = false;
             this.resetButton.FlatAppearance.BorderSize = 0;
             this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetButton.Location = new System.Drawing.Point(90, 7);
@@ -189,19 +189,39 @@
             this.openButton.MouseLeave += new System.EventHandler(this.openButton_MouseLeave);
             this.openButton.MouseHover += new System.EventHandler(this.openButton_MouseHover);
             // 
+            // mainFormPanel
+            // 
+            this.mainFormPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainFormPanel.Controls.Add(this.toolStrip1);
+            this.mainFormPanel.Controls.Add(this.activitiesManagerButton);
+            this.mainFormPanel.Controls.Add(this.openButton);
+            this.mainFormPanel.Controls.Add(this.areasManagerButton);
+            this.mainFormPanel.Controls.Add(this.runButton);
+            this.mainFormPanel.Controls.Add(this.resetButton);
+            this.mainFormPanel.Controls.Add(this.stopButton);
+            this.mainFormPanel.Controls.Add(this.closeButton);
+            this.mainFormPanel.Controls.Add(this.actionSettingsButton);
+            this.mainFormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainFormPanel.Location = new System.Drawing.Point(0, 0);
+            this.mainFormPanel.Name = "mainFormPanel";
+            this.mainFormPanel.Padding = new System.Windows.Forms.Padding(3);
+            this.mainFormPanel.Size = new System.Drawing.Size(672, 117);
+            this.mainFormPanel.TabIndex = 9;
+            this.mainFormPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainFormPanel_MouseDown);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(1);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resultLabel,
-            this.toolStripSeparator1,
             this.toolTipLabel});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 87);
+            this.toolStrip1.Location = new System.Drawing.Point(3, 87);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(671, 25);
-            this.toolStrip1.TabIndex = 8;
-            this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStrip1_MouseDown);
+            this.toolStrip1.Size = new System.Drawing.Size(664, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip2";
+            this.toolStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStrip1_MouseDown_1);
             // 
             // resultLabel
             // 
@@ -209,61 +229,46 @@
             this.resultLabel.Size = new System.Drawing.Size(140, 22);
             this.resultLabel.Text = "Result: 0 tasks completed";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // toolTipLabel
             // 
             this.toolTipLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolTipLabel.Margin = new System.Windows.Forms.Padding(0, 1, 5, 2);
             this.toolTipLabel.Name = "toolTipLabel";
             this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
             this.toolTipLabel.Text = "Hover a button to see instructions";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(671, 112);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.activityButton);
-            this.Controls.Add(this.areaButton);
-            this.Controls.Add(this.resetButton);
-            this.Controls.Add(this.openButton);
-            this.Controls.Add(this.actionSettingsButton);
-            this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.stopButton);
-            this.Controls.Add(this.runButton);
+            this.ClientSize = new System.Drawing.Size(672, 117);
+            this.Controls.Add(this.mainFormPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mouse Controller";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.mainFormPanel.ResumeLayout(false);
+            this.mainFormPanel.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button runButton;
-        private System.Windows.Forms.Button areaButton;
-        private System.Windows.Forms.Button activityButton;
+        private System.Windows.Forms.Button areasManagerButton;
+        private System.Windows.Forms.Button activitiesManagerButton;
         private System.Windows.Forms.Button actionSettingsButton;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Timer runTimer;
         private System.Windows.Forms.Button openButton;
+        private System.Windows.Forms.Panel mainFormPanel;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel resultLabel;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolTipLabel;
     }
 }

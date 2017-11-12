@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,133 +17,102 @@ namespace MouseController
 {
     public partial class AreasManagerForm : Form
     {
-        List<Area> areas;
-        AnalyzeImages analyze = new AnalyzeImages();
-        private bool _readingAreaPoints = false;
+        WorkProfile profile = new WorkProfile();
         CustomizedToolTip myToolTip = new CustomizedToolTip();
-        Area newArea;
+        Area selectedArea;
 
 
-        public AreasManagerForm(List<Area> areas)
+        public AreasManagerForm(WorkProfile profile)
         {
             InitializeComponent();
-            this.areas = areas;
-            this.Focus();
-            myToolTip.SetToolTip(previewPictureBox, "Preview");
+            this.profile = profile;
+            myToolTip.SetToolTip(previewPictureBox, "Preview disabled");
             myToolTip.InitialDelay = 1;
-            
-            
 
+            ReadAreasCollection();
+
+            profile.Areas.CollectionChanged += Areas_CollectionChanged;
+        }
+        
+        private void Areas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            ReadAreasCollection();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        public void SetPreviewArea()
         {
-            mouseToolStripStatusLabel.Text = String.Format("Mouse position: X {0},   Y {1}  ", Cursor.Position.X.ToString(), Cursor.Position.Y.ToString());
-        }
-
-        private void RegisterAreaForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (_readingAreaPoints == true)
+            if (profile.Areas.Where(a => a.Name == areasComboBox.SelectedItem.ToString()).Any())
             {
-                if (e.KeyCode == Keys.S)
-                {
-                    newArea = new Area();
-                    newArea.StartPositionX = Cursor.Position.X;
-                    newArea.StartPositionY = Cursor.Position.Y;
-                }
-                if (e.KeyCode == Keys.E)
-                {
-                    if(IsNotTheSamePoint(newArea.StartPositionX, newArea.StartPositionY, Cursor.Position.X, Cursor.Position.Y))
-                    {
-                        newArea.Width = Math.Abs(Cursor.Position.X - newArea.StartPositionX);
-                        newArea.Height = Math.Abs(Cursor.Position.Y - newArea.StartPositionY);
-                        newArea.StartPositionX = Math.Min(newArea.StartPositionX, Cursor.Position.X);
-                        newArea.StartPositionY = Math.Min(newArea.StartPositionY, Cursor.Position.Y);
-
-                        startPositionValueLabel.Text = "X: " + newArea.StartPositionX + "  Y: " + newArea.StartPositionY;
-                        dimensionsValueLabel.Text = "Width: " + newArea.Width + ",  Height: " + newArea.Height;
-
-                        acceptButton.Enabled = true;
-                        cancelButton.Enabled = true;
-                        nameTextBox.Enabled = true;
-                        CaptureAndShowArea();
-                        _readingAreaPoints = false;
-
-                        previewPictureBox.BackColor = Color.DarkGreen;
-                    }
-                    else
-                    {
-                        MessageBox.Show("You have to capture two different poinsts!");
-                    }
-                    
-                }
-            }
-        }
-
-        private bool IsNotTheSamePoint(int x1, int y1, int x2, int y2)
-        {
-            if(x1 != x2 && y1 != y2)
-            {
-                return true;
+                myToolTip.AutoSize = false;
+                selectedArea = profile.Areas.Where(a => a.Name == areasComboBox.SelectedItem.ToString()).First();
+                previewPictureBox.Tag = selectedArea.Bitmap;
+                myToolTip.Size = selectedArea.Bitmap.Size;
+                myToolTip.ToolTipTitle = " ";
+                previewPictureBox.BackColor = Color.DarkGreen;
             }
             else
             {
-                return false;
+                selectedArea = new Area();
+                previewPictureBox.BackColor = Color.Firebrick;
+                myToolTip.AutoSize = true;
+                myToolTip.ToolTipTitle = "Preview disabled";
+
             }
         }
 
+        public void ReadAreasCollection()
+        {
+            if (profile.Areas.Count != 0)
+            {
+                areasComboBox.DataSource = profile.Areas.Select(t => t.Name).ToList();
+            }
+            else
+            {
+                areasComboBox.DataSource = null;
+            }
+        }
+        
+        private void addAreaLabel_Click(object sender, EventArgs e)
+        {
+            AddAreaForm addAreaForm = new AddAreaForm(profile.Areas);
+            addAreaForm.ShowDialog();
+        }
+        
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(nameTextBox.Text) && nameTextBox.Text != "Type a name here...")
-            {
-                newArea.Name = nameTextBox.Text;
-                areas.Add(newArea);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Name value can not be default or empty!");
-            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            CleanAreaObject();
-            acceptButton.Enabled = false;
-            cancelButton.Enabled = false;
-            captureButton.Enabled = true;
             
-            
-            dimensionsValueLabel.Text = " No bitmap captured";
-            startPositionValueLabel.Text = "  Go to start point and press S key. Then go to end point and press E key";
-            previewPictureBox.Tag = null;
-            myToolTip.AutoSize = true;
-            previewPictureBox.BackColor = Color.Firebrick;
-            nameTextBox.Enabled = false;
-        }
-
-        public void CaptureAndShowArea()
-        {
-            analyze.MakeScreenShot(newArea);
-            previewPictureBox.Tag = newArea.Bitmap;
-            myToolTip.AutoSize = false;
-            myToolTip.Size = newArea.Bitmap.Size;
-            myToolTip.ToolTipTitle = " ";
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
         
-        public void CleanAreaObject()
+        private void closePictureBox_Click(object sender, EventArgs e)
         {
-            newArea = new Area();
+            
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
-
-        private void captureButton_Click(object sender, EventArgs e)
+        
+        private void areasComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _readingAreaPoints = true;
-            captureButton.Enabled = false;
-            nameTextBox.Enabled = false;
+            SetPreviewArea();
         }
-
+        
+        private void removeAreaLabel_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove this area?", "Removing area", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).Any())
+                {
+                    profile.Areas.Remove(profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First());
+                }
+            }
+        }
 
         #region Make Form Movable
 
@@ -162,32 +132,9 @@ namespace MouseController
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-        
-      
+
         #endregion
 
-        private void closePictureBox_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void nameTextBox_Enter(object sender, EventArgs e)
-        {
-            if(nameTextBox.Text == "Type a name here...")
-            {
-                nameTextBox.Text = "";
-            }
-        }
-
-        private void nameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (nameTextBox.Text == "")
-            {
-                nameTextBox.Text = "Type a name here...";
-            }
-        }
-
-        
     }
 
 

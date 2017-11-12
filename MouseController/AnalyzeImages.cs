@@ -8,43 +8,42 @@ namespace MouseController
 {
 	public class AnalyzeImages
 	{
-        
-
         public enum CompareResult
 		{
-			ciCompareOk,
-			ciPixelMismatch,
-			ciSizeMismatch
+			CompareOK,
+			ComparedAndDifferent,
+			ComparedAndDiffrentSizes
 		};
 
 		public CompareResult Compare(Bitmap bmp1, Bitmap bmp2)
 		{
-			CompareResult cr = CompareResult.ciCompareOk;
+			CompareResult cr = CompareResult.CompareOK;
 
 			//Test to see if we have the same size of image
 			if (bmp1.Size != bmp2.Size)
 			{
-				cr = CompareResult.ciSizeMismatch;
+				cr = CompareResult.ComparedAndDiffrentSizes;
 			}
 			else
 			{
-				//Convert each image to a byte array
-				System.Drawing.ImageConverter ic = new System.Drawing.ImageConverter();
-				byte[] btImage1 = new byte[1];
-				btImage1 = (byte[])ic.ConvertTo(bmp1, btImage1.GetType());
-				byte[] btImage2 = new byte[1];
-				btImage2 = (byte[])ic.ConvertTo(bmp2, btImage2.GetType());
+				//Convert to a byte array
+				System.Drawing.ImageConverter imageConverter = new System.Drawing.ImageConverter();
+				byte[] bitArray1 = new byte[1];
+				bitArray1 = (byte[])imageConverter.ConvertTo(bmp1, bitArray1.GetType());
+
+				byte[] bitArray2 = new byte[1];
+				bitArray2 = (byte[])imageConverter.ConvertTo(bmp2, bitArray2.GetType());
 				
 				//Compute a hash for each image
-				SHA256Managed shaM = new SHA256Managed();
-				byte[] hash1 = shaM.ComputeHash(btImage1);
-				byte[] hash2 = shaM.ComputeHash(btImage2);
+				SHA256Managed SHAManager = new SHA256Managed();
+				byte[] hash1 = SHAManager.ComputeHash(bitArray1);
+				byte[] hash2 = SHAManager.ComputeHash(bitArray2);
 
 				//Compare the hash values
-				for (int i = 0; i < hash1.Length && i < hash2.Length && cr == CompareResult.ciCompareOk; i++)
+				for (int i = 0; i < hash1.Length && i < hash2.Length && cr == CompareResult.CompareOK; i++)
 				{
 					if (hash1[i] != hash2[i])
-						cr = CompareResult.ciPixelMismatch;
+						cr = CompareResult.ComparedAndDifferent;
 				}
 			}
 			return cr;
@@ -73,7 +72,6 @@ namespace MouseController
             return area.FileName;
         }
     
-
         public bool AreaNotEmpty(Area area)
         {
             if (area.Width != 0 && area.Height != 0 && area.Name != "")
@@ -82,7 +80,6 @@ namespace MouseController
             }
             else return false;
         }
-
     }
     
 
