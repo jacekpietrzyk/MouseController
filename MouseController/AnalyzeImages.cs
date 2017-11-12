@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace MouseController
 {
@@ -26,26 +27,34 @@ namespace MouseController
 			}
 			else
 			{
-				//Convert to a byte array
-				System.Drawing.ImageConverter imageConverter = new System.Drawing.ImageConverter();
-				byte[] bitArray1 = new byte[1];
-				bitArray1 = (byte[])imageConverter.ConvertTo(bmp1, bitArray1.GetType());
+                try
+                {
+                    //Convert to a byte array
+                    System.Drawing.ImageConverter imageConverter = new System.Drawing.ImageConverter();
+                    byte[] bitArray1 = new byte[1];
+                    bitArray1 = (byte[])imageConverter.ConvertTo(bmp1, bitArray1.GetType());
 
-				byte[] bitArray2 = new byte[1];
-				bitArray2 = (byte[])imageConverter.ConvertTo(bmp2, bitArray2.GetType());
-				
-				//Compute a hash for each image
-				SHA256Managed SHAManager = new SHA256Managed();
-				byte[] hash1 = SHAManager.ComputeHash(bitArray1);
-				byte[] hash2 = SHAManager.ComputeHash(bitArray2);
+                    byte[] bitArray2 = new byte[1];
+                    bitArray2 = (byte[])imageConverter.ConvertTo(bmp2, bitArray2.GetType());
 
-				//Compare the hash values
-				for (int i = 0; i < hash1.Length && i < hash2.Length && cr == CompareResult.CompareOK; i++)
-				{
-					if (hash1[i] != hash2[i])
-						cr = CompareResult.ComparedAndDifferent;
-				}
-			}
+                    //Compute a hash for each image
+                    SHA256Managed SHAManager = new SHA256Managed();
+                    byte[] hash1 = SHAManager.ComputeHash(bitArray1);
+                    byte[] hash2 = SHAManager.ComputeHash(bitArray2);
+
+                    //Compare the hash values
+                    for (int i = 0; i < hash1.Length && i < hash2.Length && cr == CompareResult.CompareOK; i++)
+                    {
+                        if (hash1[i] != hash2[i])
+                            cr = CompareResult.ComparedAndDifferent;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Exception occurred");
+                }
+
+            }
 			return cr;
 		}
 
@@ -53,22 +62,36 @@ namespace MouseController
         {
             using (Bitmap bmp = new Bitmap(area.Width, area.Height))
             {
-                using (Graphics g = Graphics.FromImage(bmp))
+                try
                 {
-                    g.CopyFromScreen(area.StartPositionX, area.StartPositionY, 0, 0, bmp.Size);
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        g.CopyFromScreen(area.StartPositionX, area.StartPositionY, 0, 0, bmp.Size);
+                    }
+
+                    Rectangle cloneRect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+                    area.Bitmap = bmp.Clone(cloneRect, bmp.PixelFormat);
+
                 }
-
-                Rectangle cloneRect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-                area.Bitmap = bmp.Clone(cloneRect, bmp.PixelFormat);
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Exception occurred");
+                }
                 return area.Bitmap;
             }
         }
 
         public string SaveBitmap(Area area)
         {
-            area.FileName = System.IO.Path.Combine(Constans.FilesDirectory.ToString(), String.Format("{0}area.bmp", new Random().Next()));
-            area.Bitmap.Save(area.FileName, ImageFormat.Bmp);
+            try
+            {
+                area.FileName = System.IO.Path.Combine(Constans.FilesDirectory.ToString(), String.Format("{0}area.bmp", new Random().Next()));
+                area.Bitmap.Save(area.FileName, ImageFormat.Bmp);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception occurred");
+            }
             return area.FileName;
         }
     

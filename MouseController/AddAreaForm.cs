@@ -32,11 +32,18 @@ namespace MouseController
         
         public void CaptureAndShowArea()
         {
-            analyze.MakeScreenShot(newArea);
-            previewPictureBox.Tag = newArea.Bitmap;
-            myToolTip.AutoSize = false;
-            myToolTip.Size = newArea.Bitmap.Size;
-            myToolTip.ToolTipTitle = " ";
+            try
+            {
+                analyze.MakeScreenShot(newArea);
+                previewPictureBox.Tag = newArea.Bitmap;
+                myToolTip.AutoSize = false;
+                myToolTip.Size = newArea.Bitmap.Size;
+                myToolTip.ToolTipTitle = " ";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception occurred");
+            }
         }
 
         public void CleanAreaObject()
@@ -106,8 +113,15 @@ namespace MouseController
                         cancelButton.Enabled = true;
                         resetButton.Enabled = true;
                         nameTextBox.Enabled = true;
-
-                        CaptureAndShowArea();
+                        try
+                        {
+                            CaptureAndShowArea();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Exception occurred");
+                        }
+                        
                         _readingAreaPoints = false;
 
                         previewPictureBox.BackColor = Color.DarkGreen;

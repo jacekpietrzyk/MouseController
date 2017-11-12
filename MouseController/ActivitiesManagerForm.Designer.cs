@@ -262,7 +262,6 @@
             this.removeActionLabel.Size = new System.Drawing.Size(21, 23);
             this.removeActionLabel.TabIndex = 9;
             this.removeActionLabel.Text = "-";
-            this.removeActionLabel.Click += new System.EventHandler(this.removeActionLabel_Click);
             // 
             // addActionPanel
             // 

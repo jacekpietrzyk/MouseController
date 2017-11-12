@@ -45,10 +45,10 @@
             this.addAreaPanel = new System.Windows.Forms.Panel();
             this.previewPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.resetButton = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mouseToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.resetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).BeginInit();
             this.addAreaPanel.SuspendLayout();
@@ -244,6 +244,21 @@
             this.panel2.Size = new System.Drawing.Size(301, 26);
             this.panel2.TabIndex = 29;
             // 
+            // resetButton
+            // 
+            this.resetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.resetButton.Enabled = false;
+            this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resetButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.resetButton.Location = new System.Drawing.Point(429, 174);
+            this.resetButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.TabIndex = 16;
+            this.resetButton.Text = "RESET";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // timer
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
@@ -264,21 +279,6 @@
             this.mouseToolStripStatusLabel.Name = "mouseToolStripStatusLabel";
             this.mouseToolStripStatusLabel.Size = new System.Drawing.Size(151, 17);
             this.mouseToolStripStatusLabel.Text = "mouseToolStripStatusLabel";
-            // 
-            // resetButton
-            // 
-            this.resetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.resetButton.Enabled = false;
-            this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resetButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.resetButton.Location = new System.Drawing.Point(429, 174);
-            this.resetButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(75, 23);
-            this.resetButton.TabIndex = 16;
-            this.resetButton.Text = "RESET";
-            this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // AddAreaForm
             // 

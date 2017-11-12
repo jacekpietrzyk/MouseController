@@ -18,13 +18,10 @@ namespace MouseController
     {
         AnalyzeImages analyze = new AnalyzeImages();
         WorkProfile profile = new WorkProfile();
-
         
-
         Area area = new Area();
         Area compareArea = new Area();
         
-
         int resultCounter = 0;
         
         public MainForm()
@@ -138,6 +135,7 @@ namespace MouseController
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
         private void CreateUserDirectory()
         {
             Constans.UserSettings = new System.IO.DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Properties.Settings.Default.UserSettingFolderName));
@@ -162,9 +160,7 @@ namespace MouseController
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
-       
-
+        
         private void resetButton_Click(object sender, EventArgs e)
         {
             profile = new WorkProfile();
@@ -175,6 +171,7 @@ namespace MouseController
             //TO DO
             
         }
+
         public bool CompareAreas(Area conditionalArea, Area compareArea)
         {
             analyze.MakeScreenShot(compareArea);

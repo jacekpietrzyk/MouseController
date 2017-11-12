@@ -171,21 +171,28 @@ namespace MouseController
         }
         private void SetGridSource()
         {
-            if (activitiesComboBox.SelectedValue != null)
+            try
             {
-                if (profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).Any())
+                if (activitiesComboBox.SelectedValue != null)
                 {
-                    currentActions = profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).First().GetActions();
-                    var bindingList = new BindingList<IAction>(currentActions);
-                    var source = new BindingSource(bindingList, null);
+                    if (profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).Any())
+                    {
+                        currentActions = profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).First().GetActions();
+                        var bindingList = new BindingList<IAction>(currentActions);
 
-                    actionsDataGridView.DataSource = bindingList;
+                        actionsDataGridView.DataSource = bindingList;
+                    }
+                }
+                else
+                {
+                    actionsDataGridView.DataSource = null;
                 }
             }
-            else
+            catch(Exception ex)
             {
-                actionsDataGridView.DataSource = null;
+                MessageBox.Show(ex.Message, "Exception occurred");
             }
+            
         }
 
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
@@ -208,12 +215,13 @@ namespace MouseController
         
         private void addActivityLabel_Click(object sender, EventArgs e)
         {
-            AddActivityForm addActivityForm = new AddActivityForm(profile.Activities);
-
-            addActivityForm.ShowDialog();
-            if(addActivityForm.DialogResult == DialogResult.OK)
+            using (AddActivityForm addActivityForm = new AddActivityForm(profile.Activities))
             {
-                activitiesComboBox.SelectedItem = addActivityForm.NewActivity.Name;
+                addActivityForm.ShowDialog();
+                if (addActivityForm.DialogResult == DialogResult.OK)
+                {
+                    activitiesComboBox.SelectedItem = addActivityForm.NewActivity.Name;
+                }
             }
         }
 
@@ -223,7 +231,14 @@ namespace MouseController
             {
                 if(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).Any())
                 {
-                    profile.Activities.Remove(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First());
+                    try
+                    {
+                        profile.Activities.Remove(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First());
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Exception occurred");
+                    }
                 }
             }
         }
@@ -234,9 +249,6 @@ namespace MouseController
             SetGridSource();
         }
 
-        private void removeActionLabel_Click(object sender, EventArgs ex)
-        {
-
-        }
+       
     }
 }
