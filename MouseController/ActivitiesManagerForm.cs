@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -11,64 +12,80 @@ using System.Windows.Forms;
 
 namespace MouseController
 {
-    public partial class RegisterActivityForm : Form
+    public partial class ActivitiesManagerForm : Form
     {
         List<IAction> currentActions;
         List<Area> areas;
-        List<IActivity> activities = new List<IActivity>();
+        ObservableCollection<IActivity> activities = new ObservableCollection<IActivity>();
 
-        public event EventHandler ActivitiesListChanged;
-
-        protected virtual void OnActivitiesListChanged(EventArgs e)
-        {
-            EventHandler handler = ActivitiesListChanged;
-            handler?.Invoke(this, e);
-        }
         
-        public RegisterActivityForm(List<IActivity> activities, List<Area> areas)
+        
+        
+        public ActivitiesManagerForm(ObservableCollection<IActivity> activities, List<Area> areas)
         {
             InitializeComponent();
             actionsDataGridView.AutoGenerateColumns = false;
-            //activities
+
+            //CloneActivities(activities, this.activities);
+            this.activities = activities;
             
             #region Sample Data
-            Area area1 = new Area { Name = "Obszar" };
-            Area area2 = new Area { Name = "NowyObszar" };
-            areas.Add(area2);
-            areas.Add(area1);
+            //Area area1 = new Area { Name = "Obszar" };
+            //Area area2 = new Area { Name = "NowyObszar" };
+            //areas.Add(area2);
+            //areas.Add(area1);
 
-            Activity act1 = new Activity { Name = "Przykład 1" };
-            Activity act2 = new Activity { Name = "Przykład 2" };
+            //Activity act1 = new Activity { Name = "Przykład 1" };
+            //Activity act2 = new Activity { Name = "Przykład 2" };
             
-            ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
-            ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
+            //ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
+            //ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
 
 
-            MoveAction action3 = new MoveAction(area1) { Name = "Move1", DelayTime = 1000, Active = true };
-            MoveAction action4 = new MoveAction(area2) { Name = "Move2", DelayTime = 1000, Active = true };
-            act1.AddAction(action1);
-            act1.AddAction(action3);
-            act1.AddAction(action4);
-            act2.AddAction(action2);
+            //MoveAction action3 = new MoveAction(area1) { Name = "Move1", DelayTime = 1000, Active = true };
+            //MoveAction action4 = new MoveAction(area2) { Name = "Move2", DelayTime = 1000, Active = true };
+            //act1.AddAction(action1);
+            //act1.AddAction(action3);
+            //act1.AddAction(action4);
+            //act2.AddAction(action2);
 
-            activities.Add(act1);
-            activities.Add(act2);
+            //activities.Add(act1);
+            //activities.Add(act2);
 
             #endregion
 
-            this.activities = activities.GetRange(0, activities.Count);
             this.areas = areas;
 
             ReadActivitiesCollection();
 
 
             AddDataGridViewColumns();
-            //ActivitiesListChanged += ReadActivitiesCollection();
+
+            activities.CollectionChanged += Activities_CollectionChanged;
+           
+
+
+        }
+
+        private void CloneActivities(ObservableCollection<IActivity> activities, ObservableCollection<IActivity> copyActivities)
+        {
+            foreach (IActivity activity in activities)
+            {
+                copyActivities.Add(activity);
+            }
+        }
+
+        private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            ReadActivitiesCollection();
         }
 
         public void ReadActivitiesCollection()
         {
-            activitiesComboBox.DataSource = activities.Select(t => t.Name).ToList();
+            if(activities.Count != 0)
+            {
+                activitiesComboBox.DataSource = activities.Select(t => t.Name).ToList();
+            }
         }
 
         private void AddDataGridViewColumns()
@@ -140,7 +157,7 @@ namespace MouseController
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
         
-        private void RegisterActivityForm_MouseDown(object sender, MouseEventArgs e)
+        private void ActivitiesManagerForm_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -195,10 +212,6 @@ namespace MouseController
             this.Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void addActivityPictureBox_Click(object sender, EventArgs e)
         {
@@ -209,8 +222,19 @@ namespace MouseController
             if(addActivityForm.DialogResult == DialogResult.OK)
             {
                 activities.Add(addActivityForm.Activity);
-
             }
+        }
+
+        private void acceptButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+
+            this.Close();
+        }
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

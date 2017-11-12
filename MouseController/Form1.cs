@@ -177,7 +177,7 @@ namespace MouseController
         {
             Area newArea = new Area();
 
-            RegisterAreaForm form = new RegisterAreaForm(newArea);
+            AreasManagerForm form = new AreasManagerForm(newArea);
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
@@ -188,8 +188,18 @@ namespace MouseController
 
         private void actionButton_Click(object sender, EventArgs e)
         {
-            RegisterActivityForm form = new RegisterActivityForm(profile.Activities, profile.Areas);
+            profile.BeginEdit();
+            ActivitiesManagerForm form = new ActivitiesManagerForm(profile.Activities, profile.Areas);
             form.ShowDialog();
+            if(form.DialogResult == DialogResult.OK)
+            {
+                profile.EndEdit();
+            }
+            else if (form.DialogResult == DialogResult.Cancel)
+            {
+                profile.CancelEdit();
+            }
+
         }
         #region MouseHover
 

@@ -14,7 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MouseController
 {
-    public partial class RegisterAreaForm : Form
+    public partial class AreasManagerForm : Form
     {
         Area area;
         AnalyzeImages analyze = new AnalyzeImages();
@@ -23,7 +23,7 @@ namespace MouseController
 
 
 
-        public RegisterAreaForm(Area area)
+        public AreasManagerForm(Area area)
         {
             InitializeComponent();
             this.area = area;
@@ -152,7 +152,7 @@ namespace MouseController
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void RegisterAreaForm_MouseDown(object sender, MouseEventArgs e)
+        private void AreasManagerForm_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -184,6 +184,8 @@ namespace MouseController
                 nameTextBox.Text = "Type a name here...";
             }
         }
+
+  
     }
 
 

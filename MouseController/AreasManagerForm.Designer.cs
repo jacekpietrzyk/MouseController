@@ -1,6 +1,6 @@
 ﻿namespace MouseController
 {
-    partial class RegisterAreaForm
+    partial class AreasManagerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterAreaForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AreasManagerForm));
             this.infoLabel = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mouseToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -201,7 +201,7 @@
             this.nameTextBox.Enter += new System.EventHandler(this.nameTextBox_Enter);
             this.nameTextBox.Leave += new System.EventHandler(this.nameTextBox_Leave);
             // 
-            // RegisterAreaForm
+            // AreasManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -221,11 +221,11 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.infoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "RegisterAreaForm";
+            this.Name = "AreasManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Register Area";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterAreaForm_KeyDown);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RegisterAreaForm_MouseDown);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AreasManagerForm_MouseDown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).EndInit();

@@ -1,6 +1,6 @@
 ﻿namespace MouseController
 {
-    partial class RegisterActivityForm
+    partial class ActivitiesManagerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterActivityForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivitiesManagerForm));
             this.actionsDataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.activitiesComboBox = new System.Windows.Forms.ComboBox();
@@ -138,6 +138,7 @@
             this.acceptButton.TabIndex = 7;
             this.acceptButton.Text = "ACCEPT";
             this.acceptButton.UseVisualStyleBackColor = true;
+            this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
             // 
             // cancelButton
             // 
@@ -162,7 +163,7 @@
             this.addActivityPictureBox.TabStop = false;
             this.addActivityPictureBox.Click += new System.EventHandler(this.addActivityPictureBox_Click);
             // 
-            // RegisterActivityForm
+            // ActivitiesManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -178,10 +179,10 @@
             this.Controls.Add(this.activitiesListLabel);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "RegisterActivityForm";
+            this.Name = "ActivitiesManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RegisterActivityForm";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RegisterActivityForm_MouseDown);
+            this.Text = "Activities Manager";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ActivitiesManagerForm_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.actionsDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

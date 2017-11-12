@@ -136,6 +136,7 @@
             this.Controls.Add(this.addActivityPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddActivityForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddActivityForm";
             ((System.ComponentModel.ISupportInitialize)(this.closeButtonPictureBox)).EndInit();
             this.addActivityPanel.ResumeLayout(false);
