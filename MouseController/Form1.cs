@@ -175,21 +175,26 @@ namespace MouseController
         
         private void areaButton_Click(object sender, EventArgs e)
         {
-            Area newArea = new Area();
+            profile.BeginEdit();
+            //Area newArea = new Area();
 
-            AreasManagerForm form = new AreasManagerForm(newArea);
+            AreasManagerForm form = new AreasManagerForm(profile.Areas);
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-                profile.AddArea(newArea);
+                profile.EndEdit();
             }
-            
+            else if (form.DialogResult == DialogResult.Cancel)
+            {
+                profile.CancelEdit();
+            }
+
         }
 
         private void actionButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
-            ActivitiesManagerForm form = new ActivitiesManagerForm(profile.Activities, profile.Areas);
+            ActivitiesManagerForm form = new ActivitiesManagerForm(profile);
             form.ShowDialog();
             if(form.DialogResult == DialogResult.OK)
             {

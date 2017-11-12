@@ -16,17 +16,17 @@ namespace MouseController
 {
     public partial class AreasManagerForm : Form
     {
-        Area area;
+        List<Area> areas;
         AnalyzeImages analyze = new AnalyzeImages();
         private bool _readingAreaPoints = false;
         CustomizedToolTip myToolTip = new CustomizedToolTip();
+        Area newArea;
 
 
-
-        public AreasManagerForm(Area area)
+        public AreasManagerForm(List<Area> areas)
         {
             InitializeComponent();
-            this.area = area;
+            this.areas = areas;
             this.Focus();
             myToolTip.SetToolTip(previewPictureBox, "Preview");
             myToolTip.InitialDelay = 1;
@@ -46,23 +46,24 @@ namespace MouseController
             {
                 if (e.KeyCode == Keys.S)
                 {
-                    area.StartPositionX = Cursor.Position.X;
-                    area.StartPositionY = Cursor.Position.Y;
+                    newArea = new Area();
+                    newArea.StartPositionX = Cursor.Position.X;
+                    newArea.StartPositionY = Cursor.Position.Y;
                 }
                 if (e.KeyCode == Keys.E)
                 {
-                    if(IsNotTheSamePoint(area.StartPositionX, area.StartPositionY, Cursor.Position.X, Cursor.Position.Y))
+                    if(IsNotTheSamePoint(newArea.StartPositionX, newArea.StartPositionY, Cursor.Position.X, Cursor.Position.Y))
                     {
-                        area.Width = Math.Abs(Cursor.Position.X - area.StartPositionX);
-                        area.Height = Math.Abs(Cursor.Position.Y - area.StartPositionY);
-                        area.StartPositionX = Math.Min(area.StartPositionX, Cursor.Position.X);
-                        area.StartPositionY = Math.Min(area.StartPositionY, Cursor.Position.Y);
+                        newArea.Width = Math.Abs(Cursor.Position.X - newArea.StartPositionX);
+                        newArea.Height = Math.Abs(Cursor.Position.Y - newArea.StartPositionY);
+                        newArea.StartPositionX = Math.Min(newArea.StartPositionX, Cursor.Position.X);
+                        newArea.StartPositionY = Math.Min(newArea.StartPositionY, Cursor.Position.Y);
 
-                        startPositionValueLabel.Text = "X: " + area.StartPositionX + "  Y: " + area.StartPositionY;
-                        dimensionsValueLabel.Text = "Width: " + area.Width + ",  Height: " + area.Height;
+                        startPositionValueLabel.Text = "X: " + newArea.StartPositionX + "  Y: " + newArea.StartPositionY;
+                        dimensionsValueLabel.Text = "Width: " + newArea.Width + ",  Height: " + newArea.Height;
 
                         acceptButton.Enabled = true;
-                        resetButton.Enabled = true;
+                        cancelButton.Enabled = true;
                         nameTextBox.Enabled = true;
                         CaptureAndShowArea();
                         _readingAreaPoints = false;
@@ -94,7 +95,8 @@ namespace MouseController
         {
             if(!string.IsNullOrEmpty(nameTextBox.Text) && nameTextBox.Text != "Type a name here...")
             {
-                area.Name = nameTextBox.Text;
+                newArea.Name = nameTextBox.Text;
+                areas.Add(newArea);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -104,11 +106,11 @@ namespace MouseController
             }
         }
 
-        private void resetButton_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             CleanAreaObject();
             acceptButton.Enabled = false;
-            resetButton.Enabled = false;
+            cancelButton.Enabled = false;
             captureButton.Enabled = true;
             
             
@@ -122,16 +124,16 @@ namespace MouseController
 
         public void CaptureAndShowArea()
         {
-            analyze.MakeScreenShot(area);
-            previewPictureBox.Tag = area.Bitmap;
+            analyze.MakeScreenShot(newArea);
+            previewPictureBox.Tag = newArea.Bitmap;
             myToolTip.AutoSize = false;
-            myToolTip.Size = area.Bitmap.Size;
+            myToolTip.Size = newArea.Bitmap.Size;
             myToolTip.ToolTipTitle = " ";
         }
         
         public void CleanAreaObject()
         {
-            area = new Area();
+            newArea = new Area();
         }
 
         private void captureButton_Click(object sender, EventArgs e)
@@ -152,7 +154,7 @@ namespace MouseController
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void AreasManagerForm_MouseDown(object sender, MouseEventArgs e)
+        private void areasManagerPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -160,11 +162,11 @@ namespace MouseController
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-
-
+        
+      
         #endregion
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void closePictureBox_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -185,7 +187,7 @@ namespace MouseController
             }
         }
 
-  
+        
     }
 
 

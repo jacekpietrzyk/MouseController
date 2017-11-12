@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,13 +14,14 @@ namespace MouseController
     public partial class AddActivityForm : Form
     {
         private string defaultName = "Type a name here";
-        public Activity Activity { get; set; }
+        public Activity NewActivity { get; set; }
+        private ObservableCollection<IActivity> activities = new ObservableCollection<IActivity>();
 
-        public AddActivityForm()
+        public AddActivityForm(ObservableCollection<IActivity> activities)
         {
             InitializeComponent();
+            this.activities = activities;
             nameTextBox.Text = defaultName;
-            
         }
 
 
@@ -49,21 +51,24 @@ namespace MouseController
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
 
-            if (IsValidName())
+            if (IsValidName(nameTextBox.Text))
             {
-                this.DialogResult = DialogResult.OK;
-                Activity = new Activity { Name = nameTextBox.Text };
+                NewActivity = new Activity { Name = nameTextBox.Text };
+                activities.Add(NewActivity);
 
+                this.DialogResult = DialogResult.OK;
             }
             else
             {
@@ -72,9 +77,14 @@ namespace MouseController
 
         }
 
-        public bool IsValidName()
+        public bool IsValidName(string newName)
         {
-            if(nameTextBox.Text == "" || nameTextBox.Text == defaultName)
+            if(activities.Where(t => t.Name == newName).Any())
+            {
+                MessageBox.Show("New activity name already exists on the list");
+                return false;
+            }
+            if(newName == "" || newName == defaultName)
             {
                 return false;
             }
@@ -86,7 +96,7 @@ namespace MouseController
 
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (IsValidName())
+            if (IsValidName(nameTextBox.Text))
             {
                 addButton.Enabled = true;
             }

@@ -44,7 +44,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(21, 70);
+            this.label1.Location = new System.Drawing.Point(25, 76);
+            this.label1.Margin = new System.Windows.Forms.Padding(10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 14);
             this.label1.TabIndex = 0;
@@ -54,7 +55,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Gulim", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(19, 16);
+            this.label2.Location = new System.Drawing.Point(23, 20);
+            this.label2.Margin = new System.Windows.Forms.Padding(15, 10, 0, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(191, 27);
             this.label2.TabIndex = 1;
@@ -62,9 +64,11 @@
             // 
             // closeButtonPictureBox
             // 
+            this.closeButtonPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButtonPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closeButtonPictureBox.BackgroundImage")));
             this.closeButtonPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.closeButtonPictureBox.Location = new System.Drawing.Point(370, 11);
+            this.closeButtonPictureBox.Location = new System.Drawing.Point(363, 18);
+            this.closeButtonPictureBox.Margin = new System.Windows.Forms.Padding(3, 10, 10, 3);
             this.closeButtonPictureBox.Name = "closeButtonPictureBox";
             this.closeButtonPictureBox.Size = new System.Drawing.Size(20, 20);
             this.closeButtonPictureBox.TabIndex = 2;
@@ -75,7 +79,7 @@
             // 
             this.nameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBox.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nameTextBox.Location = new System.Drawing.Point(85, 68);
+            this.nameTextBox.Location = new System.Drawing.Point(85, 74);
             this.nameTextBox.MaximumSize = new System.Drawing.Size(2, 20);
             this.nameTextBox.MinimumSize = new System.Drawing.Size(200, 20);
             this.nameTextBox.Name = "nameTextBox";
@@ -86,11 +90,12 @@
             // 
             // addButton
             // 
+            this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.addButton.BackColor = System.Drawing.Color.White;
             this.addButton.Enabled = false;
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.addButton.Location = new System.Drawing.Point(210, 124);
+            this.addButton.Location = new System.Drawing.Point(210, 116);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 4;
@@ -100,10 +105,12 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.BackColor = System.Drawing.Color.White;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cancelButton.Location = new System.Drawing.Point(315, 124);
+            this.cancelButton.Location = new System.Drawing.Point(308, 116);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(20, 10, 10, 10);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
@@ -124,7 +131,8 @@
             this.addActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.addActivityPanel.Location = new System.Drawing.Point(0, 0);
             this.addActivityPanel.Name = "addActivityPanel";
-            this.addActivityPanel.Size = new System.Drawing.Size(403, 160);
+            this.addActivityPanel.Padding = new System.Windows.Forms.Padding(10);
+            this.addActivityPanel.Size = new System.Drawing.Size(403, 159);
             this.addActivityPanel.TabIndex = 5;
             this.addActivityPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.addActivityPanel_MouseDown);
             // 
@@ -132,7 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(403, 160);
+            this.ClientSize = new System.Drawing.Size(403, 159);
             this.Controls.Add(this.addActivityPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddActivityForm";

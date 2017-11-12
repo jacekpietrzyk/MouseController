@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -15,66 +13,47 @@ namespace MouseController
     public partial class ActivitiesManagerForm : Form
     {
         List<IAction> currentActions;
-        List<Area> areas;
-        ObservableCollection<IActivity> activities = new ObservableCollection<IActivity>();
-
         
+        WorkProfile profile;
         
-        
-        public ActivitiesManagerForm(ObservableCollection<IActivity> activities, List<Area> areas)
+        public ActivitiesManagerForm(WorkProfile profile)
         {
             InitializeComponent();
             actionsDataGridView.AutoGenerateColumns = false;
-
-            //CloneActivities(activities, this.activities);
-            this.activities = activities;
             
+            this.profile = profile;
+
             #region Sample Data
-            //Area area1 = new Area { Name = "Obszar" };
-            //Area area2 = new Area { Name = "NowyObszar" };
-            //areas.Add(area2);
-            //areas.Add(area1);
 
-            //Activity act1 = new Activity { Name = "Przykład 1" };
-            //Activity act2 = new Activity { Name = "Przykład 2" };
-            
-            //ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
-            //ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
+            Area area1 = new Area { Name = "Obszar" };
+            Area area2 = new Area { Name = "NowyObszar" };
+            profile.Areas.Add(area2);
+            profile.Areas.Add(area1);
+
+            Activity act1 = new Activity { Name = "Przykład 1" };
+            Activity act2 = new Activity { Name = "Przykład 2" };
+
+            ClickAction action1 = new ClickAction { Name = "Click1", DelayTime = 1000, Active = true };
+            ClickAction action2 = new ClickAction { Name = "Click2", DelayTime = 1000, Active = true };
 
 
-            //MoveAction action3 = new MoveAction(area1) { Name = "Move1", DelayTime = 1000, Active = true };
-            //MoveAction action4 = new MoveAction(area2) { Name = "Move2", DelayTime = 1000, Active = true };
-            //act1.AddAction(action1);
-            //act1.AddAction(action3);
-            //act1.AddAction(action4);
-            //act2.AddAction(action2);
+            MoveAction action3 = new MoveAction(area1) { Name = "Move1", DelayTime = 1000, Active = true };
+            MoveAction action4 = new MoveAction(area2) { Name = "Move2", DelayTime = 1000, Active = true };
+            act1.AddAction(action1);
+            act1.AddAction(action3);
+            act1.AddAction(action4);
+            act2.AddAction(action2);
 
-            //activities.Add(act1);
-            //activities.Add(act2);
+            profile.Activities.Add(act1);
+            profile.Activities.Add(act2);
 
             #endregion
-
-            this.areas = areas;
-
+            
             ReadActivitiesCollection();
-
-
             AddDataGridViewColumns();
-
-            activities.CollectionChanged += Activities_CollectionChanged;
-           
-
-
+            profile.Activities.CollectionChanged += Activities_CollectionChanged;
         }
-
-        private void CloneActivities(ObservableCollection<IActivity> activities, ObservableCollection<IActivity> copyActivities)
-        {
-            foreach (IActivity activity in activities)
-            {
-                copyActivities.Add(activity);
-            }
-        }
-
+        
         private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             ReadActivitiesCollection();
@@ -82,11 +61,23 @@ namespace MouseController
 
         public void ReadActivitiesCollection()
         {
-            if(activities.Count != 0)
+            if(profile.Activities.Count != 0)
             {
-                activitiesComboBox.DataSource = activities.Select(t => t.Name).ToList();
+                actionsDataGridView.Enabled = true;
+                activitiesComboBox.DataSource = profile.Activities.Select(t => t.Name).ToList();
+                //activitiesComboBox.SelectedIndex = -1;
+                
+            }
+            else
+            {
+                activitiesComboBox.DataSource = null;
+                actionsDataGridView.DataSource = null;
+                actionsDataGridView.Enabled = false;
             }
         }
+
+
+        #region DataGridView Columns
 
         private void AddDataGridViewColumns()
         {
@@ -140,12 +131,14 @@ namespace MouseController
         DataGridViewComboBoxColumn CreateAreaComboColumn()
         {
             DataGridViewComboBoxColumn areaComboBoxColumn = new DataGridViewComboBoxColumn();
-            areaComboBoxColumn.DataSource = areas.Select(t => t.Name).ToArray();
+            areaComboBoxColumn.DataSource = profile.Areas.Select(t => t.Name).ToArray();
             areaComboBoxColumn.DataPropertyName = "Area.Name";
             areaComboBoxColumn.Name = "Area";
 
             return areaComboBoxColumn;
         }
+
+        #endregion
 
         #region Make Form Movable
 
@@ -157,7 +150,7 @@ namespace MouseController
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
         
-        private void ActivitiesManagerForm_MouseDown(object sender, MouseEventArgs e)
+        private void activitiesManagerPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -165,6 +158,7 @@ namespace MouseController
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
         #endregion
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -200,41 +194,72 @@ namespace MouseController
 
         private void activitiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentActions = activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).First().GetActions();
-            var bindingList = new BindingList<IAction>(currentActions);
-            var source = new BindingSource(bindingList, null);
+            if(activitiesComboBox.SelectedValue != null)
+            {
+                if (profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).Any())
+                {
+                    currentActions = profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedValue.ToString()).First().GetActions();
+                    var bindingList = new BindingList<IAction>(currentActions);
+                    var source = new BindingSource(bindingList, null);
 
-            actionsDataGridView.DataSource = source;
+                    actionsDataGridView.DataSource = bindingList;
+                }
+            }
+            else
+            {
+                actionsDataGridView.DataSource = null;
+            }
+            
         }
-
+        
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.DialogResult = DialogResult.Cancel;
         }
-
-
-        private void addActivityPictureBox_Click(object sender, EventArgs e)
-        {
-            AddActivityForm addActivityForm = new AddActivityForm();
-
-            addActivityForm.ShowDialog();
-
-            if(addActivityForm.DialogResult == DialogResult.OK)
-            {
-                activities.Add(addActivityForm.Activity);
-            }
-        }
-
+        
         private void acceptButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-
             this.Close();
         }
+
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+        
+        private void addActivityLabel_Click(object sender, EventArgs e)
+        {
+            AddActivityForm addActivityForm = new AddActivityForm(profile.Activities);
+
+            addActivityForm.ShowDialog();
+            if(addActivityForm.DialogResult == DialogResult.OK)
+            {
+                activitiesComboBox.SelectedItem = addActivityForm.NewActivity.Name;
+            }
+        }
+
+        private void removeActivityLabel_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Are you sure you want to remove this activity?", "Removing activity", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).Any())
+                {
+                    profile.Activities.Remove(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First());
+                }
+            }
+        }
+
+        private void addActionLabel_Click(object sender, EventArgs e)
+        {
+            currentActions.Add(new ClickAction());
+        }
+
+        private void removeActionLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
