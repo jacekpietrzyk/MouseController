@@ -16,7 +16,7 @@ namespace MouseController
         private string defaultName = "Type a name here";
         public Activity NewActivity { get; set; }
         private ObservableCollection<IActivity> activities = new ObservableCollection<IActivity>();
-
+        private bool eventsNotSuspended = false;
         public AddActivityForm(ObservableCollection<IActivity> activities)
         {
             InitializeComponent();
@@ -62,7 +62,7 @@ namespace MouseController
 
         private void addButton_Click(object sender, EventArgs e)
         {
-
+            eventsNotSuspended = true;
             if (IsValidName(nameTextBox.Text))
             {
                 NewActivity = new Activity { Name = nameTextBox.Text };
@@ -74,6 +74,7 @@ namespace MouseController
             {
                 MessageBox.Show("New activity name is invalid");
             }
+
 
         }
 
@@ -94,17 +95,7 @@ namespace MouseController
             }
         }
 
-        private void nameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (IsValidName(nameTextBox.Text))
-            {
-                addButton.Enabled = true;
-            }
-            else
-            {
-                addButton.Enabled = false;
-            }
-        }
+        
 
         
     }

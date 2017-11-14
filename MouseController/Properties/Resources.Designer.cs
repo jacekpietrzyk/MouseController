@@ -59,5 +59,24 @@ namespace MouseController.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DefaultFont {
+            get {
+                return ResourceManager.GetString("DefaultFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] gulim {
+            get {
+                object obj = ResourceManager.GetObject("gulim", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

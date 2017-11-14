@@ -13,7 +13,7 @@ namespace MouseController
     public partial class ActivitiesManagerForm : Form
     {
         List<IAction> currentActions;
-        
+        private bool eventsNotSuspended = true;
         WorkProfile profile;
         
         public ActivitiesManagerForm(WorkProfile profile)
@@ -27,12 +27,24 @@ namespace MouseController
             AddDataGridViewColumns();
 
             profile.Activities.CollectionChanged += Activities_CollectionChanged;
-            
+
+
+            // Add the events to listen for
+            actionsDataGridView.CellValueChanged +=
+                 new DataGridViewCellEventHandler(actionsDataGridView_CellValueChanged);
+            actionsDataGridView.CurrentCellDirtyStateChanged +=
+                 new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
+
+
+
         }
         
         private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ReadActivitiesCollection();
+            if(eventsNotSuspended)
+            {
+                ReadActivitiesCollection();
+            }
         }
         
         public void ReadActivitiesCollection()
@@ -167,7 +179,10 @@ namespace MouseController
 
         private void activitiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetGridSource();
+            if(eventsNotSuspended)
+            {
+                SetGridSource();
+            }
         }
         private void SetGridSource()
         {
@@ -215,14 +230,19 @@ namespace MouseController
         
         private void addActivityLabel_Click(object sender, EventArgs e)
         {
+            eventsNotSuspended = false;
             using (AddActivityForm addActivityForm = new AddActivityForm(profile.Activities))
             {
                 addActivityForm.ShowDialog();
+
                 if (addActivityForm.DialogResult == DialogResult.OK)
                 {
+                    ReadActivitiesCollection();
                     activitiesComboBox.SelectedItem = addActivityForm.NewActivity.Name;
+                    SetGridSource();
                 }
             }
+            eventsNotSuspended = true;
         }
 
         private void removeActivityLabel_Click(object sender, EventArgs e)
@@ -249,6 +269,78 @@ namespace MouseController
             SetGridSource();
         }
 
-       
+
+
+
+        
+
+        // This event handler manually raises the CellValueChanged event 
+        // by calling the CommitEdit method. 
+        void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void actionsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 2 && e.RowIndex < currentActions.Count) //Type triggered
+            {
+                DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[2];
+                if (cb.Value != null)
+                {
+                    DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
+                    if(tb.Value == null)
+                    {
+                        MessageBox.Show("You should type a name first!");
+                        currentActions.RemoveAt(currentActions.Count - 1);
+                        SetGridSource();
+                        return;
+                    }
+                    int editedActionIndex = currentActions.IndexOf(currentActions.Where(t => t.Name == tb.Value.ToString()).First());
+                    IAction editedAction = currentActions[editedActionIndex];
+                    IAction newAction;
+                    if ((Type)cb.Value == Type.MoveAction)
+                    {
+                        if (profile.Areas.Count != 0)
+                        {
+                            Area firstArea = profile.Areas.First();
+                            newAction = new MoveAction(firstArea) { Name = editedAction.Name, Type = Type.MoveAction, DelayTime = editedAction.DelayTime, Active = editedAction.Active };
+                            currentActions.Remove(editedAction);
+                            currentActions.Insert(editedActionIndex, newAction);
+                            actionsDataGridView.Invalidate();
+
+                        }
+                        else
+                        {
+                            cb.Value = Type.ClickAction;
+                        }
+                    }
+                    if ((Type)cb.Value == Type.ClickAction)
+                    {
+                        newAction = new ClickAction { Name = editedAction.Name, DelayTime = editedAction.DelayTime, Type = Type.ClickAction, Active = editedAction.Active };
+                        currentActions.Remove(editedAction);
+                        currentActions.Insert(editedActionIndex, newAction);
+                        actionsDataGridView.Invalidate();
+                    }
+                    SetGridSource();
+                    
+                }
+            }
+            
+        }
+
+        private void actionsDataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (actionsDataGridView.IsCurrentCellDirty)
+            {
+                // This fires the cell value changed handler below
+                actionsDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
     }
 }

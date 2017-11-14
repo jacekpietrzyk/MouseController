@@ -68,6 +68,8 @@
             this.actionsDataGridView.Size = new System.Drawing.Size(546, 264);
             this.actionsDataGridView.TabIndex = 0;
             this.actionsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.actionsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.actionsDataGridView_CellValueChanged);
+            this.actionsDataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.actionsDataGridView_CurrentCellDirtyStateChanged);
             // 
             // panel1
             // 
