@@ -247,6 +247,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mouse Controller";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainFormPanel.ResumeLayout(false);
             this.mainFormPanel.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

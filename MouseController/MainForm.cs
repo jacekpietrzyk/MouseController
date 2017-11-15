@@ -18,6 +18,8 @@ namespace MouseController
    
     public partial class MainForm : Form
     {
+        FontLoader fontLoader = new FontLoader();
+
         AnalyzeImages analyze = new AnalyzeImages();
         WorkProfile profile = new WorkProfile();
         
@@ -28,7 +30,7 @@ namespace MouseController
         
         public MainForm()
         {
-            AddDefaultFont();
+           
             InitializeComponent();
             CreateTemporaryFilesDirectory();
             CreateUserDirectory();
@@ -36,51 +38,7 @@ namespace MouseController
         }
         
 
-        public void AddDefaultFont()
-        {
-
-            PrivateFontCollection pfc = new PrivateFontCollection();
-
-            //Select your font from the resources.
-            //My font here is "Digireu.ttf"
-            int fontLength = Properties.Resources.gulim.Length;
-
-            // create a buffer to read in to
-            byte[] fontdata = Properties.Resources.gulim;
-
-            // create an unsafe memory block for the font data
-            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
-
-            // copy the bytes to the unsafe memory block
-            Marshal.Copy(fontdata, 0, data, fontLength);
-
-            // pass the font to the font collection
-            pfc.AddMemoryFont(data, fontLength);
-
-
-            //PrivateFontCollection pfc = new PrivateFontCollection();
-
-            //using (Stream fontStream = GetType().Assembly.GetManifestResourceStream(@"C:\Users\Jacek\Desktop\MouseController\MouseController\Resources\gulim.ttc"))
-            //{
-            //    if (null == fontStream)
-            //    {
-            //        return;
-            //    }
-
-            //    int fontStreamLength = (int)fontStream.Length;
-
-            //    IntPtr data = Marshal.AllocCoTaskMem(fontStreamLength);
-
-            //    byte[] fontData = new byte[fontStreamLength];
-            //    fontStream.Read(fontData, 0, fontStreamLength);
-
-            //    Marshal.Copy(fontData, 0, data, fontStreamLength);
-
-            //    pfc.AddMemoryFont(data, fontStreamLength);
-
-            //    Marshal.FreeCoTaskMem(data);
-            //}
-        }
+       
         public void WriteSampleData()
         {
 
@@ -379,9 +337,16 @@ namespace MouseController
 
 
 
+
         #endregion
 
-        
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            fontLoader.LoadFont(Properties.Resources.gulim);
+
+            fontLoader.AllocateFont(this.toolTipLabel, 9);
+            fontLoader.AllocateFont(this.resultLabel, 9);
+        }
     }
 
     
