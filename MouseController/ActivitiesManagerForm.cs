@@ -288,52 +288,67 @@ namespace MouseController
 
         private void actionsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == 2 && e.RowIndex < currentActions.Count) //Type triggered
+            if (e.ColumnIndex == 2 && e.RowIndex < currentActions.Count) //Type triggered
             {
-                DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[2];
+                UpdateWhenTypeChanges(e);
+            }
+            if (e.ColumnIndex == 4 && e.RowIndex < currentActions.Count) //Area triggered
+            {
+                DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[4];
                 if (cb.Value != null)
                 {
                     DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
-                    if(tb.Value == null)
-                    {
-                        MessageBox.Show("You should type a name first!");
-                        currentActions.RemoveAt(currentActions.Count - 1);
-                        SetGridSource();
-                        return;
-                    }
                     int editedActionIndex = currentActions.IndexOf(currentActions.Where(t => t.Name == tb.Value.ToString()).First());
-                    IAction editedAction = currentActions[editedActionIndex];
-                    IAction newAction;
-                    if ((Type)cb.Value == Type.MoveAction)
-                    {
-                        if (profile.Areas.Count != 0)
-                        {
-                            Area firstArea = profile.Areas.First();
-                            newAction = new MoveAction(firstArea) { Name = editedAction.Name, Type = Type.MoveAction, DelayTime = editedAction.DelayTime, Active = editedAction.Active };
-                            currentActions.Remove(editedAction);
-                            currentActions.Insert(editedActionIndex, newAction);
-                            actionsDataGridView.Invalidate();
+                    MoveAction editedAction = (MoveAction)currentActions[editedActionIndex];
+                    Area areaToPutIn = profile.Areas.Where(t => t.Name == cb.Value.ToString()).First();
+                    editedAction.Area = areaToPutIn;
+                }
+            }
+        }
 
-                        }
-                        else
-                        {
-                            cb.Value = Type.ClickAction;
-                        }
-                    }
-                    if ((Type)cb.Value == Type.ClickAction)
+        private void UpdateWhenTypeChanges(DataGridViewCellEventArgs e)
+        {
+            DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[2];
+            if (cb.Value != null)
+            {
+                DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
+                if (tb.Value == null)
+                {
+                    MessageBox.Show("You should type a name first!");
+                    currentActions.RemoveAt(currentActions.Count - 1);
+                    SetGridSource();
+                    return;
+                }
+                int editedActionIndex = currentActions.IndexOf(currentActions.Where(t => t.Name == tb.Value.ToString()).First());
+                IAction editedAction = currentActions[editedActionIndex];
+                IAction newAction;
+                if ((Type)cb.Value == Type.MoveAction)
+                {
+                    if (profile.Areas.Count != 0)
                     {
-                        newAction = new ClickAction { Name = editedAction.Name, DelayTime = editedAction.DelayTime, Type = Type.ClickAction, Active = editedAction.Active };
+                        Area firstArea = profile.Areas.First();
+                        newAction = new MoveAction(firstArea) { Name = editedAction.Name, Type = Type.MoveAction, DelayTime = editedAction.DelayTime, Active = editedAction.Active };
                         currentActions.Remove(editedAction);
                         currentActions.Insert(editedActionIndex, newAction);
                         actionsDataGridView.Invalidate();
-                    }
-                    SetGridSource();
-                    
-                }
-            }
-            
-        }
 
+                    }
+                    else
+                    {
+                        cb.Value = Type.ClickAction;
+                    }
+                }
+                if ((Type)cb.Value == Type.ClickAction)
+                {
+                    newAction = new ClickAction { Name = editedAction.Name, DelayTime = editedAction.DelayTime, Type = Type.ClickAction, Active = editedAction.Active };
+                    currentActions.Remove(editedAction);
+                    currentActions.Insert(editedActionIndex, newAction);
+                    actionsDataGridView.Invalidate();
+                }
+                SetGridSource();
+
+            }
+        }
         private void actionsDataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (actionsDataGridView.IsCurrentCellDirty)
