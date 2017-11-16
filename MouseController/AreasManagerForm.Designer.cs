@@ -41,7 +41,7 @@
             this.addAreaLabel = new System.Windows.Forms.Label();
             this.areasComboBoxPanel = new System.Windows.Forms.Panel();
             this.areasComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.savedAreasLabel = new System.Windows.Forms.Label();
             this.areasLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).BeginInit();
             this.areasManagerPanel.SuspendLayout();
@@ -100,7 +100,7 @@
             this.areasManagerPanel.Controls.Add(this.removeAreaPanel);
             this.areasManagerPanel.Controls.Add(this.addAreaPanel);
             this.areasManagerPanel.Controls.Add(this.areasComboBoxPanel);
-            this.areasManagerPanel.Controls.Add(this.label1);
+            this.areasManagerPanel.Controls.Add(this.savedAreasLabel);
             this.areasManagerPanel.Controls.Add(this.areasLabel);
             this.areasManagerPanel.Controls.Add(this.closePictureBox);
             this.areasManagerPanel.Controls.Add(this.cancelButton);
@@ -194,16 +194,16 @@
             this.areasComboBox.TabIndex = 15;
             this.areasComboBox.SelectedIndexChanged += new System.EventHandler(this.areasComboBox_SelectedIndexChanged);
             // 
-            // label1
+            // savedAreasLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Gulim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(27, 79);
-            this.label1.Margin = new System.Windows.Forms.Padding(15, 10, 10, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "SAVED AREAS:";
+            this.savedAreasLabel.AutoSize = true;
+            this.savedAreasLabel.Font = new System.Drawing.Font("Gulim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.savedAreasLabel.Location = new System.Drawing.Point(18, 79);
+            this.savedAreasLabel.Margin = new System.Windows.Forms.Padding(15, 10, 10, 10);
+            this.savedAreasLabel.Name = "savedAreasLabel";
+            this.savedAreasLabel.Size = new System.Drawing.Size(99, 13);
+            this.savedAreasLabel.TabIndex = 14;
+            this.savedAreasLabel.Text = "SAVED AREAS:";
             // 
             // areasLabel
             // 
@@ -227,6 +227,7 @@
             this.Name = "AreasManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Register Area";
+            this.Load += new System.EventHandler(this.AreasManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).EndInit();
             this.areasManagerPanel.ResumeLayout(false);
             this.areasManagerPanel.PerformLayout();
@@ -248,7 +249,7 @@
         private System.Windows.Forms.Panel areasManagerPanel;
         private System.Windows.Forms.Label areasLabel;
         private System.Windows.Forms.ComboBox areasComboBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label savedAreasLabel;
         private System.Windows.Forms.Panel areasComboBoxPanel;
         private System.Windows.Forms.Panel addAreaPanel;
         private System.Windows.Forms.Label addAreaLabel;

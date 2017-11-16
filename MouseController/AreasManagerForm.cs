@@ -17,6 +17,8 @@ namespace MouseController
 {
     public partial class AreasManagerForm : Form
     {
+        FontLoader fontLoader = new FontLoader();
+
         WorkProfile profile = new WorkProfile();
         CustomizedToolTip myToolTip = new CustomizedToolTip();
         Area selectedArea;
@@ -135,6 +137,15 @@ namespace MouseController
 
         #endregion
 
+        private void AreasManagerForm_Load(object sender, EventArgs e)
+        {
+            fontLoader.LoadFont(Properties.Resources.DefaultFont);
+            fontLoader.AllocateFont(this.areasLabel, 20);
+            fontLoader.AllocateFont(this.savedAreasLabel, 10);
+            fontLoader.AllocateFont(this.areasComboBox, 10);
+            fontLoader.AllocateFont(this.cancelButton, 8.25f);
+            fontLoader.AllocateFont(this.acceptButton, 8.25f);
+        }
     }
 
 

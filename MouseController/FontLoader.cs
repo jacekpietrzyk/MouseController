@@ -16,7 +16,7 @@ namespace MouseController
         public void LoadFont(byte[] fileFromResources)
         {
             byte[] fontArray = fileFromResources;
-            int dataLength = Properties.Resources.gulim.Length;
+            int dataLength = Properties.Resources.DefaultFont.Length;
             try
             {
                 IntPtr dataPointer = Marshal.AllocCoTaskMem(dataLength);

@@ -342,7 +342,7 @@ namespace MouseController
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            fontLoader.LoadFont(Properties.Resources.gulim);
+            fontLoader.LoadFont(Properties.Resources.DefaultFont);
 
             fontLoader.AllocateFont(this.toolTipLabel, 9);
             fontLoader.AllocateFont(this.resultLabel, 9);

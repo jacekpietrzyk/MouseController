@@ -61,11 +61,12 @@ namespace MouseController.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static string DefaultFont {
+        internal static byte[] DefaultFont {
             get {
-                return ResourceManager.GetString("DefaultFont", resourceCulture);
+                object obj = ResourceManager.GetObject("DefaultFont", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
