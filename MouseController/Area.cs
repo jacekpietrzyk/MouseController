@@ -10,12 +10,17 @@ namespace MouseController
     public class Area
     {
         public string Name { get; set; }
+
         public int StartPositionX { get; set; }
         public int StartPositionY { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+
         public string FileName { get; set; }
         public Bitmap Bitmap { get; set; }
+
+        public string ActivityName { get; set; }
+
         public int ClickX
         {
             get

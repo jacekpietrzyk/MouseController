@@ -212,8 +212,8 @@ namespace MouseController
 
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
         {
-            this.Close();
             this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
         
         private void acceptButton_Click(object sender, EventArgs e)

@@ -71,6 +71,12 @@
     </Compile>
     <Compile Include="AnalyzeImages.cs" />
     <Compile Include="Area.cs" />
+    <Compile Include="ConditionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConditionsForm.Designer.cs">
+      <DependentUpon>ConditionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Constans.cs" />
     <Compile Include="CustomizedToolTip.cs">
       <SubType>Component</SubType>
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddAreaForm.resx">
       <DependentUpon>AddAreaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConditionsForm.resx">
+      <DependentUpon>ConditionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

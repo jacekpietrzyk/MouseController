@@ -347,6 +347,24 @@ namespace MouseController
             fontLoader.AllocateFont(this.toolTipLabel, 9);
             fontLoader.AllocateFont(this.resultLabel, 9);
         }
+
+        private void actionSettingsButton_Click(object sender, EventArgs e)
+        {
+            profile.BeginEdit();
+
+            using (ConditionsForm form = new ConditionsForm(profile))
+            {
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    profile.EndEdit();
+                }
+                else if (form.DialogResult == DialogResult.Cancel)
+                {
+                    profile.CancelEdit();
+                }
+            }
+        }
     }
 
     

@@ -112,7 +112,7 @@
             this.actionSettingsButton.Size = new System.Drawing.Size(75, 75);
             this.actionSettingsButton.TabIndex = 0;
             this.actionSettingsButton.UseVisualStyleBackColor = false;
-            this.actionSettingsButton.Click += new System.EventHandler(this.runButton_Click);
+            this.actionSettingsButton.Click += new System.EventHandler(this.actionSettingsButton_Click);
             this.actionSettingsButton.MouseLeave += new System.EventHandler(this.actionSettingsButton_MouseLeave);
             this.actionSettingsButton.MouseHover += new System.EventHandler(this.actionSettingsButton_MouseHover);
             // 

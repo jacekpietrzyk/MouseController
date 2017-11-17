@@ -36,9 +36,7 @@
             this.previewPanel = new System.Windows.Forms.Panel();
             this.previewPictureBox = new System.Windows.Forms.PictureBox();
             this.removeAreaPanel = new System.Windows.Forms.Panel();
-            this.removeAreaLabel = new System.Windows.Forms.Label();
             this.addAreaPanel = new System.Windows.Forms.Panel();
-            this.addAreaLabel = new System.Windows.Forms.Label();
             this.areasComboBoxPanel = new System.Windows.Forms.Panel();
             this.areasComboBox = new System.Windows.Forms.ComboBox();
             this.savedAreasLabel = new System.Windows.Forms.Label();
@@ -47,8 +45,6 @@
             this.areasManagerPanel.SuspendLayout();
             this.previewPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).BeginInit();
-            this.removeAreaPanel.SuspendLayout();
-            this.addAreaPanel.SuspendLayout();
             this.areasComboBoxPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -135,43 +131,25 @@
             // 
             // removeAreaPanel
             // 
+            this.removeAreaPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("removeAreaPanel.BackgroundImage")));
+            this.removeAreaPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.removeAreaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.removeAreaPanel.Controls.Add(this.removeAreaLabel);
             this.removeAreaPanel.Location = new System.Drawing.Point(418, 73);
             this.removeAreaPanel.Name = "removeAreaPanel";
             this.removeAreaPanel.Size = new System.Drawing.Size(24, 24);
             this.removeAreaPanel.TabIndex = 18;
-            // 
-            // removeAreaLabel
-            // 
-            this.removeAreaLabel.AutoSize = true;
-            this.removeAreaLabel.Font = new System.Drawing.Font("Gulim", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.removeAreaLabel.Location = new System.Drawing.Point(-2, -2);
-            this.removeAreaLabel.Name = "removeAreaLabel";
-            this.removeAreaLabel.Size = new System.Drawing.Size(28, 26);
-            this.removeAreaLabel.TabIndex = 9;
-            this.removeAreaLabel.Text = "-";
-            this.removeAreaLabel.Click += new System.EventHandler(this.removeAreaLabel_Click);
+            this.removeAreaPanel.Click += new System.EventHandler(this.removeAreaPanel_Click);
             // 
             // addAreaPanel
             // 
+            this.addAreaPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("addAreaPanel.BackgroundImage")));
+            this.addAreaPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.addAreaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.addAreaPanel.Controls.Add(this.addAreaLabel);
             this.addAreaPanel.Location = new System.Drawing.Point(382, 73);
             this.addAreaPanel.Name = "addAreaPanel";
             this.addAreaPanel.Size = new System.Drawing.Size(24, 24);
             this.addAreaPanel.TabIndex = 17;
-            // 
-            // addAreaLabel
-            // 
-            this.addAreaLabel.AutoSize = true;
-            this.addAreaLabel.Font = new System.Drawing.Font("Gulim", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.addAreaLabel.Location = new System.Drawing.Point(-2, -1);
-            this.addAreaLabel.Name = "addAreaLabel";
-            this.addAreaLabel.Size = new System.Drawing.Size(28, 26);
-            this.addAreaLabel.TabIndex = 9;
-            this.addAreaLabel.Text = "+";
-            this.addAreaLabel.Click += new System.EventHandler(this.addAreaLabel_Click);
+            this.addAreaPanel.Click += new System.EventHandler(this.addAreaPanel_Click);
             // 
             // areasComboBoxPanel
             // 
@@ -198,7 +176,7 @@
             // 
             this.savedAreasLabel.AutoSize = true;
             this.savedAreasLabel.Font = new System.Drawing.Font("Gulim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.savedAreasLabel.Location = new System.Drawing.Point(18, 79);
+            this.savedAreasLabel.Location = new System.Drawing.Point(18, 78);
             this.savedAreasLabel.Margin = new System.Windows.Forms.Padding(15, 10, 10, 10);
             this.savedAreasLabel.Name = "savedAreasLabel";
             this.savedAreasLabel.Size = new System.Drawing.Size(99, 13);
@@ -233,10 +211,6 @@
             this.areasManagerPanel.PerformLayout();
             this.previewPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).EndInit();
-            this.removeAreaPanel.ResumeLayout(false);
-            this.removeAreaPanel.PerformLayout();
-            this.addAreaPanel.ResumeLayout(false);
-            this.addAreaPanel.PerformLayout();
             this.areasComboBoxPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -252,9 +226,7 @@
         private System.Windows.Forms.Label savedAreasLabel;
         private System.Windows.Forms.Panel areasComboBoxPanel;
         private System.Windows.Forms.Panel addAreaPanel;
-        private System.Windows.Forms.Label addAreaLabel;
         private System.Windows.Forms.Panel removeAreaPanel;
-        private System.Windows.Forms.Label removeAreaLabel;
         private System.Windows.Forms.Panel previewPanel;
         private System.Windows.Forms.PictureBox previewPictureBox;
     }

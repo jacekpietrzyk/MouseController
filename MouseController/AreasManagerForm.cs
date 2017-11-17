@@ -74,11 +74,7 @@ namespace MouseController
             }
         }
         
-        private void addAreaLabel_Click(object sender, EventArgs e)
-        {
-            AddAreaForm addAreaForm = new AddAreaForm(profile.Areas);
-            addAreaForm.ShowDialog();
-        }
+       
         
         private void acceptButton_Click(object sender, EventArgs e)
         {
@@ -105,16 +101,7 @@ namespace MouseController
             SetPreviewArea();
         }
         
-        private void removeAreaLabel_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to remove this area?", "Removing area", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                if (profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).Any())
-                {
-                    profile.Areas.Remove(profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First());
-                }
-            }
-        }
+        
 
         #region Make Form Movable
 
@@ -145,6 +132,24 @@ namespace MouseController
             fontLoader.AllocateFont(this.areasComboBox, 10);
             fontLoader.AllocateFont(this.cancelButton, 8.25f);
             fontLoader.AllocateFont(this.acceptButton, 8.25f);
+        }
+
+        
+        private void addAreaPanel_Click(object sender, EventArgs e)
+        {
+            AddAreaForm addAreaForm = new AddAreaForm(profile.Areas);
+            addAreaForm.ShowDialog();
+        }
+
+        private void removeAreaPanel_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove this area?", "Removing area", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).Any())
+                {
+                    profile.Areas.Remove(profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First());
+                }
+            }
         }
     }
 
