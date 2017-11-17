@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -15,14 +14,14 @@ namespace MouseController
         List<IAction> currentActions;
         private bool eventsNotSuspended = true;
         WorkProfile profile;
-        
+
         public ActivitiesManagerForm(WorkProfile profile)
         {
             InitializeComponent();
             actionsDataGridView.AutoGenerateColumns = false;
-            
+
             this.profile = profile;
-            
+
             ReadActivitiesCollection();
             AddDataGridViewColumns();
 
@@ -38,18 +37,18 @@ namespace MouseController
 
 
         }
-        
+
         private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if(eventsNotSuspended)
+            if (eventsNotSuspended)
             {
                 ReadActivitiesCollection();
             }
         }
-        
+
         public void ReadActivitiesCollection()
         {
-            if(profile.Activities.Count != 0)
+            if (profile.Activities.Count != 0)
             {
                 actionsDataGridView.Enabled = true;
                 activitiesComboBox.DataSource = profile.Activities.Select(t => t.Name).ToList();
@@ -61,7 +60,7 @@ namespace MouseController
                 actionsDataGridView.Enabled = false;
             }
         }
-        
+
         #region DataGridView Columns
 
         private void AddDataGridViewColumns()
@@ -96,7 +95,7 @@ namespace MouseController
             DataGridViewColumn delayTimeTexTBoxColumn = new DataGridViewTextBoxColumn();
             delayTimeTexTBoxColumn.DataPropertyName = "DelayTime";
             delayTimeTexTBoxColumn.Name = "Delay [ms]";
-            
+
 
             return delayTimeTexTBoxColumn;
 
@@ -134,7 +133,7 @@ namespace MouseController
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        
+
         private void activitiesManagerPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -179,7 +178,7 @@ namespace MouseController
 
         private void activitiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(eventsNotSuspended)
+            if (eventsNotSuspended)
             {
                 SetGridSource();
             }
@@ -203,11 +202,11 @@ namespace MouseController
                     actionsDataGridView.DataSource = null;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception occurred");
             }
-            
+
         }
 
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
@@ -215,7 +214,7 @@ namespace MouseController
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-        
+
         private void acceptButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -227,64 +226,12 @@ namespace MouseController
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-        
-        private void addActivityLabel_Click(object sender, EventArgs e)
-        {
-            eventsNotSuspended = false;
-            using (AddActivityForm addActivityForm = new AddActivityForm(profile.Activities))
-            {
-                addActivityForm.ShowDialog();
-
-                if (addActivityForm.DialogResult == DialogResult.OK)
-                {
-                    ReadActivitiesCollection();
-                    activitiesComboBox.SelectedItem = addActivityForm.NewActivity.Name;
-                    SetGridSource();
-                }
-            }
-            eventsNotSuspended = true;
-        }
-
-        private void removeActivityLabel_Click(object sender, EventArgs e)
-        {
-            if(MessageBox.Show("Are you sure you want to remove this activity?", "Removing activity", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                if(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).Any())
-                {
-                    try
-                    {
-                        profile.Activities.Remove(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First());
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Exception occurred");
-                    }
-                }
-            }
-        }
-
-        private void addActionLabel_Click(object sender, EventArgs e)
-        {
-            currentActions.Add(new ClickAction());
-            SetGridSource();
-        }
-
-
-
 
         
-
+        
         // This event handler manually raises the CellValueChanged event 
         // by calling the CommitEdit method. 
-        void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
+        
 
         private void actionsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -357,5 +304,124 @@ namespace MouseController
                 actionsDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
         }
+        
+        private void ActivitiesManagerForm_Load(object sender, EventArgs e)
+        {
+            AllocateFont();
+        }
+        private void AllocateFont()
+        {
+            FontLoader fontLoader = new FontLoader();
+
+            fontLoader.LoadFont(Properties.Resources.DefaultFont);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.activitiesLabel, 20);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.savedActivitiesLabel, 10);
+
+            fontLoader.AllocateFont(Constans.myFontFamily, this.activitiesComboBox, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsDataGridView.DefaultCellStyle, 9);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsDataGridView.ColumnHeadersDefaultCellStyle, 9);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.acceptButton, 8.25f);
+        }
+
+        private void addActivityPanel_Click(object sender, EventArgs e)
+        {
+            eventsNotSuspended = false;
+            using (AddActivityForm addActivityForm = new AddActivityForm(profile.Activities))
+            {
+                addActivityForm.ShowDialog();
+
+                if (addActivityForm.DialogResult == DialogResult.OK)
+                {
+                    ReadActivitiesCollection();
+                    activitiesComboBox.SelectedItem = addActivityForm.NewActivity.Name;
+                    SetGridSource();
+                }
+            }
+            eventsNotSuspended = true;
+        }
+        
+        private void removeActivityPanel_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove this activity?", "Removing activity", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).Any())
+                {
+                    try
+                    {
+                        profile.Activities.Remove(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Exception occurred");
+                    }
+                }
+            }
+        }
+
+        private void addActionPanel_Click(object sender, EventArgs e)
+        {
+            currentActions.Add(new ClickAction());
+            SetGridSource();
+        }
+
+        private void removeActionPanel_Click(object sender, EventArgs e)
+        {
+            DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[actionsDataGridView.CurrentRow.Index].Cells[1];
+            IAction actionToRemove = currentActions.Where(t => t.Name == tb.Value.ToString()).First();
+            currentActions.Remove(actionToRemove);
+        }
+        #region Mouse Hover Events
+
+        private void closeButtonPictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            closeButtonPictureBox.BackColor = Color.Gainsboro;
+        }
+
+        private void closeButtonPictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            closeButtonPictureBox.BackColor = Color.White;
+        }
+
+        private void addActivityPanel_MouseEnter(object sender, EventArgs e)
+        {
+            addActivityPanel.BackColor = Color.Gainsboro;
+        }
+
+        private void addActivityPanel_MouseLeave(object sender, EventArgs e)
+        {
+            addActivityPanel.BackColor = Color.White;
+        }
+
+        private void removeActivityPanel_MouseEnter(object sender, EventArgs e)
+        {
+            removeActivityPanel.BackColor = Color.Gainsboro;
+        }
+
+        private void removeActivityPanel_MouseLeave(object sender, EventArgs e)
+        {
+            removeActivityPanel.BackColor = Color.White;
+        }
+        private void addActionPanel_MouseEnter(object sender, EventArgs e)
+        {
+            addActionPanel.BackColor = Color.Gainsboro;
+        }
+
+        private void addActionPanel_MouseLeave(object sender, EventArgs e)
+        {
+            addActionPanel.BackColor = Color.White;
+        }
+
+        private void removeActionPanel_MouseEnter(object sender, EventArgs e)
+        {
+            removeActionPanel.BackColor = Color.Gainsboro;
+        }
+
+        private void removeActionPanel_MouseLeave(object sender, EventArgs e)
+        {
+            removeActionPanel.BackColor = Color.White;
+        }
+        #endregion
     }
 }

@@ -43,18 +43,18 @@
             this.closePictureBox = new System.Windows.Forms.PictureBox();
             this.previewPictureBox = new System.Windows.Forms.PictureBox();
             this.addAreaPanel = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.mouseToolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
             this.previewPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.resetButton = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.mouseToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).BeginInit();
             this.addAreaPanel.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.previewPanel.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // areasLabel
@@ -74,8 +74,8 @@
             this.acceptButton.Enabled = false;
             this.acceptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.acceptButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.acceptButton.Location = new System.Drawing.Point(524, 174);
-            this.acceptButton.Margin = new System.Windows.Forms.Padding(10);
+            this.acceptButton.Location = new System.Drawing.Point(547, 198);
+            this.acceptButton.Margin = new System.Windows.Forms.Padding(20, 10, 20, 20);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(75, 23);
             this.acceptButton.TabIndex = 16;
@@ -88,8 +88,8 @@
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cancelButton.Location = new System.Drawing.Point(619, 174);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(10);
+            this.cancelButton.Location = new System.Drawing.Point(648, 198);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(10, 10, 20, 20);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 17;
@@ -115,8 +115,8 @@
             // 
             this.startPositionLabel.AutoSize = true;
             this.startPositionLabel.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.startPositionLabel.Location = new System.Drawing.Point(22, 121);
-            this.startPositionLabel.Margin = new System.Windows.Forms.Padding(10);
+            this.startPositionLabel.Location = new System.Drawing.Point(28, 113);
+            this.startPositionLabel.Margin = new System.Windows.Forms.Padding(20, 10, 10, 10);
             this.startPositionLabel.Name = "startPositionLabel";
             this.startPositionLabel.Size = new System.Drawing.Size(134, 14);
             this.startPositionLabel.TabIndex = 19;
@@ -126,8 +126,8 @@
             // 
             this.dimensionsLabel.AutoSize = true;
             this.dimensionsLabel.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dimensionsLabel.Location = new System.Drawing.Point(22, 155);
-            this.dimensionsLabel.Margin = new System.Windows.Forms.Padding(10);
+            this.dimensionsLabel.Location = new System.Drawing.Point(28, 145);
+            this.dimensionsLabel.Margin = new System.Windows.Forms.Padding(20, 10, 10, 10);
             this.dimensionsLabel.Name = "dimensionsLabel";
             this.dimensionsLabel.Size = new System.Drawing.Size(99, 14);
             this.dimensionsLabel.TabIndex = 20;
@@ -137,8 +137,8 @@
             // 
             this.captureButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.captureButton.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.captureButton.Location = new System.Drawing.Point(25, 67);
-            this.captureButton.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
+            this.captureButton.Location = new System.Drawing.Point(28, 67);
+            this.captureButton.Margin = new System.Windows.Forms.Padding(20, 10, 0, 10);
             this.captureButton.Name = "captureButton";
             this.captureButton.Size = new System.Drawing.Size(130, 26);
             this.captureButton.TabIndex = 24;
@@ -150,7 +150,7 @@
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nameLabel.Location = new System.Drawing.Point(273, 73);
+            this.nameLabel.Location = new System.Drawing.Point(264, 73);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(51, 14);
             this.nameLabel.TabIndex = 21;
@@ -160,7 +160,7 @@
             // 
             this.startPositionValueLabel.AutoSize = true;
             this.startPositionValueLabel.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.startPositionValueLabel.Location = new System.Drawing.Point(155, 121);
+            this.startPositionValueLabel.Location = new System.Drawing.Point(173, 111);
             this.startPositionValueLabel.Name = "startPositionValueLabel";
             this.startPositionValueLabel.Size = new System.Drawing.Size(540, 14);
             this.startPositionValueLabel.TabIndex = 22;
@@ -170,7 +170,7 @@
             // 
             this.dimensionsValueLabel.AutoSize = true;
             this.dimensionsValueLabel.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dimensionsValueLabel.Location = new System.Drawing.Point(134, 155);
+            this.dimensionsValueLabel.Location = new System.Drawing.Point(140, 145);
             this.dimensionsValueLabel.Name = "dimensionsValueLabel";
             this.dimensionsValueLabel.Size = new System.Drawing.Size(133, 14);
             this.dimensionsValueLabel.TabIndex = 23;
@@ -181,13 +181,15 @@
             this.closePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closePictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closePictureBox.BackgroundImage")));
             this.closePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.closePictureBox.Location = new System.Drawing.Point(674, 20);
-            this.closePictureBox.Margin = new System.Windows.Forms.Padding(10);
+            this.closePictureBox.Location = new System.Drawing.Point(711, 20);
+            this.closePictureBox.Margin = new System.Windows.Forms.Padding(10, 20, 20, 10);
             this.closePictureBox.Name = "closePictureBox";
             this.closePictureBox.Size = new System.Drawing.Size(20, 20);
             this.closePictureBox.TabIndex = 28;
             this.closePictureBox.TabStop = false;
             this.closePictureBox.Click += new System.EventHandler(this.closePictureBox_Click);
+            this.closePictureBox.MouseEnter += new System.EventHandler(this.closePictureBox_MouseEnter);
+            this.closePictureBox.MouseLeave += new System.EventHandler(this.closePictureBox_MouseLeave);
             // 
             // previewPictureBox
             // 
@@ -204,32 +206,51 @@
             // addAreaPanel
             // 
             this.addAreaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.addAreaPanel.Controls.Add(this.cancelButton);
+            this.addAreaPanel.Controls.Add(this.resetButton);
+            this.addAreaPanel.Controls.Add(this.acceptButton);
+            this.addAreaPanel.Controls.Add(this.toolStrip1);
             this.addAreaPanel.Controls.Add(this.previewPanel);
             this.addAreaPanel.Controls.Add(this.panel2);
             this.addAreaPanel.Controls.Add(this.closePictureBox);
             this.addAreaPanel.Controls.Add(this.startPositionLabel);
             this.addAreaPanel.Controls.Add(this.dimensionsLabel);
             this.addAreaPanel.Controls.Add(this.startPositionValueLabel);
-            this.addAreaPanel.Controls.Add(this.cancelButton);
             this.addAreaPanel.Controls.Add(this.dimensionsValueLabel);
-            this.addAreaPanel.Controls.Add(this.resetButton);
-            this.addAreaPanel.Controls.Add(this.acceptButton);
             this.addAreaPanel.Controls.Add(this.captureButton);
             this.addAreaPanel.Controls.Add(this.areasLabel);
             this.addAreaPanel.Controls.Add(this.nameLabel);
             this.addAreaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.addAreaPanel.Location = new System.Drawing.Point(0, 0);
             this.addAreaPanel.Name = "addAreaPanel";
-            this.addAreaPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.addAreaPanel.Size = new System.Drawing.Size(716, 240);
+            this.addAreaPanel.Size = new System.Drawing.Size(753, 243);
             this.addAreaPanel.TabIndex = 29;
             this.addAreaPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.addAreaPanel_MouseDown);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mouseToolStripStatusLabel});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 217);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(751, 25);
+            this.toolStrip1.TabIndex = 31;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // mouseToolStripStatusLabel
+            // 
+            this.mouseToolStripStatusLabel.Font = new System.Drawing.Font("Gulim", 9F);
+            this.mouseToolStripStatusLabel.Name = "mouseToolStripStatusLabel";
+            this.mouseToolStripStatusLabel.Size = new System.Drawing.Size(141, 22);
+            this.mouseToolStripStatusLabel.Text = "Mouse Position: X: , Y: ";
             // 
             // previewPanel
             // 
             this.previewPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.previewPanel.Controls.Add(this.previewPictureBox);
-            this.previewPanel.Location = new System.Drawing.Point(158, 67);
+            this.previewPanel.Location = new System.Drawing.Point(157, 67);
             this.previewPanel.Name = "previewPanel";
             this.previewPanel.Size = new System.Drawing.Size(42, 26);
             this.previewPanel.TabIndex = 30;
@@ -250,8 +271,8 @@
             this.resetButton.Enabled = false;
             this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetButton.Font = new System.Drawing.Font("Gulim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.resetButton.Location = new System.Drawing.Point(429, 174);
-            this.resetButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
+            this.resetButton.Location = new System.Drawing.Point(442, 198);
+            this.resetButton.Margin = new System.Windows.Forms.Padding(10, 3, 10, 20);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 16;
@@ -263,30 +284,12 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mouseToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 218);
-            this.statusStrip1.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(716, 22);
-            this.statusStrip1.TabIndex = 30;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // mouseToolStripStatusLabel
-            // 
-            this.mouseToolStripStatusLabel.Name = "mouseToolStripStatusLabel";
-            this.mouseToolStripStatusLabel.Size = new System.Drawing.Size(151, 17);
-            this.mouseToolStripStatusLabel.Text = "mouseToolStripStatusLabel";
-            // 
             // AddAreaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(716, 240);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(753, 243);
             this.Controls.Add(this.addAreaPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddAreaForm";
@@ -297,13 +300,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).EndInit();
             this.addAreaPanel.ResumeLayout(false);
             this.addAreaPanel.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.previewPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -325,8 +327,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel previewPanel;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel mouseToolStripStatusLabel;
         private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel mouseToolStripStatusLabel;
     }
 }

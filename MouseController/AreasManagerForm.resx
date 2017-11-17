@@ -140,19 +140,4 @@
         RU5ErkJggg==
 </value>
   </data>
-  <data name="removeAreaPanel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAFzUkdCAK7O
-        HOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAAsQAAALEAGtI711AAAAG0lEQVQ4T2MYBcMN/CcRYwBs
-        ivDhUTBcAAMDAHJEF+kbcc5FAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="addAreaPanel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAFzUkdCAK7O
-        HOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAAsQAAALEAGtI711AAAAO0lEQVQ4T2OgNTgJxCcgTPLA
-        fygmG4wkA0ChDVNMLEaJHRAHmyJ8+CgQEwQwxWSDUQMgsUNUaJMJGBgAdu8yEcWqDs8AAAAASUVORK5C
-        YII=
-</value>
-  </data>
 </root>

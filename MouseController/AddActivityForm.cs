@@ -23,8 +23,7 @@ namespace MouseController
             this.activities = activities;
             nameTextBox.Text = defaultName;
         }
-
-
+        
         #region Make Form Movable
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -46,8 +45,7 @@ namespace MouseController
         }
 
         #endregion
-
-
+        
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -63,7 +61,7 @@ namespace MouseController
         private void addButton_Click(object sender, EventArgs e)
         {
             eventsNotSuspended = true;
-            if (IsValidName(nameTextBox.Text))
+            if (HasValidName(nameTextBox.Text))
             {
                 NewActivity = new Activity { Name = nameTextBox.Text };
                 activities.Add(NewActivity);
@@ -74,11 +72,9 @@ namespace MouseController
             {
                 MessageBox.Show("New activity name is invalid");
             }
-
-
         }
 
-        public bool IsValidName(string newName)
+        public bool HasValidName(string newName)
         {
             if(activities.Where(t => t.Name == newName).Any())
             {
@@ -95,8 +91,33 @@ namespace MouseController
             }
         }
 
-        
+        private void AddActivityForm_Load(object sender, EventArgs e)
+        {
+            AllocateFont();
+        }
+        private void AllocateFont()
+        {
+            FontLoader fontLoader = new FontLoader();
 
-        
+            fontLoader.LoadFont(Properties.Resources.DefaultFont);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.addActivityLabel, 20);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.nameLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.nameTextBox, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.addButton, 8.25f);
+        }
+
+        #region Mouse Hover Events
+
+        private void closeButtonPictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            closeButtonPictureBox.BackColor = Color.Gainsboro;
+        }
+
+        private void closeButtonPictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            closeButtonPictureBox.BackColor = Color.White;
+        }
+        #endregion
     }
 }

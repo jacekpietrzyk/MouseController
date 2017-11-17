@@ -88,6 +88,8 @@
             this.closePictureBox.TabIndex = 11;
             this.closePictureBox.TabStop = false;
             this.closePictureBox.Click += new System.EventHandler(this.closePictureBox_Click);
+            this.closePictureBox.MouseEnter += new System.EventHandler(this.closePictureBox_MouseEnter);
+            this.closePictureBox.MouseLeave += new System.EventHandler(this.closePictureBox_MouseLeave);
             // 
             // areasManagerPanel
             // 
@@ -131,7 +133,7 @@
             // 
             // removeAreaPanel
             // 
-            this.removeAreaPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("removeAreaPanel.BackgroundImage")));
+            this.removeAreaPanel.BackgroundImage = global::MouseController.Properties.Resources.removeIcon;
             this.removeAreaPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.removeAreaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.removeAreaPanel.Location = new System.Drawing.Point(418, 73);
@@ -139,10 +141,12 @@
             this.removeAreaPanel.Size = new System.Drawing.Size(24, 24);
             this.removeAreaPanel.TabIndex = 18;
             this.removeAreaPanel.Click += new System.EventHandler(this.removeAreaPanel_Click);
+            this.removeAreaPanel.MouseEnter += new System.EventHandler(this.removeAreaPanel_MouseEnter);
+            this.removeAreaPanel.MouseLeave += new System.EventHandler(this.removeAreaPanel_MouseLeave);
             // 
             // addAreaPanel
             // 
-            this.addAreaPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("addAreaPanel.BackgroundImage")));
+            this.addAreaPanel.BackgroundImage = global::MouseController.Properties.Resources.addIcon;
             this.addAreaPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.addAreaPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.addAreaPanel.Location = new System.Drawing.Point(382, 73);
@@ -150,6 +154,8 @@
             this.addAreaPanel.Size = new System.Drawing.Size(24, 24);
             this.addAreaPanel.TabIndex = 17;
             this.addAreaPanel.Click += new System.EventHandler(this.addAreaPanel_Click);
+            this.addAreaPanel.MouseEnter += new System.EventHandler(this.addAreaPanel_MouseEnter);
+            this.addAreaPanel.MouseLeave += new System.EventHandler(this.addAreaPanel_MouseLeave);
             // 
             // areasComboBoxPanel
             // 
@@ -187,7 +193,7 @@
             // 
             this.areasLabel.AutoSize = true;
             this.areasLabel.Font = new System.Drawing.Font("Gulim", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.areasLabel.Location = new System.Drawing.Point(23, 18);
+            this.areasLabel.Location = new System.Drawing.Point(16, 18);
             this.areasLabel.Margin = new System.Windows.Forms.Padding(15, 10, 3, 0);
             this.areasLabel.Name = "areasLabel";
             this.areasLabel.Size = new System.Drawing.Size(238, 27);

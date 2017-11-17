@@ -71,11 +71,11 @@
     </Compile>
     <Compile Include="AnalyzeImages.cs" />
     <Compile Include="Area.cs" />
-    <Compile Include="ConditionsForm.cs">
+    <Compile Include="ConditionsManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConditionsForm.Designer.cs">
-      <DependentUpon>ConditionsForm.cs</DependentUpon>
+    <Compile Include="ConditionsManagerForm.Designer.cs">
+      <DependentUpon>ConditionsManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Constans.cs" />
     <Compile Include="CustomizedToolTip.cs">
@@ -111,8 +111,8 @@
     <EmbeddedResource Include="AddAreaForm.resx">
       <DependentUpon>AddAreaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConditionsForm.resx">
-      <DependentUpon>ConditionsForm.cs</DependentUpon>
+    <EmbeddedResource Include="ConditionsManagerForm.resx">
+      <DependentUpon>ConditionsManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -150,7 +150,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Icons\" />
+    <None Include="Resources\removeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

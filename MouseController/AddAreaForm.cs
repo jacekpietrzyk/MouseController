@@ -18,7 +18,8 @@ namespace MouseController
         private bool _readingAreaPoints = false;
         CustomizedToolTip myToolTip = new CustomizedToolTip();
         Area newArea;
-        
+
+
         public AddAreaForm(ObservableCollection<Area> areas)
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace MouseController
             myToolTip.InitialDelay = 1;
             timer.Enabled = true;
         }
-        
+
         public void CaptureAndShowArea()
         {
             try
@@ -50,7 +51,7 @@ namespace MouseController
         {
             newArea = new Area();
         }
-        
+
         private bool IsNotTheSamePoint(int x1, int y1, int x2, int y2)
         {
             if (x1 != x2 && y1 != y2)
@@ -62,7 +63,7 @@ namespace MouseController
                 return false;
             }
         }
-        
+
         private void captureButton_Click(object sender, EventArgs e)
         {
             _readingAreaPoints = true;
@@ -121,7 +122,7 @@ namespace MouseController
                         {
                             MessageBox.Show(ex.Message, "Exception occurred");
                         }
-                        
+
                         _readingAreaPoints = false;
 
                         previewPictureBox.BackColor = Color.DarkGreen;
@@ -130,7 +131,6 @@ namespace MouseController
                     {
                         MessageBox.Show("You have to capture two different poinsts!");
                     }
-
                 }
             }
         }
@@ -163,7 +163,7 @@ namespace MouseController
         }
 
         private void closePictureBox_Click(object sender, EventArgs e)
-        { 
+        {
             timer.Enabled = false;
             this.DialogResult = DialogResult.Cancel;
             this.Close();
@@ -176,14 +176,13 @@ namespace MouseController
             cancelButton.Enabled = true;
             resetButton.Enabled = false;
             captureButton.Enabled = true;
-            
+
             dimensionsValueLabel.Text = "No bitmap captured";
             startPositionValueLabel.Text = "Go to start point and press HOME key. Then go to end point and press END key";
             previewPictureBox.Tag = null;
             myToolTip.AutoSize = true;
             previewPictureBox.BackColor = Color.Firebrick;
             nameTextBox.Enabled = false;
-
         }
 
         #region Make Form Movable
@@ -206,6 +205,45 @@ namespace MouseController
         }
 
 
+        #endregion
+
+        private void AddAreaForm_Load(object sender, EventArgs e)
+        {
+            AllocateFont();
+        }
+        private void AllocateFont()
+        {
+            FontLoader fontLoader = new FontLoader();
+
+            fontLoader.AllocateFont(Constans.myFontFamily, this.areasLabel, 20);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.startPositionLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.dimensionsLabel, 10);
+
+            fontLoader.AllocateFont(Constans.myFontFamily, this.acceptButton, 8.25f);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.resetButton, 8.25f);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.captureButton, 9);
+
+            fontLoader.AllocateFont(Constans.myFontFamily, this.nameLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.nameTextBox, 10);
+
+            fontLoader.AllocateFont(Constans.myFontFamily, this.startPositionValueLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.dimensionsValueLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.toolStrip1, 9);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.mouseToolStripStatusLabel, 9);
+        }
+
+        #region Mouse Hover Effects
+
+        private void closePictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            closePictureBox.BackColor = Color.Gainsboro;
+        }
+
+        private void closePictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            closePictureBox.BackColor = Color.White;
+        }
         #endregion
     }
 }

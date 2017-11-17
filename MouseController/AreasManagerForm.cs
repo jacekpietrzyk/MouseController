@@ -17,12 +17,9 @@ namespace MouseController
 {
     public partial class AreasManagerForm : Form
     {
-        FontLoader fontLoader = new FontLoader();
-
         WorkProfile profile = new WorkProfile();
         CustomizedToolTip myToolTip = new CustomizedToolTip();
         Area selectedArea;
-
 
         public AreasManagerForm(WorkProfile profile)
         {
@@ -35,7 +32,7 @@ namespace MouseController
 
             profile.Areas.CollectionChanged += Areas_CollectionChanged;
         }
-        
+
         private void Areas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             ReadAreasCollection();
@@ -73,9 +70,8 @@ namespace MouseController
                 areasComboBox.DataSource = null;
             }
         }
-        
-       
-        
+
+
         private void acceptButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -84,24 +80,22 @@ namespace MouseController
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            
+
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-        
+
         private void closePictureBox_Click(object sender, EventArgs e)
         {
-            
+
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-        
+
         private void areasComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetPreviewArea();
         }
-        
-        
 
         #region Make Form Movable
 
@@ -126,15 +120,19 @@ namespace MouseController
 
         private void AreasManagerForm_Load(object sender, EventArgs e)
         {
-            fontLoader.LoadFont(Properties.Resources.DefaultFont);
-            fontLoader.AllocateFont(this.areasLabel, 20);
-            fontLoader.AllocateFont(this.savedAreasLabel, 10);
-            fontLoader.AllocateFont(this.areasComboBox, 10);
-            fontLoader.AllocateFont(this.cancelButton, 8.25f);
-            fontLoader.AllocateFont(this.acceptButton, 8.25f);
+            AllocateFont();
         }
+        private void AllocateFont()
+        {
+            FontLoader fontLoader = new FontLoader();
 
-        
+            fontLoader.LoadFont(Properties.Resources.DefaultFont);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.areasLabel, 20);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.savedAreasLabel, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.areasComboBox, 10);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.acceptButton, 8.25f);
+        }
         private void addAreaPanel_Click(object sender, EventArgs e)
         {
             AddAreaForm addAreaForm = new AddAreaForm(profile.Areas);
@@ -150,6 +148,36 @@ namespace MouseController
                     profile.Areas.Remove(profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First());
                 }
             }
+        }
+
+        private void closePictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            closePictureBox.BackColor = Color.Gainsboro;
+        }
+
+        private void closePictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            closePictureBox.BackColor = Color.White;
+        }
+
+        private void addAreaPanel_MouseEnter(object sender, EventArgs e)
+        {
+            addAreaPanel.BackColor = Color.Gainsboro;
+        }
+
+        private void addAreaPanel_MouseLeave(object sender, EventArgs e)
+        {
+            addAreaPanel.BackColor = Color.White;
+        }
+
+        private void removeAreaPanel_MouseEnter(object sender, EventArgs e)
+        {
+            removeAreaPanel.BackColor = Color.Gainsboro;
+        }
+
+        private void removeAreaPanel_MouseLeave(object sender, EventArgs e)
+        {
+            removeAreaPanel.BackColor = Color.White;
         }
     }
 

@@ -1,47 +1,42 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
-using TestStack.White.InputDevices;
-using System.Windows;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Drawing.Text;
-using System.Runtime.InteropServices;
 
 namespace MouseController
 {
-   
+
     public partial class MainForm : Form
     {
-        FontLoader fontLoader = new FontLoader();
+        InitializeConstans initializeConstans = new InitializeConstans();
+        private bool _existsApplicationStartError = false;
 
         AnalyzeImages analyze = new AnalyzeImages();
         WorkProfile profile = new WorkProfile();
-        
+
         Area area = new Area();
         Area compareArea = new Area();
-        
+
         int resultCounter = 0;
-        
+
         public MainForm()
         {
-           
             InitializeComponent();
-            CreateTemporaryFilesDirectory();
-            CreateUserDirectory();
+            InitializeConstans();
             WriteSampleData();
         }
-        
 
-       
+        private void InitializeConstans()
+        {
+            try
+            {
+                InitializeConstans initializeConstans = new InitializeConstans();
+            }
+            catch (Exception ex)
+            {
+                _existsApplicationStartError = true;
+            }
+        }
         public void WriteSampleData()
         {
-
             Area area = new Area
             {
                 Bitmap = analyze.MakeScreenShot(new Area
@@ -98,12 +93,12 @@ namespace MouseController
             runTimer.Enabled = true;
             // TO DO
         }
-        
+
         private void closeButton_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Do you want to save this profile?", "Save the settings", MessageBoxButtons.YesNoCancel);
 
-            if ( result == DialogResult.No)
+            if (result == DialogResult.No)
             {
                 this.Dispose();
             }
@@ -111,9 +106,9 @@ namespace MouseController
             {
                 //serialize and save profile object
             }
-            
+
         }
-        
+
         #region Make Form Movable
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -123,7 +118,7 @@ namespace MouseController
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        
+
         private void toolStrip1_MouseDown_1(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -141,69 +136,24 @@ namespace MouseController
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-        
+
         #endregion
 
-        private void CreateTemporaryFilesDirectory()
-        {
-            Constans.FilesDirectory = new System.IO.DirectoryInfo(Path.Combine(Path.GetTempPath(), Properties.Settings.Default.TempFilesFolderName));
-
-            try
-            {
-                if (!Directory.Exists(Constans.FilesDirectory.ToString()))
-                {
-                    Directory.CreateDirectory(Constans.FilesDirectory.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-        private void CreateUserDirectory()
-        {
-            Constans.UserSettings = new System.IO.DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Properties.Settings.Default.UserSettingFolderName));
-
-            try
-            {
-                if (!Directory.Exists(Constans.UserSettings.ToString()))
-                {
-                    Directory.CreateDirectory(Constans.UserSettings.ToString());
-                }
-            }
-            catch (System.IO.IOException IOex)
-            {
-                MessageBox.Show(IOex.Message.ToString());
-            }
-            catch (System.UnauthorizedAccessException UAex)
-            {
-                MessageBox.Show(UAex.Message.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-        
         private void resetButton_Click(object sender, EventArgs e)
         {
             profile = new WorkProfile();
         }
-
         private void runTimer_Tick(object sender, EventArgs e)
         {
             //TO DO
-            
         }
-
         public bool CompareAreas(Area conditionalArea, Area compareArea)
         {
             analyze.MakeScreenShot(compareArea);
             if (analyze.Compare(conditionalArea.Bitmap, compareArea.Bitmap) == 0)
             {
                 resultLabel.Text = String.Format("Result: {0} task completed", resultCounter + 1);
-                
+
                 return true;
             }
             else
@@ -211,12 +161,11 @@ namespace MouseController
                 return false;
             }
         }
-        
+
         private void stopButton_Click(object sender, EventArgs e)
         {
             runTimer.Enabled = false;
         }
-        
         private void areasManagerButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
@@ -274,10 +223,10 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
-        
+
         private void actionSettingsButton_MouseHover(object sender, EventArgs e)
         {
-            toolTipLabel.Text = "Connect areas with activities";
+            toolTipLabel.Text = "Open Conditions Manager";
         }
 
         private void actionSettingsButton_MouseLeave(object sender, EventArgs e)
@@ -342,17 +291,20 @@ namespace MouseController
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            fontLoader.LoadFont(Properties.Resources.DefaultFont);
-
-            fontLoader.AllocateFont(this.toolTipLabel, 9);
-            fontLoader.AllocateFont(this.resultLabel, 9);
+            AllocateFont();
         }
+        private void AllocateFont()
+        {
+            FontLoader fontLoader = new FontLoader();
 
+            fontLoader.AllocateFont(Constans.myFontFamily, this.toolTipLabel, 9);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.resultLabel, 9);
+        }
         private void actionSettingsButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
 
-            using (ConditionsForm form = new ConditionsForm(profile))
+            using (ConditionsManagerForm form = new ConditionsManagerForm(profile))
             {
                 form.ShowDialog();
                 if (form.DialogResult == DialogResult.OK)
@@ -365,7 +317,15 @@ namespace MouseController
                 }
             }
         }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (_existsApplicationStartError)
+            {
+                MessageBox.Show("Some error occurred during the application start process. Some elements can not work correctly", "StartProblem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
-    
+
 }
