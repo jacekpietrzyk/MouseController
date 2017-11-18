@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,12 @@ namespace MouseController
 {
     class JsonWorkProfileSerialization
     {
-        public string Serialize()
+
+        public string Serialize(WorkProfile profile)
         {
-            return "";
+            
+            string result = JsonConvert.SerializeObject(profile, Formatting.Indented);
+            return result;
         }
 
         public WorkProfile Deserialize()

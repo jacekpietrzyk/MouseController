@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MouseController
 {
@@ -12,15 +13,17 @@ namespace MouseController
         struct ProfileData
         {
             internal string name;
-            internal List<Area> areas;
+            internal ObservableCollection<Area> areas;
             internal ObservableCollection<IActivity> activities;
         }
         
         private ProfileData backupData;
         private bool inTxn = false;
-
+        [JsonProperty]
         public string Name { get; set; }
+        [JsonProperty]
         private ObservableCollection<Area> _areas = new ObservableCollection<Area>();
+        [JsonProperty]
         private ObservableCollection<IActivity> _activities = new ObservableCollection<IActivity>();
 
 
@@ -57,7 +60,7 @@ namespace MouseController
             if (!inTxn)
             {
                 this.backupData.name = Name;
-                this.backupData.areas = Areas.Select(t => t).ToList();
+                this.backupData.areas = new ObservableCollection<Area>(Areas.Select(t => t).ToList());
                 this.backupData.activities = new System.Collections.ObjectModel.ObservableCollection<IActivity>(Activities.Select(t => t).ToList());
 
                 inTxn = true;
