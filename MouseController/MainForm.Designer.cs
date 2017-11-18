@@ -35,6 +35,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.resultLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolTipLabel = new System.Windows.Forms.ToolStripLabel();
+            this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
             this.activitiesManagerButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.areasManagerButton = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.conditionsManagerButton = new System.Windows.Forms.Button();
-            this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
             this.mainFormPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -104,10 +104,22 @@
             this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
             this.toolTipLabel.Text = "Hover a button to see instructions";
             // 
+            // infoStatusButton
+            // 
+            this.infoStatusButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.infoStatusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.infoStatusButton.Image = ((System.Drawing.Image)(resources.GetObject("infoStatusButton.Image")));
+            this.infoStatusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.infoStatusButton.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
+            this.infoStatusButton.Name = "infoStatusButton";
+            this.infoStatusButton.Size = new System.Drawing.Size(23, 22);
+            this.infoStatusButton.Text = "toolStripButton1";
+            this.infoStatusButton.ToolTipText = "Info";
+            // 
             // activitiesManagerButton
             // 
             this.activitiesManagerButton.BackColor = System.Drawing.Color.Orange;
-            this.activitiesManagerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("activitiesManagerButton.BackgroundImage")));
+            this.activitiesManagerButton.BackgroundImage = global::MouseController.Properties.Resources.LeftClick;
             this.activitiesManagerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.activitiesManagerButton.FlatAppearance.BorderSize = 0;
             this.activitiesManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -124,7 +136,7 @@
             // openButton
             // 
             this.openButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.openButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("openButton.BackgroundImage")));
+            this.openButton.BackgroundImage = global::MouseController.Properties.Resources.OpenFile;
             this.openButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.openButton.Enabled = false;
             this.openButton.FlatAppearance.BorderSize = 0;
@@ -141,7 +153,7 @@
             // areasManagerButton
             // 
             this.areasManagerButton.BackColor = System.Drawing.Color.ForestGreen;
-            this.areasManagerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("areasManagerButton.BackgroundImage")));
+            this.areasManagerButton.BackgroundImage = global::MouseController.Properties.Resources.Areas;
             this.areasManagerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.areasManagerButton.FlatAppearance.BorderColor = System.Drawing.Color.Orange;
             this.areasManagerButton.FlatAppearance.BorderSize = 0;
@@ -159,7 +171,7 @@
             // runButton
             // 
             this.runButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.runButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("runButton.BackgroundImage")));
+            this.runButton.BackgroundImage = global::MouseController.Properties.Resources.Run;
             this.runButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.runButton.FlatAppearance.BorderSize = 0;
             this.runButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -176,7 +188,7 @@
             // resetButton
             // 
             this.resetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.resetButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resetButton.BackgroundImage")));
+            this.resetButton.BackgroundImage = global::MouseController.Properties.Resources.Erase;
             this.resetButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.resetButton.FlatAppearance.BorderSize = 0;
             this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -193,7 +205,7 @@
             // stopButton
             // 
             this.stopButton.BackColor = System.Drawing.Color.Orange;
-            this.stopButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("stopButton.BackgroundImage")));
+            this.stopButton.BackgroundImage = global::MouseController.Properties.Resources.Stop;
             this.stopButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.stopButton.FlatAppearance.BorderSize = 0;
             this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -210,7 +222,7 @@
             // closeButton
             // 
             this.closeButton.BackColor = System.Drawing.Color.Black;
-            this.closeButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closeButton.BackgroundImage")));
+            this.closeButton.BackgroundImage = global::MouseController.Properties.Resources.Close;
             this.closeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.closeButton.FlatAppearance.BorderSize = 0;
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -227,7 +239,7 @@
             // conditionsManagerButton
             // 
             this.conditionsManagerButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.conditionsManagerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("conditionsManagerButton.BackgroundImage")));
+            this.conditionsManagerButton.BackgroundImage = global::MouseController.Properties.Resources.Conditions;
             this.conditionsManagerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.conditionsManagerButton.FlatAppearance.BorderSize = 0;
             this.conditionsManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -240,18 +252,6 @@
             this.conditionsManagerButton.Click += new System.EventHandler(this.actionSettingsButton_Click);
             this.conditionsManagerButton.MouseLeave += new System.EventHandler(this.actionSettingsButton_MouseLeave);
             this.conditionsManagerButton.MouseHover += new System.EventHandler(this.actionSettingsButton_MouseHover);
-            // 
-            // infoStatusButton
-            // 
-            this.infoStatusButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.infoStatusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.infoStatusButton.Image = ((System.Drawing.Image)(resources.GetObject("infoStatusButton.Image")));
-            this.infoStatusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.infoStatusButton.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
-            this.infoStatusButton.Name = "infoStatusButton";
-            this.infoStatusButton.Size = new System.Drawing.Size(23, 22);
-            this.infoStatusButton.Text = "toolStripButton1";
-            this.infoStatusButton.ToolTipText = "Info";
             // 
             // MainForm
             // 

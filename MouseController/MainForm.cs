@@ -96,16 +96,21 @@ namespace MouseController
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you want to save this profile?", "Save the settings", MessageBoxButtons.YesNoCancel);
+            using (MessageBoxForm form = new MessageBoxForm())
+            {
+                DialogResult result = form.ShowDialog();
 
-            if (result == DialogResult.No)
-            {
-                this.Dispose();
+                if (result == DialogResult.No)
+                {
+                    this.Dispose();
+                }
+                else if (result == DialogResult.Yes)
+                {
+                    //serialize and save profile object
+                }
+
             }
-            else if (result == DialogResult.Yes)
-            {
-                //serialize and save profile object
-            }
+
 
         }
 
