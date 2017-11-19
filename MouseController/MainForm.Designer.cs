@@ -33,9 +33,9 @@
             this.runTimer = new System.Windows.Forms.Timer(this.components);
             this.mainFormPanel = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
             this.resultLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolTipLabel = new System.Windows.Forms.ToolStripLabel();
-            this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
             this.activitiesManagerButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.areasManagerButton = new System.Windows.Forms.Button();
@@ -89,6 +89,18 @@
             this.toolStrip1.Text = "toolStrip2";
             this.toolStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStrip1_MouseDown_1);
             // 
+            // infoStatusButton
+            // 
+            this.infoStatusButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.infoStatusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.infoStatusButton.Image = ((System.Drawing.Image)(resources.GetObject("infoStatusButton.Image")));
+            this.infoStatusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.infoStatusButton.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
+            this.infoStatusButton.Name = "infoStatusButton";
+            this.infoStatusButton.Size = new System.Drawing.Size(23, 22);
+            this.infoStatusButton.Text = "toolStripButton1";
+            this.infoStatusButton.ToolTipText = "Info";
+            // 
             // resultLabel
             // 
             this.resultLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
@@ -103,18 +115,6 @@
             this.toolTipLabel.Name = "toolTipLabel";
             this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
             this.toolTipLabel.Text = "Hover a button to see instructions";
-            // 
-            // infoStatusButton
-            // 
-            this.infoStatusButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.infoStatusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.infoStatusButton.Image = ((System.Drawing.Image)(resources.GetObject("infoStatusButton.Image")));
-            this.infoStatusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.infoStatusButton.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
-            this.infoStatusButton.Name = "infoStatusButton";
-            this.infoStatusButton.Size = new System.Drawing.Size(23, 22);
-            this.infoStatusButton.Text = "toolStripButton1";
-            this.infoStatusButton.ToolTipText = "Info";
             // 
             // activitiesManagerButton
             // 
@@ -138,7 +138,6 @@
             this.openButton.BackColor = System.Drawing.Color.RoyalBlue;
             this.openButton.BackgroundImage = global::MouseController.Properties.Resources.OpenFile;
             this.openButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.openButton.Enabled = false;
             this.openButton.FlatAppearance.BorderSize = 0;
             this.openButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openButton.Location = new System.Drawing.Point(7, 7);
@@ -147,6 +146,7 @@
             this.openButton.Size = new System.Drawing.Size(75, 75);
             this.openButton.TabIndex = 0;
             this.openButton.UseVisualStyleBackColor = false;
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
             this.openButton.MouseLeave += new System.EventHandler(this.openButton_MouseLeave);
             this.openButton.MouseHover += new System.EventHandler(this.openButton_MouseHover);
             // 

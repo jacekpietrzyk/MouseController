@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -87,34 +88,7 @@ namespace MouseController
             profile.Activities.Add(act2);
 
         }
-
-        private void runButton_Click(object sender, EventArgs e)
-        {
-            runTimer.Enabled = true;
-            // TO DO
-        }
-
-        private void closeButton_Click(object sender, EventArgs e)
-        {
-            using (MessageBoxForm form = new MessageBoxForm())
-            {
-                DialogResult result = form.ShowDialog();
-
-                if (result == DialogResult.No)
-                {
-                    this.Dispose();
-                }
-                else if (result == DialogResult.Yes)
-                {
-                    JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
-                    serializer.Serialize(profile);
-                    this.Dispose();
-                }
-
-            }
-
-
-        }
+        
 
         #region Make Form Movable
 
@@ -146,10 +120,6 @@ namespace MouseController
 
         #endregion
 
-        private void resetButton_Click(object sender, EventArgs e)
-        {
-            profile = new WorkProfile();
-        }
         private void runTimer_Tick(object sender, EventArgs e)
         {
             //TO DO
@@ -169,9 +139,14 @@ namespace MouseController
             }
         }
 
-        private void stopButton_Click(object sender, EventArgs e)
+        private void openButton_Click(object sender, EventArgs e)
         {
-            runTimer.Enabled = false;
+            JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
+            //WorkProfile profile = serializer.DeserializeProfile();
+        }
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            profile = new WorkProfile();
         }
         private void areasManagerButton_Click(object sender, EventArgs e)
         {
@@ -190,7 +165,6 @@ namespace MouseController
                 }
             }
         }
-
         private void activitiesManagerButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
@@ -205,6 +179,49 @@ namespace MouseController
                 else if (form.DialogResult == DialogResult.Cancel)
                 {
                     profile.CancelEdit();
+                }
+            }
+        }
+        private void actionSettingsButton_Click(object sender, EventArgs e)
+        {
+            profile.BeginEdit();
+
+            using (ConditionsManagerForm form = new ConditionsManagerForm(profile))
+            {
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    profile.EndEdit();
+                }
+                else if (form.DialogResult == DialogResult.Cancel)
+                {
+                    profile.CancelEdit();
+                }
+            }
+        }
+        private void runButton_Click(object sender, EventArgs e)
+        {
+            runTimer.Enabled = true;
+            // TO DO
+        }
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            runTimer.Enabled = false;
+        }
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            using (MessageBoxForm form = new MessageBoxForm())
+            {
+                DialogResult result = form.ShowDialog();
+
+                if (result == DialogResult.No)
+                {
+                    this.Dispose();
+                }
+                else if (result == DialogResult.Yes)
+                {
+                    JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
+                    serializer.SaveJson(serializer.SerializeProfile(profile));
                 }
             }
         }
@@ -296,6 +313,13 @@ namespace MouseController
 
         #endregion
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (_existsApplicationStartError)
+            {
+                MessageBox.Show("Some error occurred during the application start process. Some elements can not work correctly", "StartProblem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
             AllocateFont();
@@ -307,31 +331,7 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.toolTipLabel, 9);
             fontLoader.AllocateFont(Constans.myFontFamily, this.resultLabel, 9);
         }
-        private void actionSettingsButton_Click(object sender, EventArgs e)
-        {
-            profile.BeginEdit();
 
-            using (ConditionsManagerForm form = new ConditionsManagerForm(profile))
-            {
-                form.ShowDialog();
-                if (form.DialogResult == DialogResult.OK)
-                {
-                    profile.EndEdit();
-                }
-                else if (form.DialogResult == DialogResult.Cancel)
-                {
-                    profile.CancelEdit();
-                }
-            }
-        }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            if (_existsApplicationStartError)
-            {
-                MessageBox.Show("Some error occurred during the application start process. Some elements can not work correctly", "StartProblem", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 
 

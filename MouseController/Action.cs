@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,10 @@ namespace MouseController
 
         public bool Active { get; set; } = true;
         public int DelayTime { get; set; } = 0;
-
+        [JsonIgnore]
         private Area _area;
 
+        
         public Area Area
         {
             get { return _area; }

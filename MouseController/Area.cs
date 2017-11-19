@@ -4,6 +4,7 @@ using System.IO;
 
 namespace MouseController
 {
+    [JsonObject(IsReference = true)]
     public class Area
     {
         public string Name { get; set; }
