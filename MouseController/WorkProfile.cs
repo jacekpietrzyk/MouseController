@@ -16,21 +16,23 @@ namespace MouseController
             internal ObservableCollection<Area> areas;
             internal ObservableCollection<IActivity> activities;
         }
-        
+        [JsonIgnore]
         private ProfileData backupData;
+        [JsonIgnore]
         private bool inTxn = false;
         [JsonProperty]
         public string Name { get; set; }
-        [JsonProperty]
+        [JsonIgnore]
         private ObservableCollection<Area> _areas = new ObservableCollection<Area>();
-        [JsonProperty]
+        [JsonIgnore]
         private ObservableCollection<IActivity> _activities = new ObservableCollection<IActivity>();
 
-
+        [JsonProperty]
         public ObservableCollection<Area> Areas
         {
             get { return _areas; }
         }
+        [JsonProperty]
         public ObservableCollection<IActivity> Activities
         {
             get { return _activities; }

@@ -15,7 +15,6 @@ namespace MouseController
         {
             
             string result = JsonConvert.SerializeObject(profile, Formatting.Indented);
-            
             File.WriteAllText(Constans.UserSettings.ToString() + @"/fileJson.json", result);
         }
 

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="UserSettingFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">MouseControllerUser</Value>
+      <Value Profile="(Default)">MouseController</Value>
     </Setting>
     <Setting Name="TempFilesFolderName" Type="System.String" Scope="User">
       <Value Profile="(Default)">MouseControllerTemp</Value>

@@ -108,6 +108,7 @@ namespace MouseController
                 {
                     JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
                     serializer.Serialize(profile);
+                    this.Dispose();
                 }
 
             }
