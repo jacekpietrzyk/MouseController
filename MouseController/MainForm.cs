@@ -106,7 +106,8 @@ namespace MouseController
                 }
                 else if (result == DialogResult.Yes)
                 {
-                    //serialize and save profile object
+                    JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
+                    serializer.Serialize(profile);
                 }
 
             }

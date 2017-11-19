@@ -1,17 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MouseController
 {
 
     public class Activity: IActivity
     {
+        [JsonProperty]
         public string Name { get; set; }
-
+        [JsonProperty]
         List<IAction> _actions = new List<IAction>();
 
         public void AddAction(IAction action)

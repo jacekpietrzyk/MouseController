@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace MouseController
 {
@@ -17,10 +14,34 @@ namespace MouseController
         public int Height { get; set; }
 
         public string FileName { get; set; }
+        [JsonIgnore]
         public Bitmap Bitmap { get; set; }
+        [JsonProperty]
+        private byte[] BitmapByteArray
+        {
+            get
+            {
+                ImageConverter converter = new ImageConverter();
+                return (byte[])converter.ConvertTo(Bitmap, typeof(byte[]));
+            }
+        }
+
+        //public static byte[] ConvertToBytes(BitmapImage bitmapImage)
+        //{
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        var btmMap = new WriteableBitmap
+        //            (bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+
+        //        // write an image into the stream
+        //        btmMap.SaveJpeg(ms, bitmapImage.PixelWidth, bitmapImage.PixelHeight, 0, 100);
+
+        //        return ms.ToArray();
+        //    }
+        //}
 
         public string ActivityName { get; set; }
-
+        [JsonIgnore]
         public int ClickX
         {
             get
@@ -29,6 +50,7 @@ namespace MouseController
             }
 
         }
+        [JsonIgnore]
         public int ClickY
         {
             get
