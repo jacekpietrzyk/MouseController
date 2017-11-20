@@ -1,17 +1,18 @@
 # MouseController
-The application allows to automate some simple activities of a computer user. 
-Two "areas" have to be defined before starting the work. 
+Aplikacja pozwala na wyzwalanie zdefiniowanych wcześniej działań myszą w zależności od tego, czy na ekranie są widoczne interesujące nas obszary 
 
-[![Build Status]Saving work profile]
+### Areas Manager
+Okno służące do zarządzania obszarami, które zamierzamy obserwować. Umożliwia dodanie do listy nowych obszarów, zapewnia ich podląd oraz przechowuje w obiekcie typu Area:
+ - bitmape z którą podczas pracy porównujemy konkretny wycinek naszego ekranu
+ - współrzędne rejestrowanego obszaru
+ 
+### Activity Manager 
+Część aplikacji służąca do definiowania aktywności - zbioru czynności (akcji), które zostaną wykonane po pojawieniu się przypisanego im obszaru.
+Aktualnie dostępne są dwie akcje myszy: click i move.
 
-### Conditional Area
-is a part of the screen we observe. While define this area when the expected element is visible. Application use this part of a screenshot to compare with elements prezented on the screen presently. When expected element will appear, the activity will be released.
+### Conditions Manager
+Okno służące do powiązania obszarów ze zdefiniowanymi aktywnościami wyzwalanymi po ich rozpoznaniu
 
-### Action Area 
-is a part of the screen where click event will be realised after conditional area will apear on the screen
-
-
-
-###TO DO
-- Defining work profile settings (eg. delay between moving a mouse and click event, activity details)
-- Save/Open work profile
+TO DO:
+ - zapewnienie deserializacji json - aktualnie w trakcie pracy (deserializacja do kolekcji interfejsu List<IAction>
+ - właściwa praca aplikacji - sprawdzanie obszarów i wyzwalanie związanych z nimi aktywności.
