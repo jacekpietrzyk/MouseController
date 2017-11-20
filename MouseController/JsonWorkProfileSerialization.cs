@@ -14,10 +14,17 @@ namespace MouseController
 
         public string SerializeProfile(WorkProfile profile)
         {
-            
-            string result = JsonConvert.SerializeObject(profile, Formatting.Indented,
-                new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-            return result;
+            try
+            {
+                string result = JsonConvert.SerializeObject(profile, Formatting.Indented,
+                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects});
+                return result;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Serialization failded: " + ex.Message);
+                return null;
+            }
         }
 
         public void SaveJson(string result)
@@ -32,19 +39,34 @@ namespace MouseController
                 if(saveJsonDialog.ShowDialog() == DialogResult.OK)
                 {
                     StreamWriter writing = new StreamWriter(saveJsonDialog.FileName);
-                    writing.Write(result);
-                    writing.Close();
-                    MessageBox.Show("The profile has been saved");
+                    try
+                    {
+                        writing.Write(result);
+                        writing.Close();
+                        MessageBox.Show("The profile has been saved");
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("Saving json file failed: " + ex.Message);
+                    }
                 }
             }
         }
 
         public WorkProfile DeserializeProfile()
         {
-            WorkProfile deserializedProfile = JsonConvert.DeserializeObject<WorkProfile>(this.OpenJson(),
-                                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+            try
+            {
+                WorkProfile deserializedProfile = JsonConvert.DeserializeObject<WorkProfile>(this.OpenJson(),
+                                        new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects });
 
-            return deserializedProfile;
+                return deserializedProfile;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Deserialization failed: " + ex.Message);
+                return null;
+            }
         }
         public string OpenJson()
         {

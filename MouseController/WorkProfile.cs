@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace MouseController
 {
-    public class WorkProfile: System.ComponentModel.IEditableObject
+    public class WorkProfile: System.ComponentModel.IEditableObject, ICloneable
     { 
         struct ProfileData
         {
@@ -96,6 +97,60 @@ namespace MouseController
 
                 inTxn = false;
             }
+        }
+
+        public object Clone() // DeepClone
+        {
+            WorkProfile profileClone = new WorkProfile();
+            profileClone.Name = this.Name;
+
+            foreach(Area area in Areas)
+            {
+                profileClone.AddArea(new Area
+                {
+                    Name = area.Name,
+                    StartPositionX = area.StartPositionX,
+                    StartPositionY = area.StartPositionY,
+                    Width = area.Width,
+                    Height = area.Height,
+                    FileName = area.FileName,
+                    ActivityName = area.ActivityName,
+                    Bitmap = (Bitmap)area.Bitmap.Clone()
+                });
+            }
+
+            foreach(IActivity activity in Activities)
+            {
+                Activity activityClone = new Activity();
+                activityClone.Name = activity.Name;
+                foreach(IAction action in activity.GetActions())
+                {
+                    if (action.Type == Type.ClickAction)
+                    {
+                        ClickAction clickAction = (ClickAction)action;
+                        activityClone.AddAction(new ClickAction
+                        {
+                            Name = clickAction.Name,
+                            Active = clickAction.Active,
+                            DelayTime = clickAction.DelayTime
+                        });
+
+                    }
+                    else if(action.Type == Type.MoveAction)
+                    {
+                        MoveAction moveAction = (MoveAction)action;
+                        activityClone.AddAction(new MoveAction(profileClone.Areas.Where(t => t.Name == moveAction.Area.Name).First())
+                        {
+                            Name = moveAction.Name,
+                            Active = moveAction.Active,
+                            DelayTime = moveAction.DelayTime
+                        });
+                    }
+                    
+                }
+                profileClone.AddActivity(activityClone);
+            }
+            return profileClone;
         }
     }
 }

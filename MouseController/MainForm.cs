@@ -51,7 +51,7 @@ namespace MouseController
                 StartPositionY = 10,
                 Height = 100,
                 Width = 300,
-                Name = "Przykładowy obszar"
+                Name = "Obszar przykładowy"
             };
             profile.Areas.Add(area);
 
@@ -68,17 +68,17 @@ namespace MouseController
                 StartPositionY = 300,
                 Height = 200,
                 Width = 200,
-                Name = "Inny obraz"
+                Name = "Inny obszar"
             };
             profile.Areas.Add(area2);
 
 
-            Activity act1 = new Activity { Name = "Przykład 1" };
-            Activity act2 = new Activity { Name = "Przykład 2" };
+            Activity act1 = new Activity { Name = "Aktywność 1" };
+            Activity act2 = new Activity { Name = "Aktywność 2" };
 
-            ClickAction action1 = new ClickAction { Name = "Akcja Click", DelayTime = 1000, Active = true };
-            ClickAction action2 = new ClickAction { Name = "Akcja Click Inna", DelayTime = 1000, Active = true };
-            MoveAction action3 = new MoveAction(area) { Name = "Akcja Move", DelayTime = 2000, Active = true };
+            ClickAction action1 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
+            ClickAction action2 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
+            MoveAction action3 = new MoveAction(area) { Name = "Przesuń mysz", DelayTime = 2000, Active = true };
 
             act1.AddAction(action1);
             act1.AddAction(action3);
@@ -142,7 +142,11 @@ namespace MouseController
         private void openButton_Click(object sender, EventArgs e)
         {
             JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
-            //WorkProfile profile = serializer.DeserializeProfile();
+            WorkProfile deserializedProfile = serializer.DeserializeProfile();
+            if(deserializedProfile != null)
+            {
+                profile = deserializedProfile;
+            }
         }
         private void resetButton_Click(object sender, EventArgs e)
         {
