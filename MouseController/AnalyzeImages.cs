@@ -103,8 +103,25 @@ namespace MouseController
 			}
 			else return false;
 		}
-	}
-	
 
-	
+        public bool CompareAreas(Area conditionalArea, Area compareArea)
+        {
+            MakeScreenShot(compareArea);
+            if (Compare(conditionalArea.Bitmap, compareArea.Bitmap) == 0)
+            {
+                //resultLabel.Text = String.Format("Result: {0} task completed", resultCounter + 1);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+    }
+
+
+
 }

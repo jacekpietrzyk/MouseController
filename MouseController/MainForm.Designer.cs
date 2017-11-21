@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.runTimer = new System.Windows.Forms.Timer(this.components);
             this.mainFormPanel = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
@@ -47,11 +45,6 @@
             this.mainFormPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // runTimer
-            // 
-            this.runTimer.Interval = 5000;
-            this.runTimer.Tick += new System.EventHandler(this.runTimer_Tick);
             // 
             // mainFormPanel
             // 
@@ -282,7 +275,6 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button resetButton;
-        private System.Windows.Forms.Timer runTimer;
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Panel mainFormPanel;
         private System.Windows.Forms.ToolStrip toolStrip1;

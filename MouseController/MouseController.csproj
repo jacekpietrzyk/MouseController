@@ -115,6 +115,7 @@
     <Compile Include="AreasManagerForm.Designer.cs">
       <DependentUpon>AreasManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkAgent.cs" />
     <Compile Include="WorkProfile.cs" />
     <EmbeddedResource Include="AddActivityForm.resx">
       <DependentUpon>AddActivityForm.cs</DependentUpon>

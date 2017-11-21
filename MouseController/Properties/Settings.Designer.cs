@@ -46,5 +46,17 @@ namespace MouseController.Properties {
                 this["TempFilesFolderName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int SecondsInterval {
+            get {
+                return ((int)(this["SecondsInterval"]));
+            }
+            set {
+                this["SecondsInterval"] = value;
+            }
+        }
     }
 }

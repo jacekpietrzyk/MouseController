@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 namespace MouseController
 {
-
     public partial class MainForm : Form
     {
         InitializeConstans initializeConstans = new InitializeConstans();
@@ -15,6 +14,8 @@ namespace MouseController
 
         Area area = new Area();
         Area compareArea = new Area();
+
+        WorkAgent _agent;
 
         int resultCounter = 0;
 
@@ -89,7 +90,6 @@ namespace MouseController
 
         }
         
-
         #region Make Form Movable
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -119,30 +119,12 @@ namespace MouseController
         }
 
         #endregion
-
-        private void runTimer_Tick(object sender, EventArgs e)
-        {
-            //TO DO
-        }
-        public bool CompareAreas(Area conditionalArea, Area compareArea)
-        {
-            analyze.MakeScreenShot(compareArea);
-            if (analyze.Compare(conditionalArea.Bitmap, compareArea.Bitmap) == 0)
-            {
-                resultLabel.Text = String.Format("Result: {0} task completed", resultCounter + 1);
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
         private void openButton_Click(object sender, EventArgs e)
         {
             JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
             WorkProfile deserializedProfile = serializer.DeserializeProfile();
+
             if(deserializedProfile != null)
             {
                 profile = deserializedProfile;
@@ -205,12 +187,25 @@ namespace MouseController
         }
         private void runButton_Click(object sender, EventArgs e)
         {
-            runTimer.Enabled = true;
-            // TO DO
+            try
+            {
+                if (_agent == null)
+                {
+                    _agent = new WorkAgent();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while starting the VatStatusChecker service: " + ex.Message);
+            }
         }
         private void stopButton_Click(object sender, EventArgs e)
         {
-            runTimer.Enabled = false;
+            if (_agent != null)
+            {
+                _agent.Dispose();
+                _agent = null;
+            }
         }
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -335,7 +330,6 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.toolTipLabel, 9);
             fontLoader.AllocateFont(Constans.myFontFamily, this.resultLabel, 9);
         }
-
     }
 
 
