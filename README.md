@@ -14,5 +14,8 @@ Aktualnie dostępne są dwie akcje myszy: click i move.
 Okno służące do powiązania obszarów ze zdefiniowanymi aktywnościami wyzwalanymi po ich rozpoznaniu
 
 TO DO:
- - zapewnienie deserializacji json - aktualnie w trakcie pracy (deserializacja do kolekcji interfejsu List<IAction>
+ - 
  - właściwa praca aplikacji - sprawdzanie obszarów i wyzwalanie związanych z nimi aktywności.
+
+LAST COMMIT:
+- wczytanie ustawień użytkownika, zapewnienie deserializacji json do obiektu WorkProfile
