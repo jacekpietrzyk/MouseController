@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace MouseController
 {
     class WorkAgent : IDisposable
@@ -12,8 +13,8 @@ namespace MouseController
 
         AnalyzeImages analyze = new AnalyzeImages();
         int resultCounter = 0;
-        public string WorkLog { get; set; }
-        public string LastAction { get; set; }
+        public string WorkLog { get; set; } = "";
+        public string LastAction { get; set; } = "";
 
         private StringBuilder builder = new StringBuilder();
 
@@ -67,6 +68,7 @@ namespace MouseController
         }
         void backgroungWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            
             foreach (Area area in profile.Areas.Where(t => t.ActivityName != null || t.ActivityName != String.Empty))
             {
                 if (analyze.CompareAreaWithScreen(area) && profile.Activities.Where(t => t.Name == area.ActivityName).Any())
@@ -84,13 +86,16 @@ namespace MouseController
                 }
             }
         }
+        
 
         public void UpdateLogs(string message)
         {
             LastAction = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss") + ": " + message;
             builder.AppendLine(LastAction);
             WorkLog = builder.ToString();
+            
         }
+        
         void backgroungWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _isNotRunning = true;

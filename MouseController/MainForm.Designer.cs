@@ -31,9 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainFormPanel = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
             this.resultLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolTipLabel = new System.Windows.Forms.ToolStripLabel();
+            this.workLogIcon = new System.Windows.Forms.ToolStripButton();
+            this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
             this.activitiesManagerButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.areasManagerButton = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.conditionsManagerButton = new System.Windows.Forms.Button();
+            this.workLogRichTextBox = new System.Windows.Forms.RichTextBox();
             this.mainFormPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -59,11 +61,12 @@
             this.mainFormPanel.Controls.Add(this.stopButton);
             this.mainFormPanel.Controls.Add(this.closeButton);
             this.mainFormPanel.Controls.Add(this.conditionsManagerButton);
+            this.mainFormPanel.Controls.Add(this.workLogRichTextBox);
             this.mainFormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainFormPanel.Location = new System.Drawing.Point(0, 0);
             this.mainFormPanel.Name = "mainFormPanel";
             this.mainFormPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.mainFormPanel.Size = new System.Drawing.Size(672, 117);
+            this.mainFormPanel.Size = new System.Drawing.Size(672, 115);
             this.mainFormPanel.TabIndex = 9;
             this.mainFormPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainFormPanel_MouseDown);
             // 
@@ -72,18 +75,47 @@
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(1);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.workLogIcon,
             this.infoStatusButton,
             this.resultLabel,
             this.toolTipLabel});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 87);
+            this.toolStrip1.Location = new System.Drawing.Point(3, 85);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(664, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip2";
             this.toolStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStrip1_MouseDown_1);
             // 
+            // resultLabel
+            // 
+            this.resultLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(13, 22);
+            this.resultLabel.Text = "  ";
+            // 
+            // toolTipLabel
+            // 
+            this.toolTipLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolTipLabel.Margin = new System.Windows.Forms.Padding(10, 1, 5, 2);
+            this.toolTipLabel.Name = "toolTipLabel";
+            this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
+            this.toolTipLabel.Text = "Hover a button to see instructions";
+            // 
+            // workLogIcon
+            // 
+            this.workLogIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.workLogIcon.Image = global::MouseController.Properties.Resources.workLogIcon;
+            this.workLogIcon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.workLogIcon.Name = "workLogIcon";
+            this.workLogIcon.Size = new System.Drawing.Size(23, 22);
+            this.workLogIcon.Text = "toolStripButton1";
+            this.workLogIcon.ToolTipText = "Click here to see your work Log";
+            this.workLogIcon.Click += new System.EventHandler(this.workLogIcon_Click);
+            // 
             // infoStatusButton
             // 
+            this.infoStatusButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.infoStatusButton.BackColor = System.Drawing.Color.White;
             this.infoStatusButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.infoStatusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.infoStatusButton.Image = ((System.Drawing.Image)(resources.GetObject("infoStatusButton.Image")));
@@ -93,21 +125,6 @@
             this.infoStatusButton.Size = new System.Drawing.Size(23, 22);
             this.infoStatusButton.Text = "toolStripButton1";
             this.infoStatusButton.ToolTipText = "Info";
-            // 
-            // resultLabel
-            // 
-            this.resultLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
-            this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(140, 22);
-            this.resultLabel.Text = "Result: 0 tasks completed";
-            // 
-            // toolTipLabel
-            // 
-            this.toolTipLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolTipLabel.Margin = new System.Windows.Forms.Padding(10, 1, 5, 2);
-            this.toolTipLabel.Name = "toolTipLabel";
-            this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
-            this.toolTipLabel.Text = "Hover a button to see instructions";
             // 
             // activitiesManagerButton
             // 
@@ -246,12 +263,21 @@
             this.conditionsManagerButton.MouseLeave += new System.EventHandler(this.actionSettingsButton_MouseLeave);
             this.conditionsManagerButton.MouseHover += new System.EventHandler(this.actionSettingsButton_MouseHover);
             // 
+            // workLogRichTextBox
+            // 
+            this.workLogRichTextBox.Location = new System.Drawing.Point(7, 89);
+            this.workLogRichTextBox.Name = "workLogRichTextBox";
+            this.workLogRichTextBox.Size = new System.Drawing.Size(656, 143);
+            this.workLogRichTextBox.TabIndex = 6;
+            this.workLogRichTextBox.Text = "";
+            this.workLogRichTextBox.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(672, 117);
+            this.ClientSize = new System.Drawing.Size(672, 115);
             this.Controls.Add(this.mainFormPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
@@ -281,6 +307,8 @@
         private System.Windows.Forms.ToolStripLabel resultLabel;
         private System.Windows.Forms.ToolStripLabel toolTipLabel;
         private System.Windows.Forms.ToolStripButton infoStatusButton;
+        private System.Windows.Forms.ToolStripButton workLogIcon;
+        private System.Windows.Forms.RichTextBox workLogRichTextBox;
     }
 }
 

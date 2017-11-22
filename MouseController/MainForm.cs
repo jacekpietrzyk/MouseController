@@ -217,6 +217,7 @@ namespace MouseController
         void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             resultLabel.Text = _agent.LastAction;
+            //workLogRichTextBox.Text = _agent.WorkLog;
         }
 
         private void stopButton_Click(object sender, EventArgs e)
@@ -390,6 +391,27 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.toolTipLabel, 9);
             fontLoader.AllocateFont(Constans.myFontFamily, this.resultLabel, 9);
         }
+
+        private void workLogIcon_Click(object sender, EventArgs e)
+        {
+            if (workLogRichTextBox.Visible == false)
+            {
+                this.Size = new Size(672, 270);
+                workLogRichTextBox.Visible = true;
+
+                
+            }
+            else
+            {
+                this.Size = new Size(672, 115);
+                workLogRichTextBox.Visible = false;
+                workLogRichTextBox.Text = "";
+            }
+        }
+
+        
+
+
     }
 
 
