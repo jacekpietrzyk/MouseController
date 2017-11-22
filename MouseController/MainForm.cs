@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -17,7 +17,7 @@ namespace MouseController
 
         WorkAgent _agent;
 
-
+        System.Timers.Timer _resultLabelTimer;
         public MainForm()
         {
             InitializeComponent();
@@ -51,7 +51,8 @@ namespace MouseController
                 StartPositionY = 10,
                 Height = 100,
                 Width = 300,
-                Name = "Obszar przykładowy"
+                Name = "Obszar przykladowy",
+                ActivityName = "Aktywnosc 1"
             };
             profile.Areas.Add(area);
 
@@ -73,12 +74,12 @@ namespace MouseController
             profile.Areas.Add(area2);
 
 
-            Activity act1 = new Activity { Name = "Aktywność 1" };
-            Activity act2 = new Activity { Name = "Aktywność 2" };
+            Activity act1 = new Activity { Name = "Aktywnosc 1" };
+            Activity act2 = new Activity { Name = "Aktywnosc 2" };
 
             ClickAction action1 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
             ClickAction action2 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
-            MoveAction action3 = new MoveAction(area) { Name = "Przesuń mysz", DelayTime = 2000, Active = true };
+            MoveAction action3 = new MoveAction(area) { Name = "Przesun mysz", DelayTime = 2000, Active = true };
 
             act1.AddAction(action1);
             act1.AddAction(action3);
@@ -88,7 +89,7 @@ namespace MouseController
             profile.Activities.Add(act2);
 
         }
-        
+
         #region Make Form Movable
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -118,13 +119,13 @@ namespace MouseController
         }
 
         #endregion
-        
+
         private void openButton_Click(object sender, EventArgs e)
         {
             JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
             WorkProfile deserializedProfile = serializer.DeserializeProfile();
 
-            if(deserializedProfile != null)
+            if (deserializedProfile != null)
             {
                 profile = deserializedProfile;
             }
@@ -197,14 +198,73 @@ namespace MouseController
             {
                 MessageBox.Show("An error occurred while starting the VatStatusChecker service: " + ex.Message);
             }
+
+            try
+            {
+                _resultLabelTimer = new System.Timers.Timer();
+                _resultLabelTimer.Interval = 500;
+                _resultLabelTimer.Elapsed += _timer_Elapsed;
+                _resultLabelTimer.Start();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An exception occurred while initializing the LabelTimer: " + ex.Message);
+            }
+
+            ChangeButtonsStatsus(false);
         }
+
+        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            resultLabel.Text = _agent.LastAction;
+        }
+
         private void stopButton_Click(object sender, EventArgs e)
         {
+            if (_resultLabelTimer != null)
+            {
+                _resultLabelTimer.Elapsed -= _timer_Elapsed;
+                _resultLabelTimer.Stop();
+                _resultLabelTimer.Dispose();
+            }
             if (_agent != null)
             {
                 _agent.Dispose();
                 _agent = null;
             }
+            ChangeButtonsStatsus(true);
+        }
+        public void ChangeButtonsStatsus(bool state)
+        {
+            openButton.Enabled = state;
+            resetButton.Enabled = state;
+            areasManagerButton.Enabled = state;
+            activitiesManagerButton.Enabled = state;
+            conditionsManagerButton.Enabled = state;
+            runButton.Enabled = state;
+            closeButton.Enabled = state;
+
+            if (state == true)
+            {
+                openButton.BackColor = Color.RoyalBlue;
+                resetButton.BackColor = Color.FromArgb(255, 192, 0, 0);
+                areasManagerButton.BackColor = Color.ForestGreen;
+                activitiesManagerButton.BackColor = Color.Orange;
+                conditionsManagerButton.BackColor = Color.RoyalBlue;
+                runButton.BackColor = Color.FromArgb(255, 192, 0, 0);
+                closeButton.BackColor = Color.Black;
+            }
+            else
+            {
+                openButton.BackColor = Color.Gray;
+                resetButton.BackColor = Color.Gray;
+                areasManagerButton.BackColor = Color.Gray;
+                activitiesManagerButton.BackColor = Color.Gray;
+                conditionsManagerButton.BackColor = Color.Gray;
+                runButton.BackColor = Color.Gray;
+                closeButton.BackColor = Color.Gray;
+            }
+
         }
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -220,6 +280,7 @@ namespace MouseController
                 {
                     JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
                     serializer.SaveJson(serializer.SerializeProfile(profile));
+                    this.Dispose();
                 }
             }
         }

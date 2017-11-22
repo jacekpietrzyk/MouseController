@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -22,6 +20,7 @@ namespace MouseController
             InitializeComponent();
             conditionsDataGridView.AutoGenerateColumns = false;
             AddDataGridViewColumns();
+
         }
         private void AddDataGridViewColumns()
         {
@@ -40,7 +39,10 @@ namespace MouseController
         DataGridViewComboBoxColumn CreateActivityComboColumn()
         {
             DataGridViewComboBoxColumn activityComboColumn = new DataGridViewComboBoxColumn();
-            activityComboColumn.DataSource = profile.Activities.Select(t => t.Name).ToArray();
+            List<string> activitiesNamesList = profile.Activities.Select(t => t.Name).ToList();
+            activitiesNamesList.Insert(0, "");
+            activityComboColumn.DataSource = activitiesNamesList;
+
             activityComboColumn.DataPropertyName = "ActivityName";
             activityComboColumn.Name = "Activity Name";
 

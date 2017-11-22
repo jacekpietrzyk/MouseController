@@ -51,7 +51,8 @@ namespace MouseController
             if (profile.Activities.Count != 0)
             {
                 actionsDataGridView.Enabled = true;
-                activitiesComboBox.DataSource = profile.Activities.Select(t => t.Name).ToList();
+                List<string> activitiesNamesList = profile.Activities.Select(t => t.Name).ToList();
+                activitiesComboBox.DataSource = activitiesNamesList;
             }
             else
             {
@@ -227,11 +228,11 @@ namespace MouseController
             this.Close();
         }
 
-        
-        
+
+
         // This event handler manually raises the CellValueChanged event 
         // by calling the CommitEdit method. 
-        
+
 
         private void actionsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -304,7 +305,7 @@ namespace MouseController
                 actionsDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
         }
-        
+
         private void ActivitiesManagerForm_Load(object sender, EventArgs e)
         {
             AllocateFont();
@@ -341,7 +342,7 @@ namespace MouseController
             }
             eventsNotSuspended = true;
         }
-        
+
         private void removeActivityPanel_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to remove this activity?", "Removing activity", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -350,7 +351,18 @@ namespace MouseController
                 {
                     try
                     {
-                        profile.Activities.Remove(profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First());
+                        eventsNotSuspended = false;
+
+                        IActivity activityToRemove = profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First();
+                        profile.Activities.Remove(activityToRemove);
+                        foreach (Area area in profile.Areas.Where(t => t.ActivityName == activityToRemove.Name))
+                        {
+                            area.ActivityName = String.Empty;
+                        }
+
+                        ReadActivitiesCollection();
+                        SetGridSource();
+                        eventsNotSuspended = true;
                     }
                     catch (Exception ex)
                     {
@@ -423,5 +435,7 @@ namespace MouseController
             removeActionPanel.BackColor = Color.White;
         }
         #endregion
+
+
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Security.Cryptography;
@@ -7,7 +6,7 @@ using System.Windows.Forms;
 
 namespace MouseController
 {
-	public class AnalyzeImages
+    public class AnalyzeImages
 	{
 		public enum CompareResult
 		{
