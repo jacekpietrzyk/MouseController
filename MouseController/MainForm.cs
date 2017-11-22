@@ -217,7 +217,10 @@ namespace MouseController
         void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             resultLabel.Text = _agent.LastAction;
-            //workLogRichTextBox.Text = _agent.WorkLog;
+            if (workLogRichTextBox.InvokeRequired)
+            {
+                workLogRichTextBox.Invoke((Action)(() => { workLogRichTextBox.Text = _agent.WorkLog; }));
+            }
         }
 
         private void stopButton_Click(object sender, EventArgs e)

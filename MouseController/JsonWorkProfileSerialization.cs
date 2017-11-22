@@ -57,10 +57,14 @@ namespace MouseController
         {
             try
             {
-                WorkProfile deserializedProfile = JsonConvert.DeserializeObject<WorkProfile>(this.OpenJson(),
-                                        new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects });
-
-                return deserializedProfile;
+                string jsonText = this.OpenJson();
+                if (jsonText != null)
+                {
+                    WorkProfile deserializedProfile = JsonConvert.DeserializeObject<WorkProfile>(jsonText,
+                                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects });
+                    return deserializedProfile;
+                }
+                else return null;
             }
             catch(Exception ex)
             {
