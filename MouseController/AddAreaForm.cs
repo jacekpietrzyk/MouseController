@@ -35,7 +35,7 @@ namespace MouseController
         {
             try
             {
-                analyze.MakeScreenShot(newArea);
+                analyze.AddScreenShotToArea(newArea);
                 previewPictureBox.Tag = newArea.Bitmap;
                 myToolTip.AutoSize = false;
                 myToolTip.Size = newArea.Bitmap.Size;

@@ -58,7 +58,7 @@ namespace MouseController
 			return cr;
 		}
 
-		public Bitmap MakeScreenShot(Area area)
+		public Bitmap AddScreenShotToArea(Area area)
 		{
 			using (Bitmap bmp = new Bitmap(area.Width, area.Height))
 			{
@@ -106,11 +106,9 @@ namespace MouseController
 
         public bool CompareAreas(Area conditionalArea, Area compareArea)
         {
-            MakeScreenShot(compareArea);
+            AddScreenShotToArea(compareArea);
             if (Compare(conditionalArea.Bitmap, compareArea.Bitmap) == 0)
             {
-                //resultLabel.Text = String.Format("Result: {0} task completed", resultCounter + 1);
-
                 return true;
             }
             else
@@ -119,7 +117,35 @@ namespace MouseController
             }
         }
 
+        public bool CompareAreaWithScreen(Area conditionalArea)
+        {
+            Area areaCapturedNowToCompare = CreateAreaToCompare(conditionalArea);
+            if(Compare(conditionalArea.Bitmap, areaCapturedNowToCompare.Bitmap) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
+        public Area CreateAreaToCompare(Area conditonalArea)
+        {
+            if (conditonalArea != null)
+            {
+                Area areaCapturedNow = new Area
+                {
+                    StartPositionX = conditonalArea.StartPositionX,
+                    StartPositionY = conditonalArea.StartPositionY,
+                    Width = conditonalArea.Width,
+                    Height = conditonalArea.Height
+                };
+                AddScreenShotToArea(areaCapturedNow);
+                return areaCapturedNow;
+            }
+            else return null;
+        }
     }
 
 

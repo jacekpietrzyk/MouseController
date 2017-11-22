@@ -17,7 +17,6 @@ namespace MouseController
 
         WorkAgent _agent;
 
-        int resultCounter = 0;
 
         public MainForm()
         {
@@ -41,7 +40,7 @@ namespace MouseController
         {
             Area area = new Area
             {
-                Bitmap = analyze.MakeScreenShot(new Area
+                Bitmap = analyze.AddScreenShotToArea(new Area
                 {
                     StartPositionX = 10,
                     StartPositionY = 10,
@@ -58,7 +57,7 @@ namespace MouseController
 
             Area area2 = new Area
             {
-                Bitmap = analyze.MakeScreenShot(new Area
+                Bitmap = analyze.AddScreenShotToArea(new Area
                 {
                     StartPositionX = 300,
                     StartPositionY = 300,
@@ -191,7 +190,7 @@ namespace MouseController
             {
                 if (_agent == null)
                 {
-                    _agent = new WorkAgent();
+                    _agent = new WorkAgent(profile);
                 }
             }
             catch (Exception ex)

@@ -4,18 +4,23 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MouseController
 {
     class WorkAgent : IDisposable
     {
+        WorkProfile profile;
 
+        AnalyzeImages analyze = new AnalyzeImages();
+        int resultCounter = 0;
+        
         private System.Timers.Timer _timer;
         private int _secondsInterval = Properties.Settings.Default.SecondsInterval;
         public bool _isNotRunning = true;
 
 
-        public WorkAgent()
+        public WorkAgent(WorkProfile profile)
         {
             try
             {
@@ -27,6 +32,18 @@ namespace MouseController
             catch (Exception ex)
             {
                 throw new Exception("An exception occurred while initializing the Timer: " + ex.Message);
+            }
+
+            try
+            {
+                if(profile != null)
+                {
+                    this.profile = profile;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Starting work with your profile failed: " + ex.Message);
             }
         }
 
@@ -47,11 +64,22 @@ namespace MouseController
 
             }
         }
-        void backgroungWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-        }
         void backgroungWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            foreach(Area area in profile.Areas.Where(t=>t.ActivityName != null || t.ActivityName != String.Empty))
+            {
+                if(analyze.CompareAreaWithScreen(area))
+                {
+                    Activity currentActivity = (Activity)profile.Activities.Where(t => t.Name == area.ActivityName).First();
+                    //ToDO
+                }
+            }
+        }
+
+        
+        void backgroungWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //resultLabel.Text = String.Format("Result: {0} task completed", resultCounter + 1);
         }
 
         private bool disposed = false;
