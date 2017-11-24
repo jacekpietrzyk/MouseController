@@ -22,7 +22,8 @@ namespace MouseController
             if (area.Name != "" && area.Name != String.Empty && area.Name != null)
             {
                 _edit = true;
-                nameLabel.Text = area.Name;
+                nameTextBox.Enabled = true;
+                nameTextBox.Text = area.Name;
                 startPositionValueLabel.Text = "X: " + newArea.StartPositionX + "  Y: " + newArea.StartPositionY;
                 dimensionsValueLabel.Text = "Width: " + newArea.Width + ",  Height: " + newArea.Height;
                 CaptureAndShowArea();
@@ -37,10 +38,7 @@ namespace MouseController
         {
             try
             {
-                if (!_edit)
-                {
-                    analyze.AddScreenShotToArea(newArea);
-                }
+                analyze.AddScreenShotToArea(newArea);
                 previewPictureBox.Tag = newArea.Bitmap;
                 myToolTip.AutoSize = false;
                 myToolTip.Size = newArea.Bitmap.Size;

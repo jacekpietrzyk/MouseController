@@ -162,7 +162,22 @@ namespace MouseController
 
         private void editAreaPanel_Click(object sender, EventArgs e)
         {
+            profile.BeginEdit();
+            Area areaToEdit = profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First();
 
+            using (AddAreaForm addAreaForm = new AddAreaForm(areaToEdit))
+            {
+                addAreaForm.ShowDialog();
+
+                if (addAreaForm.DialogResult == DialogResult.OK)
+                {
+                    profile.EndEdit();
+                }
+                else if (addAreaForm.DialogResult == DialogResult.Cancel)
+                {
+                    profile.CancelEdit();
+                }
+            }
         }
 
 

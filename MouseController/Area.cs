@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using Newtonsoft.Json;
 using System.IO;
+using System;
 
 namespace MouseController
 {
@@ -18,22 +19,23 @@ namespace MouseController
         [JsonIgnore]
         public Bitmap Bitmap { get; set; }
         [JsonProperty]
-        private byte[] BitmapByteArray
+        private string BitmapByteArray
         {
             get
             {
                 ImageConverter converter = new ImageConverter();
-                return (byte[])converter.ConvertTo(Bitmap, typeof(byte[]));
+                return Convert.ToBase64String((byte[])converter.ConvertTo(this.Bitmap, typeof(byte[])));
             }
             set
             {
-                using (var memoryStream = new MemoryStream(value))
+                var bytes = Convert.FromBase64String(value);
+                using (var ms = new MemoryStream(bytes))
                 {
-                    this.Bitmap = new Bitmap(memoryStream);
+                    this.Bitmap = new Bitmap(Bitmap.FromStream(ms));
                 }
             }
         }
-        
+
 
         public string ActivityName { get; set; }
         [JsonIgnore]
