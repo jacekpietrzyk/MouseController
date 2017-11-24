@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainFormPanel = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.resultLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolTipLabel = new System.Windows.Forms.ToolStripLabel();
             this.workLogIcon = new System.Windows.Forms.ToolStripButton();
             this.infoStatusButton = new System.Windows.Forms.ToolStripButton();
+            this.resultLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolTipLabel = new System.Windows.Forms.ToolStripLabel();
             this.activitiesManagerButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.areasManagerButton = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.closeButton = new System.Windows.Forms.Button();
             this.conditionsManagerButton = new System.Windows.Forms.Button();
             this.workLogRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.formAnimationTimer = new System.Windows.Forms.Timer(this.components);
             this.mainFormPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -86,21 +88,6 @@
             this.toolStrip1.Text = "toolStrip2";
             this.toolStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStrip1_MouseDown_1);
             // 
-            // resultLabel
-            // 
-            this.resultLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
-            this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(13, 22);
-            this.resultLabel.Text = "  ";
-            // 
-            // toolTipLabel
-            // 
-            this.toolTipLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolTipLabel.Margin = new System.Windows.Forms.Padding(10, 1, 5, 2);
-            this.toolTipLabel.Name = "toolTipLabel";
-            this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
-            this.toolTipLabel.Text = "Hover a button to see instructions";
-            // 
             // workLogIcon
             // 
             this.workLogIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -109,7 +96,7 @@
             this.workLogIcon.Name = "workLogIcon";
             this.workLogIcon.Size = new System.Drawing.Size(23, 22);
             this.workLogIcon.Text = "toolStripButton1";
-            this.workLogIcon.ToolTipText = "Click here to see your work Log";
+            this.workLogIcon.ToolTipText = "Click here to see your work log";
             this.workLogIcon.Click += new System.EventHandler(this.workLogIcon_Click);
             // 
             // infoStatusButton
@@ -125,6 +112,21 @@
             this.infoStatusButton.Size = new System.Drawing.Size(23, 22);
             this.infoStatusButton.Text = "toolStripButton1";
             this.infoStatusButton.ToolTipText = "Info";
+            // 
+            // resultLabel
+            // 
+            this.resultLabel.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(13, 22);
+            this.resultLabel.Text = "  ";
+            // 
+            // toolTipLabel
+            // 
+            this.toolTipLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolTipLabel.Margin = new System.Windows.Forms.Padding(10, 1, 5, 2);
+            this.toolTipLabel.Name = "toolTipLabel";
+            this.toolTipLabel.Size = new System.Drawing.Size(186, 22);
+            this.toolTipLabel.Text = "Hover a button to see instructions";
             // 
             // activitiesManagerButton
             // 
@@ -272,6 +274,11 @@
             this.workLogRichTextBox.Text = "";
             this.workLogRichTextBox.Visible = false;
             // 
+            // formAnimationTimer
+            // 
+            this.formAnimationTimer.Interval = 5;
+            this.formAnimationTimer.Tick += new System.EventHandler(this.formAnimationTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,6 +316,7 @@
         private System.Windows.Forms.ToolStripButton infoStatusButton;
         private System.Windows.Forms.ToolStripButton workLogIcon;
         private System.Windows.Forms.RichTextBox workLogRichTextBox;
+        private System.Windows.Forms.Timer formAnimationTimer;
     }
 }
 

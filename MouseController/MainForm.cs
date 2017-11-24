@@ -14,7 +14,7 @@ namespace MouseController
 
         Area area = new Area();
         Area compareArea = new Area();
-
+        private bool formGrow = true;
         WorkAgent _agent;
 
         System.Timers.Timer _resultLabelTimer;
@@ -128,6 +128,7 @@ namespace MouseController
             if (deserializedProfile != null)
             {
                 profile = deserializedProfile;
+
             }
         }
         private void resetButton_Click(object sender, EventArgs e)
@@ -192,63 +193,58 @@ namespace MouseController
                 if (_agent == null)
                 {
                     _agent = new WorkAgent(profile);
+                    _agent.LogChanged += _agent_LogChanged;
+                    _agent.WorkStartedNotification();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while starting the VatStatusChecker service: " + ex.Message);
             }
-
-            try
-            {
-                _resultLabelTimer = new System.Timers.Timer();
-                _resultLabelTimer.Interval = 500;
-                _resultLabelTimer.Elapsed += _timer_Elapsed;
-                _resultLabelTimer.Start();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An exception occurred while initializing the LabelTimer: " + ex.Message);
-            }
-
             ChangeButtonsStatsus(false);
         }
-
-        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void _agent_LogChanged(object sender, EventArgs e)
         {
             resultLabel.Text = _agent.LastAction;
             if (workLogRichTextBox.InvokeRequired)
             {
-                workLogRichTextBox.Invoke((Action)(() => { workLogRichTextBox.Text = _agent.WorkLog; }));
+                workLogRichTextBox.Invoke((Action)(() =>
+                {
+                    workLogRichTextBox.Text = _agent.WorkLog;
+                    workLogRichTextBox.SelectionStart = workLogRichTextBox.Text.Length;
+                    workLogRichTextBox.ScrollToCaret();
+                }));
             }
+            else { workLogRichTextBox.Text = _agent.WorkLog; }
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
             if (_resultLabelTimer != null)
             {
-                _resultLabelTimer.Elapsed -= _timer_Elapsed;
+
                 _resultLabelTimer.Stop();
                 _resultLabelTimer.Dispose();
             }
             if (_agent != null)
             {
+                _agent.LogChanged -= _agent_LogChanged;
                 _agent.Dispose();
                 _agent = null;
             }
             ChangeButtonsStatsus(true);
         }
-        public void ChangeButtonsStatsus(bool state)
+        public void ChangeButtonsStatsus(bool isEnabled)
         {
-            openButton.Enabled = state;
-            resetButton.Enabled = state;
-            areasManagerButton.Enabled = state;
-            activitiesManagerButton.Enabled = state;
-            conditionsManagerButton.Enabled = state;
-            runButton.Enabled = state;
-            closeButton.Enabled = state;
+            openButton.Enabled = isEnabled;
+            resetButton.Enabled = isEnabled;
+            areasManagerButton.Enabled = isEnabled;
+            activitiesManagerButton.Enabled = isEnabled;
+            conditionsManagerButton.Enabled = isEnabled;
+            runButton.Enabled = isEnabled;
+            closeButton.Enabled = isEnabled;
 
-            if (state == true)
+            if (isEnabled == true)
             {
                 openButton.BackColor = Color.RoyalBlue;
                 resetButton.BackColor = Color.FromArgb(255, 192, 0, 0);
@@ -397,24 +393,38 @@ namespace MouseController
 
         private void workLogIcon_Click(object sender, EventArgs e)
         {
-            if (workLogRichTextBox.Visible == false)
+            if (workLogRichTextBox.Visible)
             {
-                this.Size = new Size(672, 270);
-                workLogRichTextBox.Visible = true;
-
-                
+                workLogRichTextBox.Visible = false;
             }
             else
             {
-                this.Size = new Size(672, 115);
-                workLogRichTextBox.Visible = false;
-                workLogRichTextBox.Text = "";
+                workLogRichTextBox.Visible = true;
             }
+            formAnimationTimer.Enabled = true;
         }
 
-        
-
-
+        private void formAnimationTimer_Tick(object sender, EventArgs e)
+        {
+            if (formGrow == true && this.Height <= 270)
+            {
+                this.Height += 5;
+            }
+            else if (formGrow == true && this.Height > 270)
+            {
+                formAnimationTimer.Enabled = false;
+                formGrow = false;
+            }
+            if (formGrow == false && this.Height > 115)
+            {
+                this.Height -= 5;
+            }
+            else if (formGrow == false && this.Height <= 115)
+            {
+                formAnimationTimer.Enabled = false;
+                formGrow = true;
+            }
+        }
     }
 
 

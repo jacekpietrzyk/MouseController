@@ -197,5 +197,14 @@
   <ItemGroup>
     <None Include="Resources\workLogIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editArea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editArea_m.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editArea1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

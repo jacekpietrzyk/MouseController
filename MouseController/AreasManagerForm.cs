@@ -71,27 +71,29 @@ namespace MouseController
             }
         }
 
-
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            OnFormClose(DialogResult.OK);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            OnFormClose(DialogResult.Cancel);
         }
 
         private void closePictureBox_Click(object sender, EventArgs e)
         {
-
-            this.DialogResult = DialogResult.Cancel;
+            OnFormClose(DialogResult.Cancel);
+        }
+        public void OnFormClose(DialogResult result)
+        {
+            if (profile != null)
+            {
+                profile.Areas.CollectionChanged -= Areas_CollectionChanged;
+            }
+            this.DialogResult = result;
             this.Close();
         }
-
         private void areasComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetPreviewArea();
@@ -135,8 +137,16 @@ namespace MouseController
         }
         private void addAreaPanel_Click(object sender, EventArgs e)
         {
-            AddAreaForm addAreaForm = new AddAreaForm(profile.Areas);
-            addAreaForm.ShowDialog();
+            Area areaToAdd = new Area();
+            using (AddAreaForm addAreaForm = new AddAreaForm(areaToAdd))
+            {
+                addAreaForm.ShowDialog();
+
+                if (addAreaForm.DialogResult == DialogResult.OK)
+                {
+                    profile.Areas.Add(areaToAdd);
+                }
+            }
         }
 
         private void removeAreaPanel_Click(object sender, EventArgs e)
@@ -149,6 +159,12 @@ namespace MouseController
                 }
             }
         }
+
+        private void editAreaPanel_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void closePictureBox_MouseEnter(object sender, EventArgs e)
         {
@@ -178,6 +194,18 @@ namespace MouseController
         private void removeAreaPanel_MouseLeave(object sender, EventArgs e)
         {
             removeAreaPanel.BackColor = Color.White;
+        }
+
+
+
+        private void editAreaPanel_MouseLeave(object sender, EventArgs e)
+        {
+            editAreaPanel.BackColor = Color.White;
+        }
+
+        private void editAreaPanel_MouseEnter(object sender, EventArgs e)
+        {
+            editAreaPanel.BackColor = Color.Gainsboro;
         }
     }
 

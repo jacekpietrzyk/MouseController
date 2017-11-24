@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -13,8 +14,20 @@ namespace MouseController
 
         AnalyzeImages analyze = new AnalyzeImages();
         int resultCounter = 0;
-        public string WorkLog { get; set; } = "";
+        private string _workLog;
+
+        public string WorkLog
+        {
+            get { return _workLog; }
+            private set
+            {
+                _workLog = value;
+                OnLogChanged(this, EventArgs.Empty);
+            }
+        }
+
         public string LastAction { get; set; } = "";
+        public event EventHandler LogChanged;
 
         private StringBuilder builder = new StringBuilder();
 
@@ -47,7 +60,17 @@ namespace MouseController
             {
                 MessageBox.Show("Starting work with your profile failed: " + ex.Message);
             }
+        }
+        public void WorkStartedNotification()
+        {
             UpdateLogs("Work started");
+        }
+        private void OnLogChanged(object sender, EventArgs e)
+        {
+            if (LogChanged != null)
+            {
+                LogChanged(this, e);
+            }
         }
 
         void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -68,7 +91,7 @@ namespace MouseController
         }
         void backgroungWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            
+
             foreach (Area area in profile.Areas.Where(t => t.ActivityName != null || t.ActivityName != String.Empty))
             {
                 if (analyze.CompareAreaWithScreen(area) && profile.Activities.Where(t => t.Name == area.ActivityName).Any())
@@ -86,16 +109,15 @@ namespace MouseController
                 }
             }
         }
-        
+
 
         public void UpdateLogs(string message)
         {
             LastAction = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss") + ": " + message;
             builder.AppendLine(LastAction);
             WorkLog = builder.ToString();
-            
         }
-        
+
         void backgroungWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _isNotRunning = true;
@@ -134,6 +156,7 @@ namespace MouseController
                         _timer.Stop();
                         _timer.Dispose();
                     }
+
                 }
                 disposed = true;
             }

@@ -11,22 +11,20 @@ namespace MouseController
 {
     class JsonWorkProfileSerialization
     {
-
         public string SerializeProfile(WorkProfile profile)
         {
             try
             {
                 string result = JsonConvert.SerializeObject(profile, Formatting.Indented,
-                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects});
+                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects });
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Serialization failded: " + ex.Message);
                 return null;
             }
         }
-
         public void SaveJson(string result)
         {
             using (SaveFileDialog saveJsonDialog = new SaveFileDialog())
@@ -36,23 +34,22 @@ namespace MouseController
                 saveJsonDialog.InitialDirectory = Constans.UserSettings.ToString();
                 saveJsonDialog.FileName = "myProfile.json";
 
-                if(saveJsonDialog.ShowDialog() == DialogResult.OK)
+                if (saveJsonDialog.ShowDialog() == DialogResult.OK)
                 {
                     StreamWriter writing = new StreamWriter(saveJsonDialog.FileName);
                     try
                     {
                         writing.Write(result);
                         writing.Close();
-                        MessageBox.Show("The profile has been saved");
+                        MessageBox.Show("Serialization succesfully finished.");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show("Saving json file failed: " + ex.Message);
                     }
                 }
             }
         }
-
         public WorkProfile DeserializeProfile()
         {
             try
@@ -62,11 +59,12 @@ namespace MouseController
                 {
                     WorkProfile deserializedProfile = JsonConvert.DeserializeObject<WorkProfile>(jsonText,
                                             new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects, TypeNameHandling = TypeNameHandling.Objects });
+                    MessageBox.Show("Deserialization successfully finished");
                     return deserializedProfile;
                 }
                 else return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Deserialization failed: " + ex.Message);
                 return null;
@@ -93,6 +91,5 @@ namespace MouseController
                 else return null;
             }
         }
-        
     }
 }

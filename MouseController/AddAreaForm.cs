@@ -7,19 +7,27 @@ namespace MouseController
 {
     public partial class AddAreaForm : Form
     {
-        ObservableCollection<Area> areas;
+        //ObservableCollection<Area> areas;
         AnalyzeImages analyze = new AnalyzeImages();
         private bool _readingAreaPoints = false;
         CustomizedToolTip myToolTip = new CustomizedToolTip();
         Area newArea;
+        private bool _edit = false;
 
-
-        public AddAreaForm(ObservableCollection<Area> areas)
+        public AddAreaForm(Area area)
         {
             InitializeComponent();
+            this.newArea = area;
 
-            this.areas = areas;
-            this.Focus();
+            if (area.Name != "" && area.Name != String.Empty && area.Name != null)
+            {
+                _edit = true;
+                nameLabel.Text = area.Name;
+                startPositionValueLabel.Text = "X: " + newArea.StartPositionX + "  Y: " + newArea.StartPositionY;
+                dimensionsValueLabel.Text = "Width: " + newArea.Width + ",  Height: " + newArea.Height;
+                CaptureAndShowArea();
+                previewPictureBox.BackColor = Color.DarkGreen;
+            }
             myToolTip.SetToolTip(previewPictureBox, "Preview disabled");
             myToolTip.InitialDelay = 1;
             timer.Enabled = true;
@@ -29,7 +37,10 @@ namespace MouseController
         {
             try
             {
-                analyze.AddScreenShotToArea(newArea);
+                if (!_edit)
+                {
+                    analyze.AddScreenShotToArea(newArea);
+                }
                 previewPictureBox.Tag = newArea.Bitmap;
                 myToolTip.AutoSize = false;
                 myToolTip.Size = newArea.Bitmap.Size;
@@ -88,7 +99,6 @@ namespace MouseController
             {
                 if (e.KeyCode == Keys.Home)
                 {
-                    newArea = new Area();
                     newArea.StartPositionX = Cursor.Position.X;
                     newArea.StartPositionY = Cursor.Position.Y;
                 }
@@ -146,7 +156,6 @@ namespace MouseController
             if (!string.IsNullOrEmpty(nameTextBox.Text) && nameTextBox.Text != "Type a name here...")
             {
                 newArea.Name = nameTextBox.Text;
-                areas.Add(newArea);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
