@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace MouseController
 {
@@ -45,6 +46,25 @@ namespace MouseController
             _activities.Add(newActivity);
             
         }
+        public void RemoveActivity(string activityToRemoveName)
+        {
+            if ((this.Activities.Where(t => t.Name == activityToRemoveName).Any()))
+            {
+                try
+                {
+                    IActivity activityToRemove = this.Activities.Where(t => t.Name == activityToRemoveName).First();
+                    this.Activities.Remove(activityToRemove);
+                    foreach (Area area in this.Areas.Where(t => t.ActivityName == activityToRemove.Name))
+                    {
+                        area.ActivityName = String.Empty;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Exception occurred while removing the activity");
+                }
+            }
+        }
         
         public ObservableCollection<Area> GetAreas()
         {
@@ -59,10 +79,7 @@ namespace MouseController
         {
             if (!inTxn)
             {
-                this.backupData.name = Name;
-                this.backupData.areas = new ObservableCollection<Area>(Areas.Select(t => t).ToList());
-                this.backupData.activities = new System.Collections.ObjectModel.ObservableCollection<IActivity>(Activities.Select(t => t).ToList());
-
+                this.backupData = (ProfileData)this.Clone();
                 inTxn = true;
             }
         }
@@ -98,12 +115,14 @@ namespace MouseController
 
         public object Clone() // DeepClone
         {
-            WorkProfile profileClone = new WorkProfile();
-            profileClone.Name = this.Name;
+            ProfileData profileClone = new ProfileData();
+            profileClone.name = this.Name;
+            profileClone.areas = new ObservableCollection<Area>();
+            profileClone.activities = new ObservableCollection<IActivity>();
 
-            foreach(Area area in Areas)
+            foreach (Area area in Areas)
             {
-                profileClone.AddArea(new Area
+                profileClone.areas.Add(new Area
                 {
                     Name = area.Name,
                     StartPositionX = area.StartPositionX,
@@ -136,7 +155,7 @@ namespace MouseController
                     else if(action.Type == Type.MoveAction)
                     {
                         MoveAction moveAction = (MoveAction)action;
-                        activityClone.AddAction(new MoveAction(profileClone.Areas.Where(t => t.Name == moveAction.Area.Name).First())
+                        activityClone.AddAction(new MoveAction(profileClone.areas.Where(t => t.Name == moveAction.Area.Name).First())
                         {
                             Name = moveAction.Name,
                             Active = moveAction.Active,
@@ -145,7 +164,7 @@ namespace MouseController
                     }
                     
                 }
-                profileClone.AddActivity(activityClone);
+                profileClone.activities.Add(activityClone);
             }
             return profileClone;
         }

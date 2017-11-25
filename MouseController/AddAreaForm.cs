@@ -7,7 +7,6 @@ namespace MouseController
 {
     public partial class AddAreaForm : Form
     {
-        //ObservableCollection<Area> areas;
         AnalyzeImages analyze = new AnalyzeImages();
         private bool _readingAreaPoints = false;
         CustomizedToolTip myToolTip = new CustomizedToolTip();

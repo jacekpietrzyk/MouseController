@@ -54,7 +54,21 @@ namespace MouseController
             {
                 return StartPositionY + Height / 2;
             }
+        }
 
+        public Area Clone()
+        {
+            return new Area
+            {
+                Name = this.Name,
+                StartPositionX = this.StartPositionX,
+                StartPositionY = this.StartPositionY,
+                Width = this.Width,
+                Height = this.Height,
+                FileName = this.FileName,
+                ActivityName = this.ActivityName,
+                Bitmap = (Bitmap)this.Bitmap.Clone()
+            };
         }
     }
 }

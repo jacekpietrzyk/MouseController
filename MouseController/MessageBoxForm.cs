@@ -12,9 +12,11 @@ namespace MouseController
 {
     public partial class MessageBoxForm : Form
     {
-        public MessageBoxForm()
+        public MessageBoxForm(string headline, string question)
         {
             InitializeComponent();
+            questionLabel.Text = question;
+            headlineLabel.Text = headline;
         }
 
 
@@ -74,7 +76,7 @@ namespace MouseController
         {
             FontLoader fontLoader = new FontLoader();
 
-            fontLoader.AllocateFont(Constans.myFontFamily, this.saveWorkProfileLabel, 20);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.headlineLabel, 20);
             fontLoader.AllocateFont(Constans.myFontFamily, this.questionLabel, 12);
             fontLoader.AllocateFont(Constans.myFontFamily, this.yesButton, 8.25f);
             fontLoader.AllocateFont(Constans.myFontFamily, this.noButton, 8.25f);

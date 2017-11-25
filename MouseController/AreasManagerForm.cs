@@ -85,6 +85,7 @@ namespace MouseController
         {
             OnFormClose(DialogResult.Cancel);
         }
+
         public void OnFormClose(DialogResult result)
         {
             if (profile != null)
@@ -135,6 +136,7 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
             fontLoader.AllocateFont(Constans.myFontFamily, this.acceptButton, 8.25f);
         }
+
         private void addAreaPanel_Click(object sender, EventArgs e)
         {
             Area areaToAdd = new Area();
@@ -162,24 +164,26 @@ namespace MouseController
 
         private void editAreaPanel_Click(object sender, EventArgs e)
         {
-            profile.BeginEdit();
+            
             Area areaToEdit = profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First();
+            Area clonedArea = areaToEdit.Clone();
 
-            using (AddAreaForm addAreaForm = new AddAreaForm(areaToEdit))
+            using (AddAreaForm addAreaForm = new AddAreaForm(clonedArea))
             {
                 addAreaForm.ShowDialog();
 
                 if (addAreaForm.DialogResult == DialogResult.OK)
                 {
-                    profile.EndEdit();
-                }
-                else if (addAreaForm.DialogResult == DialogResult.Cancel)
-                {
-                    profile.CancelEdit();
+                    int index = profile.Areas.IndexOf(areaToEdit);
+                    profile.Areas.RemoveAt(index);
+                    profile.Areas.Insert(index, clonedArea);
+                    SetPreviewArea();
+                    ReadAreasCollection();
                 }
             }
         }
 
+        #region Mouse Hover Events
 
         private void closePictureBox_MouseEnter(object sender, EventArgs e)
         {
@@ -211,8 +215,6 @@ namespace MouseController
             removeAreaPanel.BackColor = Color.White;
         }
 
-
-
         private void editAreaPanel_MouseLeave(object sender, EventArgs e)
         {
             editAreaPanel.BackColor = Color.White;
@@ -222,7 +224,7 @@ namespace MouseController
         {
             editAreaPanel.BackColor = Color.Gainsboro;
         }
+
+        #endregion
     }
-
-
 }

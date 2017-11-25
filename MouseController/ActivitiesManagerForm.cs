@@ -26,16 +26,8 @@ namespace MouseController
             AddDataGridViewColumns();
 
             profile.Activities.CollectionChanged += Activities_CollectionChanged;
-
-
-            // Add the events to listen for
-            actionsDataGridView.CellValueChanged +=
-                 new DataGridViewCellEventHandler(actionsDataGridView_CellValueChanged);
-            actionsDataGridView.CurrentCellDirtyStateChanged +=
-                 new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
-
-
-
+            actionsDataGridView.CellValueChanged += new DataGridViewCellEventHandler(actionsDataGridView_CellValueChanged);
+            actionsDataGridView.CurrentCellDirtyStateChanged += new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
         }
 
         private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -228,28 +220,30 @@ namespace MouseController
             this.Close();
         }
 
-
-
-        // This event handler manually raises the CellValueChanged event 
-        // by calling the CommitEdit method. 
-
-
+        // This event handler manually raises the CellValueChanged event  by calling the CommitEdit method. 
+        private void actionsDataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+          
+            if (actionsDataGridView.IsCurrentCellDirty)
+            {
+                actionsDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit); // This fires the cell value changed handler below
+            }
+        }
         private void actionsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 2 && e.RowIndex < currentActions.Count) //Type triggered
+            if(e.RowIndex < currentActions.Count)
             {
-                UpdateWhenTypeChanges(e);
-            }
-            if (e.ColumnIndex == 4 && e.RowIndex < currentActions.Count) //Area triggered
-            {
-                DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[4];
-                if (cb.Value != null)
+                if (e.ColumnIndex == 2) //Type triggered
                 {
-                    DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
-                    int editedActionIndex = currentActions.IndexOf(currentActions.Where(t => t.Name == tb.Value.ToString()).First());
-                    MoveAction editedAction = (MoveAction)currentActions[editedActionIndex];
-                    Area areaToPutIn = profile.Areas.Where(t => t.Name == cb.Value.ToString()).First();
-                    editedAction.Area = areaToPutIn;
+                    UpdateWhenTypeChanges(e);
+                }
+                if (e.ColumnIndex == 3) //DelayTime triggered
+                {
+                    CheckDelayTimeValue(e);
+                }
+                if (e.ColumnIndex == 4) //Area triggered
+                {
+                    UpdateWhenAreaChanges(e);
                 }
             }
         }
@@ -278,6 +272,7 @@ namespace MouseController
                         newAction = new MoveAction(firstArea) { Name = editedAction.Name, Type = Type.MoveAction, DelayTime = editedAction.DelayTime, Active = editedAction.Active };
                         currentActions.Remove(editedAction);
                         currentActions.Insert(editedActionIndex, newAction);
+                        
                         actionsDataGridView.Invalidate();
 
                     }
@@ -291,20 +286,32 @@ namespace MouseController
                     newAction = new ClickAction { Name = editedAction.Name, DelayTime = editedAction.DelayTime, Type = Type.ClickAction, Active = editedAction.Active };
                     currentActions.Remove(editedAction);
                     currentActions.Insert(editedActionIndex, newAction);
+                    
                     actionsDataGridView.Invalidate();
                 }
                 SetGridSource();
-
+                
             }
         }
-        private void actionsDataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        private void UpdateWhenAreaChanges(DataGridViewCellEventArgs e)
         {
-            if (actionsDataGridView.IsCurrentCellDirty)
+            DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[4];
+            if (cb.Value != null)
             {
-                // This fires the cell value changed handler below
-                actionsDataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
+                int editedActionIndex = currentActions.IndexOf(currentActions.Where(t => t.Name == tb.Value.ToString()).First());
+                MoveAction editedAction = (MoveAction)currentActions[editedActionIndex];
+                Area areaToPutIn = profile.Areas.Where(t => t.Name == cb.Value.ToString()).First();
+                editedAction.Area = areaToPutIn;
             }
         }
+
+        private void CheckDelayTimeValue(DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        
 
         private void ActivitiesManagerForm_Load(object sender, EventArgs e)
         {
@@ -329,6 +336,7 @@ namespace MouseController
         private void addActivityPanel_Click(object sender, EventArgs e)
         {
             eventsNotSuspended = false;
+
             using (AddActivityForm addActivityForm = new AddActivityForm(profile.Activities))
             {
                 addActivityForm.ShowDialog();
@@ -345,24 +353,15 @@ namespace MouseController
 
         private void removeActivityPanel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to remove this activity?", "Removing activity", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            using (MessageBoxForm form = new MessageBoxForm("REMOVING ACTIVITY", "Are you sure you want to remove this activity?"))
             {
-                if (profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).Any())
+                DialogResult result = form.ShowDialog();
+
+                if (result == DialogResult.Yes)
                 {
                     try
                     {
-                        eventsNotSuspended = false;
-
-                        IActivity activityToRemove = profile.Activities.Where(t => t.Name == activitiesComboBox.SelectedItem.ToString()).First();
-                        profile.Activities.Remove(activityToRemove);
-                        foreach (Area area in profile.Areas.Where(t => t.ActivityName == activityToRemove.Name))
-                        {
-                            area.ActivityName = String.Empty;
-                        }
-
-                        ReadActivitiesCollection();
-                        SetGridSource();
-                        eventsNotSuspended = true;
+                        profile.RemoveActivity(activitiesComboBox.SelectedItem.ToString());
                     }
                     catch (Exception ex)
                     {
@@ -434,8 +433,36 @@ namespace MouseController
         {
             removeActionPanel.BackColor = Color.White;
         }
+
         #endregion
 
+        private void ActivitiesManagerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(profile != null)
+            {
+                profile.Activities.CollectionChanged -= Activities_CollectionChanged;
+            }
+            if(actionsDataGridView != null)
+            {
+                actionsDataGridView.CellValueChanged -=new DataGridViewCellEventHandler(actionsDataGridView_CellValueChanged);
+                actionsDataGridView.CurrentCellDirtyStateChanged -= new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
+            }
+        }
 
+        private void actionsDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            
+            
+        }
+
+        private void actionsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+           
+        }
+
+        private void actionsDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
     }
 }

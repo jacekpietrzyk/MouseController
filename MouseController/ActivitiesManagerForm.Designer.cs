@@ -60,8 +60,11 @@
             this.actionsDataGridView.Size = new System.Drawing.Size(546, 264);
             this.actionsDataGridView.TabIndex = 0;
             this.actionsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.actionsDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.actionsDataGridView_CellValidating);
             this.actionsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.actionsDataGridView_CellValueChanged);
             this.actionsDataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.actionsDataGridView_CurrentCellDirtyStateChanged);
+            this.actionsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.actionsDataGridView_DataError);
+            this.actionsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.actionsDataGridView_KeyDown);
             // 
             // panel1
             // 
@@ -265,6 +268,7 @@
             this.Name = "ActivitiesManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Activities Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActivitiesManagerForm_FormClosing);
             this.Load += new System.EventHandler(this.ActivitiesManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.actionsDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);

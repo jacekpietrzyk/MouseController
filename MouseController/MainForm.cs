@@ -133,7 +133,15 @@ namespace MouseController
         }
         private void resetButton_Click(object sender, EventArgs e)
         {
-            profile = new WorkProfile();
+            using (MessageBoxForm form = new MessageBoxForm("CLEAN PROFILE", "Are you sure you want to clean the profile?"))
+            {
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.Yes)
+                {
+                    profile = new WorkProfile();
+                }
+            }
+                
         }
         private void areasManagerButton_Click(object sender, EventArgs e)
         {
@@ -268,7 +276,7 @@ namespace MouseController
         }
         private void closeButton_Click(object sender, EventArgs e)
         {
-            using (MessageBoxForm form = new MessageBoxForm())
+            using (MessageBoxForm form = new MessageBoxForm("SAVE PROFILE", "Do you want to save your work profile?"))
             {
                 DialogResult result = form.ShowDialog();
 
