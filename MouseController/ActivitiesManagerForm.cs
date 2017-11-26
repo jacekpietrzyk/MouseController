@@ -457,7 +457,11 @@ namespace MouseController
 
         private void actionsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-           
+           if(e.ColumnIndex == 3)
+            {
+                //actionsDataGridView.CurrentCellDirtyStateChanged -= new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
+                MessageBox.Show("Data Error");
+            }
         }
 
         private void actionsDataGridView_KeyDown(object sender, KeyEventArgs e)
