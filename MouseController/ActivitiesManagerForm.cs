@@ -373,7 +373,7 @@ namespace MouseController
 
         private void addActionPanel_Click(object sender, EventArgs e)
         {
-            currentActions.Add(new ClickAction());
+            currentActions.Add(new ClickAction() { Active = true });
             SetGridSource();
         }
 

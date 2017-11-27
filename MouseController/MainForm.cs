@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -22,7 +23,6 @@ namespace MouseController
         {
             InitializeComponent();
             InitializeConstans();
-            WriteSampleData();
         }
 
         private void InitializeConstans()
@@ -36,59 +36,59 @@ namespace MouseController
                 _existsApplicationStartError = true;
             }
         }
-        public void WriteSampleData()
-        {
-            Area area = new Area
-            {
-                Bitmap = analyze.AddScreenShotToArea(new Area
-                {
-                    StartPositionX = 10,
-                    StartPositionY = 10,
-                    Height = 100,
-                    Width = 300
-                }),
-                StartPositionX = 10,
-                StartPositionY = 10,
-                Height = 100,
-                Width = 300,
-                Name = "Obszar przykladowy",
-                ActivityName = "Aktywnosc 1"
-            };
-            profile.Areas.Add(area);
+        //public void WriteSampleData()
+        //{
+        //    Area area = new Area
+        //    {
+        //        Bitmap = analyze.AddScreenShotToArea(new Area
+        //        {
+        //            StartPositionX = 10,
+        //            StartPositionY = 10,
+        //            Height = 100,
+        //            Width = 300
+        //        }),
+        //        StartPositionX = 10,
+        //        StartPositionY = 10,
+        //        Height = 100,
+        //        Width = 300,
+        //        Name = "Obszar przykladowy",
+        //        ActivityName = "Aktywnosc 1"
+        //    };
+        //    profile.Areas.Add(area);
 
-            Area area2 = new Area
-            {
-                Bitmap = analyze.AddScreenShotToArea(new Area
-                {
-                    StartPositionX = 300,
-                    StartPositionY = 300,
-                    Height = 200,
-                    Width = 200
-                }),
-                StartPositionX = 300,
-                StartPositionY = 300,
-                Height = 200,
-                Width = 200,
-                Name = "Inny obszar"
-            };
-            profile.Areas.Add(area2);
+        //    Area area2 = new Area
+        //    {
+        //        Bitmap = analyze.AddScreenShotToArea(new Area
+        //        {
+        //            StartPositionX = 300,
+        //            StartPositionY = 300,
+        //            Height = 200,
+        //            Width = 200
+        //        }),
+        //        StartPositionX = 300,
+        //        StartPositionY = 300,
+        //        Height = 200,
+        //        Width = 200,
+        //        Name = "Inny obszar"
+        //    };
+        //    profile.Areas.Add(area2);
 
 
-            Activity act1 = new Activity { Name = "Aktywnosc 1" };
-            Activity act2 = new Activity { Name = "Aktywnosc 2" };
+        //    Activity act1 = new Activity { Name = "Aktywnosc 1" };
+        //    Activity act2 = new Activity { Name = "Aktywnosc 2" };
 
-            ClickAction action1 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
-            ClickAction action2 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
-            MoveAction action3 = new MoveAction(area) { Name = "Przesun mysz", DelayTime = 2000, Active = true };
+        //    ClickAction action1 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
+        //    ClickAction action2 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
+        //    MoveAction action3 = new MoveAction(area) { Name = "Przesun mysz", DelayTime = 2000, Active = true };
 
-            act1.AddAction(action1);
-            act1.AddAction(action3);
-            act2.AddAction(action2);
+        //    act1.AddAction(action1);
+        //    act1.AddAction(action3);
+        //    act2.AddAction(action2);
 
-            profile.Activities.Add(act1);
-            profile.Activities.Add(act2);
+        //    profile.Activities.Add(act1);
+        //    profile.Activities.Add(act2);
 
-        }
+        //}
 
         #region Make Form Movable
 
@@ -213,6 +213,7 @@ namespace MouseController
         }
         private void _agent_LogChanged(object sender, EventArgs e)
         {
+            
             resultLabel.Text = _agent.LastAction;
             if (workLogRichTextBox.InvokeRequired)
             {
@@ -224,6 +225,7 @@ namespace MouseController
                 }));
             }
             else { workLogRichTextBox.Text = _agent.WorkLog; }
+           
         }
 
         private void stopButton_Click(object sender, EventArgs e)
@@ -236,6 +238,7 @@ namespace MouseController
             }
             if (_agent != null)
             {
+                
                 _agent.LogChanged -= _agent_LogChanged;
                 _agent.Dispose();
                 _agent = null;
@@ -287,8 +290,15 @@ namespace MouseController
                 else if (result == DialogResult.Yes)
                 {
                     JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
-                    serializer.SaveJson(serializer.SerializeProfile(profile));
-                    this.Dispose();
+                    try
+                    {
+                        serializer.SaveJson(serializer.SerializeProfile(profile));
+                        this.Dispose();
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("An error occurred while serializing your profile: " + ex.Message);
+                    }
                 }
             }
         }
