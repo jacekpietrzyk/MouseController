@@ -40,7 +40,8 @@ namespace MouseController
                 analyze.AddScreenShotToArea(newArea);
                 previewPictureBox.Tag = newArea.Bitmap;
                 myToolTip.AutoSize = false;
-                myToolTip.Size = newArea.Bitmap.Size;
+                Size size = new Size() { Width = newArea.Bitmap.Size.Width + 2, Height = newArea.Bitmap.Size.Height + 2 };
+                myToolTip.Size = size;
                 myToolTip.ToolTipTitle = " ";
             }
             catch (Exception ex)

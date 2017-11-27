@@ -46,6 +46,7 @@
             this.conditionsManagerButton = new System.Windows.Forms.Button();
             this.workLogRichTextBox = new System.Windows.Forms.RichTextBox();
             this.formAnimationTimer = new System.Windows.Forms.Timer(this.components);
+            this.runButtonAnimationTimer = new System.Windows.Forms.Timer(this.components);
             this.mainFormPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -279,6 +280,11 @@
             this.formAnimationTimer.Interval = 5;
             this.formAnimationTimer.Tick += new System.EventHandler(this.formAnimationTimer_Tick);
             // 
+            // runButtonAnimationTimer
+            // 
+            this.runButtonAnimationTimer.Interval = 1000;
+            this.runButtonAnimationTimer.Tick += new System.EventHandler(this.runButtonAnimationTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,6 +323,7 @@
         private System.Windows.Forms.ToolStripButton workLogIcon;
         private System.Windows.Forms.RichTextBox workLogRichTextBox;
         private System.Windows.Forms.Timer formAnimationTimer;
+        private System.Windows.Forms.Timer runButtonAnimationTimer;
     }
 }
 

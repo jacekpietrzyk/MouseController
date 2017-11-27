@@ -61,24 +61,24 @@
   <ItemGroup>
     <Compile Include="Activity.cs" />
     <Compile Include="Action.cs" />
-    <Compile Include="AddActivityForm.cs">
+    <Compile Include="Forms\AddActivityForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddActivityForm.Designer.cs">
+    <Compile Include="Forms\AddActivityForm.Designer.cs">
       <DependentUpon>AddActivityForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddAreaForm.cs">
+    <Compile Include="Forms\AddAreaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddAreaForm.Designer.cs">
+    <Compile Include="Forms\AddAreaForm.Designer.cs">
       <DependentUpon>AddAreaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AnalyzeImages.cs" />
     <Compile Include="Area.cs" />
-    <Compile Include="ConditionsManagerForm.cs">
+    <Compile Include="Forms\ConditionsManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConditionsManagerForm.Designer.cs">
+    <Compile Include="Forms\ConditionsManagerForm.Designer.cs">
       <DependentUpon>ConditionsManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Constans.cs" />
@@ -87,49 +87,49 @@
     </Compile>
     <Compile Include="FontLoader.cs" />
     <Compile Include="JsonWorkProfileSerialization.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IActivity.cs" />
     <Compile Include="IAction.cs" />
-    <Compile Include="MessageBoxForm.cs">
+    <Compile Include="Forms\MessageBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MessageBoxForm.Designer.cs">
+    <Compile Include="Forms\MessageBoxForm.Designer.cs">
       <DependentUpon>MessageBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ActivitiesManagerForm.cs">
+    <Compile Include="Forms\ActivitiesManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ActivitiesManagerForm.Designer.cs">
+    <Compile Include="Forms\ActivitiesManagerForm.Designer.cs">
       <DependentUpon>ActivitiesManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AreasManagerForm.cs">
+    <Compile Include="Forms\AreasManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AreasManagerForm.Designer.cs">
+    <Compile Include="Forms\AreasManagerForm.Designer.cs">
       <DependentUpon>AreasManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkAgent.cs" />
     <Compile Include="WorkProfile.cs" />
-    <EmbeddedResource Include="AddActivityForm.resx">
+    <EmbeddedResource Include="Forms\AddActivityForm.resx">
       <DependentUpon>AddActivityForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddAreaForm.resx">
+    <EmbeddedResource Include="Forms\AddAreaForm.resx">
       <DependentUpon>AddAreaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConditionsManagerForm.resx">
+    <EmbeddedResource Include="Forms\ConditionsManagerForm.resx">
       <DependentUpon>ConditionsManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MessageBoxForm.resx">
+    <EmbeddedResource Include="Forms\MessageBoxForm.resx">
       <DependentUpon>MessageBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -142,10 +142,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ActivitiesManagerForm.resx">
+    <EmbeddedResource Include="Forms\ActivitiesManagerForm.resx">
       <DependentUpon>ActivitiesManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AreasManagerForm.resx">
+    <EmbeddedResource Include="Forms\AreasManagerForm.resx">
       <DependentUpon>AreasManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -205,6 +205,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\editArea1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RunB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StopB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

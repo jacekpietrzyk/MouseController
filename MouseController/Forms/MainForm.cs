@@ -19,6 +19,7 @@ namespace MouseController
         WorkAgent _agent;
 
         System.Timers.Timer _resultLabelTimer;
+        private bool runButtonAnimation = false;
         public MainForm()
         {
             InitializeComponent();
@@ -210,6 +211,7 @@ namespace MouseController
                 MessageBox.Show("An error occurred while starting the VatStatusChecker service: " + ex.Message);
             }
             ChangeButtonsStatsus(false);
+            AnimateRunButton(true);
         }
         private void _agent_LogChanged(object sender, EventArgs e)
         {
@@ -244,6 +246,8 @@ namespace MouseController
                 _agent = null;
             }
             ChangeButtonsStatsus(true);
+            AnimateRunButton(false);
+            stopButton.BackgroundImage = Properties.Resources.Stop;
         }
         public void ChangeButtonsStatsus(bool isEnabled)
         {
@@ -276,6 +280,10 @@ namespace MouseController
                 closeButton.BackColor = Color.Gray;
             }
 
+        }
+        private void AnimateRunButton(bool isRunning)
+        {
+            runButtonAnimationTimer.Enabled = isRunning;
         }
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -441,6 +449,20 @@ namespace MouseController
             {
                 formAnimationTimer.Enabled = false;
                 formGrow = true;
+            }
+        }
+
+        private void runButtonAnimationTimer_Tick(object sender, EventArgs e)
+        {
+            if (runButtonAnimation == false)
+            {
+                runButtonAnimation = true;
+                stopButton.BackgroundImage = Properties.Resources.StopB;
+            }
+            else
+            {
+                runButtonAnimation = false;
+                stopButton.BackgroundImage = Properties.Resources.Stop;
             }
         }
     }

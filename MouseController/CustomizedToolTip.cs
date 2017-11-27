@@ -330,7 +330,7 @@ namespace MouseController
                 Image toolTipImage = parent.Tag as Image;
                 if (toolTipImage != null)
                 {
-                    myImageRectangle.Width = mySize.Width-BORDER_THICKNESS*2;
+                    myImageRectangle.Width = mySize.Width - BORDER_THICKNESS * 2;
                     myTextRectangle = new Rectangle(myImageRectangle.Right, myImageRectangle.Top,
                         (myToolTipRectangle.Width - myImageRectangle.Right - BORDER_THICKNESS), myImageRectangle.Height);
                     myTextRectangle.Location = new Point(myImageRectangle.Right, myImageRectangle.Top);
@@ -377,7 +377,7 @@ namespace MouseController
                         if (toolTipImage != null)
                         {
                             myInternalImageWidth = mySize.Width;
-                            oldSize.Width += myInternalImageWidth + PADDING * 2;
+                            oldSize.Width += myInternalImageWidth + PADDING ;
                             //myInternalImageWidth = oldSize.Height;
                             //oldSize.Width += myInternalImageWidth + PADDING;
                         }

@@ -45,7 +45,8 @@ namespace MouseController
                 myToolTip.AutoSize = false;
                 selectedArea = profile.Areas.Where(a => a.Name == areasComboBox.SelectedItem.ToString()).First();
                 previewPictureBox.Tag = selectedArea.Bitmap;
-                myToolTip.Size = selectedArea.Bitmap.Size;
+                Size size = new Size() { Width = selectedArea.Bitmap.Size.Width + 2, Height = selectedArea.Bitmap.Size.Height + 2 };
+                myToolTip.Size = size;
                 myToolTip.ToolTipTitle = " ";
                 previewPictureBox.BackColor = Color.DarkGreen;
             }

@@ -14,12 +14,10 @@ namespace MouseController
     {
         public Type Type { get; set; } = Type.MoveAction;
         public string Name { get; set; }
-
         public bool Active { get; set; } = true;
         public int DelayTime { get; set; } = 0;
         [JsonIgnore]
         private Area _area;
-
         
         public Area Area
         {
