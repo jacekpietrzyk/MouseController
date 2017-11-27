@@ -64,7 +64,7 @@
             this.actionsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.actionsDataGridView_CellValueChanged);
             this.actionsDataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.actionsDataGridView_CurrentCellDirtyStateChanged);
             this.actionsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.actionsDataGridView_DataError);
-            this.actionsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.actionsDataGridView_KeyDown);
+            this.actionsDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.actionsDataGridView_RowValidating);
             // 
             // panel1
             // 
@@ -81,6 +81,7 @@
             // activitiesComboBox
             // 
             this.activitiesComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.activitiesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.activitiesComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.activitiesComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.activitiesComboBox.FormattingEnabled = true;

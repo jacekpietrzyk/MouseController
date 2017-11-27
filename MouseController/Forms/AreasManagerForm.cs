@@ -37,7 +37,22 @@ namespace MouseController
         {
             ReadAreasCollection();
         }
+        public void ReadAreasCollection()
+        {
+            if (profile.Areas.Count != 0)
+            {
+                areasComboBox.DataSource = profile.Areas.Select(t => t.Name).ToList();
+            }
+            else
+            {
+                areasComboBox.DataSource = null;
+            }
+        }
 
+        private void areasComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetPreviewArea();
+        }
         public void SetPreviewArea()
         {
             if (profile.Areas.Where(a => a.Name == areasComboBox.SelectedItem.ToString()).Any())
@@ -58,47 +73,6 @@ namespace MouseController
                 myToolTip.ToolTipTitle = "Preview disabled";
 
             }
-        }
-
-        public void ReadAreasCollection()
-        {
-            if (profile.Areas.Count != 0)
-            {
-                areasComboBox.DataSource = profile.Areas.Select(t => t.Name).ToList();
-            }
-            else
-            {
-                areasComboBox.DataSource = null;
-            }
-        }
-
-        private void acceptButton_Click(object sender, EventArgs e)
-        {
-            OnFormClose(DialogResult.OK);
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            OnFormClose(DialogResult.Cancel);
-        }
-
-        private void closePictureBox_Click(object sender, EventArgs e)
-        {
-            OnFormClose(DialogResult.Cancel);
-        }
-
-        public void OnFormClose(DialogResult result)
-        {
-            if (profile != null)
-            {
-                profile.Areas.CollectionChanged -= Areas_CollectionChanged;
-            }
-            this.DialogResult = result;
-            this.Close();
-        }
-        private void areasComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetPreviewArea();
         }
 
         #region Make Form Movable
@@ -151,37 +125,63 @@ namespace MouseController
                 }
             }
         }
-
         private void removeAreaPanel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to remove this area?", "Removing area", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if(areasComboBox.SelectedItem != null)
             {
-                if (profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).Any())
+                if (MessageBox.Show("Are you sure you want to remove this area?", "Removing area", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    profile.Areas.Remove(profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First());
+                    if (profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).Any())
+                    {
+                        profile.Areas.Remove(profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First());
+                    }
+                }
+            }
+        }
+        private void editAreaPanel_Click(object sender, EventArgs e)
+        {
+            if (areasComboBox.SelectedItem != null)
+            {
+                Area areaToEdit = profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First();
+                Area clonedArea = areaToEdit.Clone();
+
+                using (AddAreaForm addAreaForm = new AddAreaForm(clonedArea))
+                {
+                    addAreaForm.ShowDialog();
+
+                    if (addAreaForm.DialogResult == DialogResult.OK)
+                    {
+                        int index = profile.Areas.IndexOf(areaToEdit);
+                        profile.Areas.RemoveAt(index);
+                        profile.Areas.Insert(index, clonedArea);
+                        SetPreviewArea();
+                        ReadAreasCollection();
+                    }
                 }
             }
         }
 
-        private void editAreaPanel_Click(object sender, EventArgs e)
+        private void acceptButton_Click(object sender, EventArgs e)
         {
-            
-            Area areaToEdit = profile.Areas.Where(t => t.Name == areasComboBox.SelectedItem.ToString()).First();
-            Area clonedArea = areaToEdit.Clone();
+            OnFormClose(DialogResult.OK);
+        }
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            OnFormClose(DialogResult.Cancel);
+        }
+        private void closePictureBox_Click(object sender, EventArgs e)
+        {
+            OnFormClose(DialogResult.Cancel);
+        }
 
-            using (AddAreaForm addAreaForm = new AddAreaForm(clonedArea))
+        public void OnFormClose(DialogResult result)
+        {
+            if (profile != null)
             {
-                addAreaForm.ShowDialog();
-
-                if (addAreaForm.DialogResult == DialogResult.OK)
-                {
-                    int index = profile.Areas.IndexOf(areaToEdit);
-                    profile.Areas.RemoveAt(index);
-                    profile.Areas.Insert(index, clonedArea);
-                    SetPreviewArea();
-                    ReadAreasCollection();
-                }
+                profile.Areas.CollectionChanged -= Areas_CollectionChanged;
             }
+            this.DialogResult = result;
+            this.Close();
         }
 
         #region Mouse Hover Events

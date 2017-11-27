@@ -169,6 +169,7 @@
             // areasComboBox
             // 
             this.areasComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.areasComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.areasComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.areasComboBox.Font = new System.Drawing.Font("Gulim", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.areasComboBox.FormattingEnabled = true;

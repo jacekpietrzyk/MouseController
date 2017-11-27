@@ -233,6 +233,10 @@ namespace MouseController
         {
             if(e.RowIndex < currentActions.Count)
             {
+                if (e.ColumnIndex == 1) //Name triggered
+                {
+                    //CheckNameIsUnique(e);
+                }
                 if (e.ColumnIndex == 2) //Type triggered
                 {
                     UpdateWhenTypeChanges(e);
@@ -245,6 +249,14 @@ namespace MouseController
                 {
                     UpdateWhenAreaChanges(e);
                 }
+            }
+        }
+        private void CheckNameIsUnique(DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
+            if (currentActions.Where(t => t.Name == tb.Value.ToString()).Count() > 1)
+            {
+                MessageBox.Show("The name should be unique!");
             }
         }
 
@@ -451,8 +463,14 @@ namespace MouseController
 
         private void actionsDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            
-            
+            DataGridViewCell cell = actionsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (e.ColumnIndex == 1) //Name triggered
+            {
+                CheckNameIsUnique(e);
+                actionsDataGridView.CurrentCell = cell;
+                actionsDataGridView.BeginEdit(true);
+            }
+
         }
 
         private void actionsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -464,7 +482,9 @@ namespace MouseController
             }
         }
 
-        private void actionsDataGridView_KeyDown(object sender, KeyEventArgs e)
+       
+
+        private void actionsDataGridView_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
             
         }
