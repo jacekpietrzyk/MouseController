@@ -251,14 +251,7 @@ namespace MouseController
                 }
             }
         }
-        private void CheckNameIsUnique(DataGridViewCellValidatingEventArgs e)
-        {
-            DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
-            if (currentActions.Where(t => t.Name == tb.Value.ToString()).Count() > 1)
-            {
-                MessageBox.Show("The name should be unique!");
-            }
-        }
+        
 
         private void UpdateWhenTypeChanges(DataGridViewCellEventArgs e)
         {
@@ -468,9 +461,26 @@ namespace MouseController
             {
                 CheckNameIsUnique(e);
                 actionsDataGridView.CurrentCell = cell;
-                actionsDataGridView.BeginEdit(true);
+                actionsDataGridView.CurrentCell.Selected = true;
             }
 
+        }
+        private void CheckNameIsUnique(DataGridViewCellValidatingEventArgs e)
+        {
+            
+            DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
+            if(tb.Value != null)
+            {
+                if (currentActions.Where(t => t.Name == tb.Value.ToString()).Count() > 1)
+                {
+                    MessageBox.Show("The name should be unique!");
+                    tb.Value = "Put new name here";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Empty value is not valid!");
+            }
         }
 
         private void actionsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -484,9 +494,8 @@ namespace MouseController
 
        
 
-        private void actionsDataGridView_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            
-        }
+        
+
+        
     }
 }

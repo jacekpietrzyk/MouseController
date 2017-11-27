@@ -64,7 +64,6 @@
             this.actionsDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.actionsDataGridView_CellValueChanged);
             this.actionsDataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.actionsDataGridView_CurrentCellDirtyStateChanged);
             this.actionsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.actionsDataGridView_DataError);
-            this.actionsDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.actionsDataGridView_RowValidating);
             // 
             // panel1
             // 
