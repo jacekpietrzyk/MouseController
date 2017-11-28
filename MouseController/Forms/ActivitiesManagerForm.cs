@@ -35,6 +35,7 @@ namespace MouseController
             if (eventsNotSuspended)
             {
                 ReadActivitiesCollection();
+                
             }
         }
 
@@ -45,12 +46,16 @@ namespace MouseController
                 actionsDataGridView.Enabled = true;
                 List<string> activitiesNamesList = profile.Activities.Select(t => t.Name).ToList();
                 activitiesComboBox.DataSource = activitiesNamesList;
+                addActionPanel.Enabled = true;
+                removeActionPanel.Enabled = true;
             }
             else
             {
                 activitiesComboBox.DataSource = null;
                 actionsDataGridView.DataSource = new List<IAction>();
                 actionsDataGridView.Enabled = false;
+                addActionPanel.Enabled = false;
+                removeActionPanel.Enabled = false;
             }
         }
 
@@ -58,6 +63,7 @@ namespace MouseController
 
         private void AddDataGridViewColumns()
         {
+            actionsDataGridView.RowHeadersWidth = 20;
             actionsDataGridView.Columns.Add(CreateActiveCheckBoxColumn());
             actionsDataGridView.Columns.Add(CreateNameColumn());
             actionsDataGridView.Columns.Add(CreateTypeComboColumn());
@@ -70,7 +76,7 @@ namespace MouseController
             DataGridViewCheckBoxColumn activeCheckBoxColumn = new DataGridViewCheckBoxColumn();
             activeCheckBoxColumn.DataPropertyName = "Active";
             activeCheckBoxColumn.Name = "Active";
-
+            activeCheckBoxColumn.Width = 55;
             return activeCheckBoxColumn;
         }
 
@@ -79,7 +85,8 @@ namespace MouseController
             DataGridViewColumn nameTextBoxColumn = new DataGridViewTextBoxColumn();
             nameTextBoxColumn.DataPropertyName = "Name";
             nameTextBoxColumn.Name = "Name";
-
+            nameTextBoxColumn.Width = 203;
+            
             return nameTextBoxColumn;
         }
 
@@ -88,7 +95,7 @@ namespace MouseController
             DataGridViewColumn delayTimeTexTBoxColumn = new DataGridViewTextBoxColumn();
             delayTimeTexTBoxColumn.DataPropertyName = "DelayTime";
             delayTimeTexTBoxColumn.Name = "Delay [ms]";
-
+            delayTimeTexTBoxColumn.Width = 110;
 
             return delayTimeTexTBoxColumn;
 
@@ -101,7 +108,6 @@ namespace MouseController
             typeComboColumn.DataSource = Enum.GetValues(typeof(Type));
             typeComboColumn.DataPropertyName = "Type";
             typeComboColumn.Name = "Type";
-
             return typeComboColumn;
         }
 
@@ -111,7 +117,7 @@ namespace MouseController
             areaComboBoxColumn.DataSource = profile.Areas.Select(t => t.Name).ToArray();
             areaComboBoxColumn.DataPropertyName = "Area.Name";
             areaComboBoxColumn.Name = "Area";
-
+            areaComboBoxColumn.Width = 140;
             return areaComboBoxColumn;
         }
 
@@ -332,8 +338,8 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.savedActivitiesLabel, 10);
 
             fontLoader.AllocateFont(Constans.myFontFamily, this.activitiesComboBox, 10);
-            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsDataGridView.DefaultCellStyle, 9);
-            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsDataGridView.ColumnHeadersDefaultCellStyle, 9);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsDataGridView.DefaultCellStyle, 9, false);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.actionsDataGridView.ColumnHeadersDefaultCellStyle, 9, true);
             fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
             fontLoader.AllocateFont(Constans.myFontFamily, this.acceptButton, 8.25f);
         }
@@ -485,11 +491,7 @@ namespace MouseController
 
         private void actionsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-           if(e.ColumnIndex == 3)
-            {
-                //actionsDataGridView.CurrentCellDirtyStateChanged -= new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
-                MessageBox.Show("Data Error");
-            }
+            return;
         }
 
        

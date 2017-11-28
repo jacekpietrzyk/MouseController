@@ -15,7 +15,17 @@ namespace MouseController
         public Type Type { get; set; } = Type.MoveAction;
         public string Name { get; set; }
         public bool Active { get; set; } = true;
-        public int DelayTime { get; set; } = 0;
+
+        private int _delayTime = 0;
+
+        public int DelayTime
+        {
+            get { return _delayTime; }
+            set { _delayTime = value; }
+        }
+
+        
+
         [JsonIgnore]
         private Area _area;
         
@@ -41,7 +51,13 @@ namespace MouseController
     {
         public Type Type { get; set; } = Type.ClickAction;
         public string Name { get; set; }
-        public int DelayTime { get; set; } = 0;
+        private int _delayTime = 0;
+
+        public int DelayTime
+        {
+            get { return _delayTime; }
+            set { _delayTime = value; }
+        }
         public bool Active { get; set; } = false;
 
         public ClickAction()

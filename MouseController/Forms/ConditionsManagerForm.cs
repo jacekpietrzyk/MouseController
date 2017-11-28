@@ -118,8 +118,8 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.conditionsManagerLabel, 20);
             fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
             fontLoader.AllocateFont(Constans.myFontFamily, this.acceptButton, 8.25f);
-            fontLoader.AllocateFont(Constans.myFontFamily, this.conditionsDataGridView.DefaultCellStyle, 9);
-            fontLoader.AllocateFont(Constans.myFontFamily, this.conditionsDataGridView.ColumnHeadersDefaultCellStyle, 9);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.conditionsDataGridView.DefaultCellStyle, 9, false);
+            fontLoader.AllocateFont(Constans.myFontFamily, this.conditionsDataGridView.ColumnHeadersDefaultCellStyle, 9, false);
         }
         private void closeButtonPictureBox_MouseEnter(object sender, EventArgs e)
         {

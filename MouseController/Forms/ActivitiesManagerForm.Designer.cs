@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivitiesManagerForm));
             this.actionsDataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -53,11 +54,22 @@
             // 
             // actionsDataGridView
             // 
+            this.actionsDataGridView.AllowUserToResizeColumns = false;
+            this.actionsDataGridView.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.actionsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.actionsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.actionsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.actionsDataGridView.Location = new System.Drawing.Point(0, 0);
             this.actionsDataGridView.Name = "actionsDataGridView";
-            this.actionsDataGridView.Size = new System.Drawing.Size(546, 264);
+            this.actionsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.actionsDataGridView.Size = new System.Drawing.Size(629, 264);
             this.actionsDataGridView.TabIndex = 0;
             this.actionsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.actionsDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.actionsDataGridView_CellValidating);
@@ -74,7 +86,7 @@
             this.panel1.Location = new System.Drawing.Point(21, 149);
             this.panel1.Margin = new System.Windows.Forms.Padding(10, 5, 10, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(546, 264);
+            this.panel1.Size = new System.Drawing.Size(629, 264);
             this.panel1.TabIndex = 1;
             // 
             // activitiesComboBox
@@ -139,7 +151,7 @@
             this.acceptButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.acceptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.acceptButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.acceptButton.Location = new System.Drawing.Point(394, 433);
+            this.acceptButton.Location = new System.Drawing.Point(477, 433);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(75, 23);
             this.acceptButton.TabIndex = 7;
@@ -152,7 +164,7 @@
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cancelButton.Location = new System.Drawing.Point(492, 433);
+            this.cancelButton.Location = new System.Drawing.Point(575, 433);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(20, 10, 10, 10);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -208,7 +220,7 @@
             this.activitiesManagerPanel.Location = new System.Drawing.Point(0, 0);
             this.activitiesManagerPanel.Name = "activitiesManagerPanel";
             this.activitiesManagerPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.activitiesManagerPanel.Size = new System.Drawing.Size(589, 478);
+            this.activitiesManagerPanel.Size = new System.Drawing.Size(672, 478);
             this.activitiesManagerPanel.TabIndex = 11;
             this.activitiesManagerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.activitiesManagerPanel_MouseDown);
             // 
@@ -247,7 +259,7 @@
             this.closeButtonPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButtonPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closeButtonPictureBox.BackgroundImage")));
             this.closeButtonPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.closeButtonPictureBox.Location = new System.Drawing.Point(547, 20);
+            this.closeButtonPictureBox.Location = new System.Drawing.Point(630, 20);
             this.closeButtonPictureBox.Margin = new System.Windows.Forms.Padding(10);
             this.closeButtonPictureBox.Name = "closeButtonPictureBox";
             this.closeButtonPictureBox.Size = new System.Drawing.Size(20, 20);
@@ -262,7 +274,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(589, 478);
+            this.ClientSize = new System.Drawing.Size(672, 478);
             this.Controls.Add(this.activitiesManagerPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ActivitiesManagerForm";

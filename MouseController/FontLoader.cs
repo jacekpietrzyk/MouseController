@@ -48,10 +48,18 @@ namespace MouseController
             control.Font = new Font(myFontFamily, size);
         }
 
-        public void AllocateFont(FontFamily myFontFamily, DataGridViewCellStyle control, float size)
+        public void AllocateFont(FontFamily myFontFamily, DataGridViewCellStyle control, float size, bool isBold)
         {
-            control.Font = new Font(myFontFamily, size);
+            if(isBold)
+            {
+                control.Font = new Font(myFontFamily, size, FontStyle.Bold);
+            }
+            else
+            {
+                control.Font = new Font(myFontFamily, size);
+            }
         }
+            
 
     }
 
