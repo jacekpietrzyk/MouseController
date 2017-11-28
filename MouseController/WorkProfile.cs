@@ -74,6 +74,11 @@ namespace MouseController
         {
             return _activities;
         }
+        public Tuple<int, int> GetCollectionsCount()
+        {
+            Tuple<int, int> result = new Tuple<int, int>(GetAreas().Count, GetActivities().Count);
+            return result;
+        }
 
         public void BeginEdit()
         {

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -24,8 +26,72 @@ namespace MouseController
         {
             InitializeComponent();
             InitializeConstans();
+
+            profile.Areas.CollectionChanged += Areas_CollectionChanged;
+            profile.Activities.CollectionChanged += Activities_CollectionChanged;
         }
 
+        private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnCollectionsChanged();
+        }
+
+        private void Areas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnCollectionsChanged();
+        }
+        private void OnCollectionsChanged()
+        {
+            int areasCount = profile.GetCollectionsCount().Item1;
+            int activitiesCount = profile.GetCollectionsCount().Item2;
+
+            if (areasCount == 0 && activitiesCount == 0)
+            {
+                activitiesManagerButton.Enabled = false;
+                conditionsManagerButton.Enabled = false;
+                runButton.Enabled = false;
+                stopButton.Enabled = false;
+                activitiesManagerButton.BackColor = Color.Gray;
+                conditionsManagerButton.BackColor = Color.Gray;
+                runButton.BackColor = Color.Gray;
+                stopButton.BackColor = Color.Gray;
+            }
+            else if(areasCount > 0 && activitiesCount == 0)
+            {
+                activitiesManagerButton.Enabled = true;
+                activitiesManagerButton.BackColor = Color.Orange;
+            }
+            else if (areasCount == 0 && activitiesCount > 0)
+            {
+                activitiesManagerButton.Enabled = false;
+                conditionsManagerButton.Enabled = false;
+                runButton.Enabled = false;
+                stopButton.Enabled = false;
+                activitiesManagerButton.BackColor = Color.Gray;
+                conditionsManagerButton.BackColor = Color.Gray;
+                runButton.BackColor = Color.Gray;
+                stopButton.BackColor = Color.Gray;
+            }
+            else if(areasCount > 0 && activitiesCount > 0)
+            {
+                activitiesManagerButton.Enabled = true;
+                conditionsManagerButton.Enabled = true;
+                activitiesManagerButton.BackColor = Color.Orange;
+                conditionsManagerButton.BackColor = Color.RoyalBlue;
+               
+
+                if (profile.Areas.Where(a=> a.ActivityName != String.Empty).Any())
+                {
+                    runButton.Enabled = true;
+                    stopButton.Enabled = true;
+                    runButton.BackColor = Color.FromArgb(255, 192, 0, 0);
+                    stopButton.BackColor = Color.Orange;
+                }
+                
+            }
+
+
+        }
         private void InitializeConstans()
         {
             try
@@ -129,7 +195,7 @@ namespace MouseController
             if (deserializedProfile != null)
             {
                 profile = deserializedProfile;
-
+                OnCollectionsChanged();
             }
         }
         private void resetButton_Click(object sender, EventArgs e)
@@ -139,7 +205,12 @@ namespace MouseController
                 form.ShowDialog();
                 if (form.DialogResult == DialogResult.Yes)
                 {
+                    profile.Areas.CollectionChanged -= Areas_CollectionChanged;
+                    profile.Activities.CollectionChanged -= Activities_CollectionChanged;
                     profile = new WorkProfile();
+                    profile.Areas.CollectionChanged += Areas_CollectionChanged;
+                    profile.Activities.CollectionChanged += Activities_CollectionChanged;
+                    OnCollectionsChanged();
                 }
             }
                 
@@ -178,7 +249,7 @@ namespace MouseController
                 }
             }
         }
-        private void actionSettingsButton_Click(object sender, EventArgs e)
+        private void conditionsManagerButton_Click(object sender, EventArgs e)
         {
             profile.BeginEdit();
 
@@ -188,6 +259,7 @@ namespace MouseController
                 if (form.DialogResult == DialogResult.OK)
                 {
                     profile.EndEdit();
+                    OnCollectionsChanged();
                 }
                 else if (form.DialogResult == DialogResult.Cancel)
                 {
@@ -408,6 +480,7 @@ namespace MouseController
         private void MainForm_Load(object sender, EventArgs e)
         {
             AllocateFont();
+            OnCollectionsChanged();
         }
         private void AllocateFont()
         {
@@ -464,6 +537,16 @@ namespace MouseController
                 runButtonAnimation = false;
                 stopButton.BackgroundImage = Properties.Resources.Stop;
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(profile != null)
+            {
+                profile.Areas.CollectionChanged -= Areas_CollectionChanged;
+                profile.Activities.CollectionChanged -= Activities_CollectionChanged;
+            }
+            
         }
     }
 

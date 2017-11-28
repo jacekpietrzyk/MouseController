@@ -262,7 +262,7 @@
             this.conditionsManagerButton.Size = new System.Drawing.Size(75, 75);
             this.conditionsManagerButton.TabIndex = 0;
             this.conditionsManagerButton.UseVisualStyleBackColor = false;
-            this.conditionsManagerButton.Click += new System.EventHandler(this.actionSettingsButton_Click);
+            this.conditionsManagerButton.Click += new System.EventHandler(this.conditionsManagerButton_Click);
             this.conditionsManagerButton.MouseLeave += new System.EventHandler(this.actionSettingsButton_MouseLeave);
             this.conditionsManagerButton.MouseHover += new System.EventHandler(this.actionSettingsButton_MouseHover);
             // 
@@ -296,6 +296,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mouse Controller";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainFormPanel.ResumeLayout(false);
             this.mainFormPanel.PerformLayout();

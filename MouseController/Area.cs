@@ -37,7 +37,7 @@ namespace MouseController
         }
 
 
-        public string ActivityName { get; set; }
+        public string ActivityName { get; set; } = String.Empty;
         [JsonIgnore]
         public int ClickX
         {
