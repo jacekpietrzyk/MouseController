@@ -14,6 +14,7 @@ namespace MouseController
         List<IAction> currentActions;
         private bool eventsNotSuspended = true;
         WorkProfile profile;
+        Random random = new Random(1);
 
         public ActivitiesManagerForm(WorkProfile profile)
         {
@@ -239,10 +240,6 @@ namespace MouseController
         {
             if(e.RowIndex < currentActions.Count)
             {
-                if (e.ColumnIndex == 1) //Name triggered
-                {
-                    //CheckNameIsUnique(e);
-                }
                 if (e.ColumnIndex == 2) //Type triggered
                 {
                     UpdateWhenTypeChanges(e);
@@ -267,7 +264,7 @@ namespace MouseController
                 DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
                 if (tb.Value == null)
                 {
-                    MessageBox.Show("You should type a name first!");
+                    MessageBox.Show("Please enter a name.");
                     currentActions.RemoveAt(currentActions.Count - 1);
                     SetGridSource();
                     return;
@@ -473,14 +470,14 @@ namespace MouseController
         }
         private void CheckNameIsUnique(DataGridViewCellValidatingEventArgs e)
         {
-            
+
             DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[1];
-            if(tb.Value != null)
+            if (tb.Value != null)
             {
                 if (currentActions.Where(t => t.Name == tb.Value.ToString()).Count() > 1)
                 {
                     MessageBox.Show("The name should be unique!");
-                    tb.Value = "Put new name here";
+                    tb.Value = "RandomName" + random.Next(9999).ToString();
                 }
             }
             else
