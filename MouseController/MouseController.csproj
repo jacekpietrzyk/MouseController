@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>mainIcon1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
@@ -211,6 +214,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StopB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mainIcon.ico" />
+    <Content Include="mainIcon1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
