@@ -263,8 +263,8 @@
             this.conditionsManagerButton.TabIndex = 0;
             this.conditionsManagerButton.UseVisualStyleBackColor = false;
             this.conditionsManagerButton.Click += new System.EventHandler(this.conditionsManagerButton_Click);
-            this.conditionsManagerButton.MouseLeave += new System.EventHandler(this.actionSettingsButton_MouseLeave);
-            this.conditionsManagerButton.MouseHover += new System.EventHandler(this.actionSettingsButton_MouseHover);
+            this.conditionsManagerButton.MouseLeave += new System.EventHandler(this.ConditionsManagerButton_MouseLeave);
+            this.conditionsManagerButton.MouseHover += new System.EventHandler(this.ConditionsManagerButton_MouseHover);
             // 
             // workLogRichTextBox
             // 

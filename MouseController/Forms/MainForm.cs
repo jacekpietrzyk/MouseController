@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace MouseController
@@ -22,6 +20,7 @@ namespace MouseController
 
         System.Timers.Timer _resultLabelTimer;
         private bool runButtonAnimation = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -30,12 +29,10 @@ namespace MouseController
             profile.Areas.CollectionChanged += Areas_CollectionChanged;
             profile.Activities.CollectionChanged += Activities_CollectionChanged;
         }
-
         private void Activities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             OnCollectionsChanged();
         }
-
         private void Areas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             OnCollectionsChanged();
@@ -56,7 +53,7 @@ namespace MouseController
                 runButton.BackColor = Color.Gray;
                 stopButton.BackColor = Color.Gray;
             }
-            else if(areasCount > 0 && activitiesCount == 0)
+            else if (areasCount > 0 && activitiesCount == 0)
             {
                 activitiesManagerButton.Enabled = true;
                 activitiesManagerButton.BackColor = Color.Orange;
@@ -72,22 +69,22 @@ namespace MouseController
                 runButton.BackColor = Color.Gray;
                 stopButton.BackColor = Color.Gray;
             }
-            else if(areasCount > 0 && activitiesCount > 0)
+            else if (areasCount > 0 && activitiesCount > 0)
             {
                 activitiesManagerButton.Enabled = true;
                 conditionsManagerButton.Enabled = true;
                 activitiesManagerButton.BackColor = Color.Orange;
                 conditionsManagerButton.BackColor = Color.RoyalBlue;
-               
 
-                if (profile.Areas.Where(a=> a.ActivityName != String.Empty).Any())
+
+                if (profile.Areas.Where(a => a.ActivityName != String.Empty).Any())
                 {
                     runButton.Enabled = true;
                     stopButton.Enabled = true;
                     runButton.BackColor = Color.FromArgb(255, 192, 0, 0);
                     stopButton.BackColor = Color.Orange;
                 }
-                
+
             }
 
 
@@ -103,59 +100,60 @@ namespace MouseController
                 _existsApplicationStartError = true;
             }
         }
-        //public void WriteSampleData()
-        //{
-        //    Area area = new Area
-        //    {
-        //        Bitmap = analyze.AddScreenShotToArea(new Area
-        //        {
-        //            StartPositionX = 10,
-        //            StartPositionY = 10,
-        //            Height = 100,
-        //            Width = 300
-        //        }),
-        //        StartPositionX = 10,
-        //        StartPositionY = 10,
-        //        Height = 100,
-        //        Width = 300,
-        //        Name = "Obszar przykladowy",
-        //        ActivityName = "Aktywnosc 1"
-        //    };
-        //    profile.Areas.Add(area);
 
-        //    Area area2 = new Area
-        //    {
-        //        Bitmap = analyze.AddScreenShotToArea(new Area
-        //        {
-        //            StartPositionX = 300,
-        //            StartPositionY = 300,
-        //            Height = 200,
-        //            Width = 200
-        //        }),
-        //        StartPositionX = 300,
-        //        StartPositionY = 300,
-        //        Height = 200,
-        //        Width = 200,
-        //        Name = "Inny obszar"
-        //    };
-        //    profile.Areas.Add(area2);
+        public void WriteSampleData()
+        {
+            Area area = new Area
+            {
+                Bitmap = analyze.AddScreenShotToArea(new Area
+                {
+                    StartPositionX = 10,
+                    StartPositionY = 10,
+                    Height = 100,
+                    Width = 300
+                }),
+                StartPositionX = 10,
+                StartPositionY = 10,
+                Height = 100,
+                Width = 300,
+                Name = "Obszar przykladowy",
+                ActivityName = "Aktywnosc 1"
+            };
+            profile.Areas.Add(area);
+
+            Area area2 = new Area
+            {
+                Bitmap = analyze.AddScreenShotToArea(new Area
+                {
+                    StartPositionX = 300,
+                    StartPositionY = 300,
+                    Height = 200,
+                    Width = 200
+                }),
+                StartPositionX = 300,
+                StartPositionY = 300,
+                Height = 200,
+                Width = 200,
+                Name = "Inny obszar"
+            };
+            profile.Areas.Add(area2);
 
 
-        //    Activity act1 = new Activity { Name = "Aktywnosc 1" };
-        //    Activity act2 = new Activity { Name = "Aktywnosc 2" };
+            Activity act1 = new Activity { Name = "Aktywnosc 1" };
+            Activity act2 = new Activity { Name = "Aktywnosc 2" };
 
-        //    ClickAction action1 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
-        //    ClickAction action2 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
-        //    MoveAction action3 = new MoveAction(area) { Name = "Przesun mysz", DelayTime = 2000, Active = true };
+            ClickAction action1 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
+            ClickAction action2 = new ClickAction { Name = "Kliknij", DelayTime = 1000, Active = true };
+            MoveAction action3 = new MoveAction(area) { Name = "Przesun mysz", DelayTime = 2000, Active = true };
 
-        //    act1.AddAction(action1);
-        //    act1.AddAction(action3);
-        //    act2.AddAction(action2);
+            act1.AddAction(action1);
+            act1.AddAction(action3);
+            act2.AddAction(action2);
 
-        //    profile.Activities.Add(act1);
-        //    profile.Activities.Add(act2);
+            profile.Activities.Add(act1);
+            profile.Activities.Add(act2);
 
-        //}
+        }
 
         #region Make Form Movable
 
@@ -187,6 +185,8 @@ namespace MouseController
 
         #endregion
 
+        #region Main buttons Click events and methods
+
         private void openButton_Click(object sender, EventArgs e)
         {
             JsonWorkProfileSerialization serializer = new JsonWorkProfileSerialization();
@@ -213,7 +213,7 @@ namespace MouseController
                     OnCollectionsChanged();
                 }
             }
-                
+
         }
         private void areasManagerButton_Click(object sender, EventArgs e)
         {
@@ -287,7 +287,7 @@ namespace MouseController
         }
         private void _agent_LogChanged(object sender, EventArgs e)
         {
-            
+
             resultLabel.Text = _agent.LastAction;
             if (workLogRichTextBox.InvokeRequired)
             {
@@ -299,9 +299,8 @@ namespace MouseController
                 }));
             }
             else { workLogRichTextBox.Text = _agent.WorkLog; }
-           
-        }
 
+        }
         private void stopButton_Click(object sender, EventArgs e)
         {
             if (_resultLabelTimer != null)
@@ -312,7 +311,7 @@ namespace MouseController
             }
             if (_agent != null)
             {
-                
+
                 _agent.LogChanged -= _agent_LogChanged;
                 _agent.Dispose();
                 _agent = null;
@@ -375,7 +374,7 @@ namespace MouseController
                         serializer.SaveJson(serializer.SerializeProfile(profile));
                         this.Dispose();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show("An error occurred while serializing your profile: " + ex.Message);
                     }
@@ -383,63 +382,54 @@ namespace MouseController
             }
         }
 
+        #endregion
+
         #region Mouse Hover Events
 
         private void openButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Open existing Mouse Controller work profile";
         }
-
         private void openButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
-
         private void resetButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Clean work profile";
         }
-
         private void resetButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
-
-        private void actionSettingsButton_MouseHover(object sender, EventArgs e)
+        private void ConditionsManagerButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Open Conditions Manager";
         }
-
-        private void actionSettingsButton_MouseLeave(object sender, EventArgs e)
+        private void ConditionsManagerButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
-
         private void runButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Run";
         }
-
         private void runButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
-
         private void stopButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Stop current work process";
         }
-
         private void stopButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
-
         private void closeButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Close the application";
         }
-
         private void closeButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
@@ -448,25 +438,18 @@ namespace MouseController
         {
             toolTipLabel.Text = "";
         }
-
         private void activitiesManagerButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Open Activities Manager";
         }
-
         private void areasManagerButton_MouseHover(object sender, EventArgs e)
         {
             toolTipLabel.Text = "Open Areas Manager";
         }
-
         private void areasManagerButton_MouseLeave(object sender, EventArgs e)
         {
             toolTipLabel.Text = "";
         }
-
-
-
-
 
         #endregion
 
@@ -482,6 +465,16 @@ namespace MouseController
             AllocateFont();
             OnCollectionsChanged();
         }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (profile != null)
+            {
+                profile.Areas.CollectionChanged -= Areas_CollectionChanged;
+                profile.Activities.CollectionChanged -= Activities_CollectionChanged;
+            }
+
+        }
+
         private void AllocateFont()
         {
             FontLoader fontLoader = new FontLoader();
@@ -499,8 +492,13 @@ namespace MouseController
             else
             {
                 workLogRichTextBox.Visible = true;
+                OnLogChanged();
             }
             formAnimationTimer.Enabled = true;
+        }
+        private void OnLogChanged()
+        {
+            _agent_LogChanged(this, EventArgs.Empty);
         }
 
         private void formAnimationTimer_Tick(object sender, EventArgs e)
@@ -524,7 +522,6 @@ namespace MouseController
                 formGrow = true;
             }
         }
-
         private void runButtonAnimationTimer_Tick(object sender, EventArgs e)
         {
             if (runButtonAnimation == false)
@@ -538,17 +535,5 @@ namespace MouseController
                 stopButton.BackgroundImage = Properties.Resources.Stop;
             }
         }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if(profile != null)
-            {
-                profile.Areas.CollectionChanged -= Areas_CollectionChanged;
-                profile.Activities.CollectionChanged -= Activities_CollectionChanged;
-            }
-            
-        }
     }
-
-
 }
