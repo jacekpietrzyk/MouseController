@@ -33,7 +33,7 @@ namespace MouseController
 
         private System.Timers.Timer _timer;
         private int _secondsInterval = Properties.Settings.Default.SecondsInterval;
-        public bool _isNotRunning = true;
+        private bool _isNotRunning = true;
 
         public WorkAgent(WorkProfile profile)
         {
@@ -109,15 +109,6 @@ namespace MouseController
                 }
             }
         }
-
-
-        public void UpdateLogs(string message)
-        {
-            LastAction = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss") + ": " + message;
-            builder.AppendLine(LastAction);
-            WorkLog = builder.ToString();
-        }
-
         void backgroungWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _isNotRunning = true;
@@ -137,14 +128,21 @@ namespace MouseController
                 MessageBox.Show("An Error in the function backgroungWorker_RunWorkerCompleted: " + ex.Message);
             }
         }
+        
+        private void UpdateLogs(string message)
+        {
+            LastAction = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss") + ": " + message;
+            builder.AppendLine(LastAction);
+            WorkLog = builder.ToString();
+        }
+        
         private bool disposed = false;
-
         public void Dispose()
         {
             UpdateLogs("Work stopped: " + resultCounter + " areas matched.");
             Dispose(true);
         }
-        public void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!this.disposed)
             {

@@ -492,7 +492,11 @@ namespace MouseController
             else
             {
                 workLogRichTextBox.Visible = true;
-                OnLogChanged();
+
+                if(_agent != null)
+                {
+                    OnLogChanged();
+                }
             }
             formAnimationTimer.Enabled = true;
         }
