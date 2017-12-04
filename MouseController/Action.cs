@@ -45,8 +45,7 @@ namespace MouseController
             Mouse.Instance.Location = new System.Windows.Point(Area.ClickX, Area.ClickY);
         }
     }
-
-
+    
     public class ClickAction : IAction
     {
         public Type Type { get; set; } = Type.ClickAction;

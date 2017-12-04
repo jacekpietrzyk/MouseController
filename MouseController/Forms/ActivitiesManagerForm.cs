@@ -36,7 +36,6 @@ namespace MouseController
             if (eventsNotSuspended)
             {
                 ReadActivitiesCollection();
-                
             }
         }
 
@@ -214,13 +213,11 @@ namespace MouseController
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
         private void acceptButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -244,10 +241,6 @@ namespace MouseController
                 {
                     UpdateWhenTypeChanges(e);
                 }
-                if (e.ColumnIndex == 3) //DelayTime triggered
-                {
-                    CheckDelayTimeValue(e);
-                }
                 if (e.ColumnIndex == 4) //Area triggered
                 {
                     UpdateWhenAreaChanges(e);
@@ -255,7 +248,6 @@ namespace MouseController
             }
         }
         
-
         private void UpdateWhenTypeChanges(DataGridViewCellEventArgs e)
         {
             DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)actionsDataGridView.Rows[e.RowIndex].Cells[2];
@@ -282,7 +274,6 @@ namespace MouseController
                         currentActions.Insert(editedActionIndex, newAction);
                         
                         actionsDataGridView.Invalidate();
-
                     }
                     else
                     {
@@ -298,7 +289,6 @@ namespace MouseController
                     actionsDataGridView.Invalidate();
                 }
                 SetGridSource();
-                
             }
         }
         private void UpdateWhenAreaChanges(DataGridViewCellEventArgs e)
@@ -313,14 +303,7 @@ namespace MouseController
                 editedAction.Area = areaToPutIn;
             }
         }
-
-        private void CheckDelayTimeValue(DataGridViewCellEventArgs e)
-        {
-            
-        }
-
         
-
         private void ActivitiesManagerForm_Load(object sender, EventArgs e)
         {
             AllocateFont();
@@ -358,7 +341,6 @@ namespace MouseController
             }
             eventsNotSuspended = true;
         }
-
         private void removeActivityPanel_Click(object sender, EventArgs e)
         {
             using (MessageBoxForm form = new MessageBoxForm("REMOVING ACTIVITY", "Are you sure you want to remove this activity?"))
@@ -378,19 +360,18 @@ namespace MouseController
                 }
             }
         }
-
         private void addActionPanel_Click(object sender, EventArgs e)
         {
             currentActions.Add(new ClickAction() { Active = true });
             SetGridSource();
         }
-
         private void removeActionPanel_Click(object sender, EventArgs e)
         {
             DataGridViewTextBoxCell tb = (DataGridViewTextBoxCell)actionsDataGridView.Rows[actionsDataGridView.CurrentRow.Index].Cells[1];
             IAction actionToRemove = currentActions.Where(t => t.Name == tb.Value.ToString()).First();
             currentActions.Remove(actionToRemove);
         }
+
         #region Mouse Hover Events
 
         private void closeButtonPictureBox_MouseEnter(object sender, EventArgs e)
@@ -456,7 +437,6 @@ namespace MouseController
                 actionsDataGridView.CurrentCellDirtyStateChanged -= new EventHandler(actionsDataGridView_CurrentCellDirtyStateChanged);
             }
         }
-
         private void actionsDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             DataGridViewCell cell = actionsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
@@ -485,16 +465,9 @@ namespace MouseController
                 MessageBox.Show("Empty value is not valid!");
             }
         }
-
         private void actionsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             return;
         }
-
-       
-
-        
-
-        
     }
 }

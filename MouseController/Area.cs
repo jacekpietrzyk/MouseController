@@ -35,8 +35,7 @@ namespace MouseController
                 }
             }
         }
-
-
+        
         public string ActivityName { get; set; } = String.Empty;
         [JsonIgnore]
         public int ClickX
@@ -45,7 +44,6 @@ namespace MouseController
             {
                 return StartPositionX + Width / 2;
             }
-
         }
         [JsonIgnore]
         public int ClickY

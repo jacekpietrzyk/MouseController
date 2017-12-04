@@ -52,7 +52,6 @@ namespace MouseController
 				{
 					MessageBox.Show(ex.Message, "Exception occurred");
 				}
-
 			}
 			return cr;
 		}
@@ -146,7 +145,4 @@ namespace MouseController
             else return null;
         }
     }
-
-
-
 }

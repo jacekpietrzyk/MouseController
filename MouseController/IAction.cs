@@ -14,6 +14,5 @@ namespace MouseController
         Type Type { get; set; }
         string Name { get; set; }
         void Execute();
-
     }
 }

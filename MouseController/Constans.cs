@@ -67,7 +67,5 @@ namespace MouseController
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
     }
-
 }

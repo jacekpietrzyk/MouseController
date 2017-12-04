@@ -88,7 +88,6 @@ namespace MouseController
                 inTxn = true;
             }
         }
-
         public void EndEdit()
         {
             if (inTxn)
@@ -97,7 +96,6 @@ namespace MouseController
                 inTxn = false;
             }
         }
-
         public void CancelEdit()
         {
             if (inTxn)
@@ -113,11 +111,9 @@ namespace MouseController
                 {
                     Activities.Add(activity);
                 }
-
                 inTxn = false;
             }
         }
-
         public object Clone() // DeepClone
         {
             ProfileData profileClone = new ProfileData();

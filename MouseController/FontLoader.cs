@@ -10,9 +10,7 @@ namespace MouseController
     {
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbfont, uint cbfont, int pdv, [In] ref uint pcFonts);
-
         
-
         public FontFamily LoadFont(byte[] fileFromResources)
         {
             byte[] fontArray = fileFromResources;
@@ -38,16 +36,15 @@ namespace MouseController
             }
 
         }
+
         public void AllocateFont(FontFamily myFontFamily, Control control, float size)
         {
             control.Font = new Font(myFontFamily, size);
         }
-
         public void AllocateFont(FontFamily myFontFamily, ToolStripLabel control, float size)
         {
             control.Font = new Font(myFontFamily, size);
         }
-
         public void AllocateFont(FontFamily myFontFamily, DataGridViewCellStyle control, float size, bool isBold)
         {
             if(isBold)
@@ -59,11 +56,5 @@ namespace MouseController
                 control.Font = new Font(myFontFamily, size);
             }
         }
-            
-
     }
-
-
-
-
 }
