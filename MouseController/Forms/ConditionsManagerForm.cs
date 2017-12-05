@@ -11,8 +11,7 @@ namespace MouseController
     public partial class ConditionsManagerForm : Form
     {
         WorkProfile profile;
-
-
+        
         public ConditionsManagerForm(WorkProfile profile)
         {
             this.profile = profile;
@@ -20,7 +19,6 @@ namespace MouseController
             InitializeComponent();
             conditionsDataGridView.AutoGenerateColumns = false;
             AddDataGridViewColumns();
-
         }
         private void AddDataGridViewColumns()
         {

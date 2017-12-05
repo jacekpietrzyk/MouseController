@@ -51,13 +51,11 @@ namespace MouseController
             this.Close();
             this.DialogResult = DialogResult.Cancel;
         }
-
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
             this.DialogResult = DialogResult.Cancel;
         }
-
         private void addButton_Click(object sender, EventArgs e)
         {
             eventsNotSuspended = true;
@@ -73,7 +71,6 @@ namespace MouseController
                 MessageBox.Show("New activity name is invalid");
             }
         }
-
         public bool HasValidName(string newName)
         {
             if(activities.Where(t => t.Name == newName).Any())

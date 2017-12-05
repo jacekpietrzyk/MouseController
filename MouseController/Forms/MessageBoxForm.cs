@@ -18,15 +18,12 @@ namespace MouseController
             questionLabel.Text = question;
             headlineLabel.Text = headline;
         }
-
-
-
+        
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
         private void closeButtonPictureBox_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -38,7 +35,6 @@ namespace MouseController
             this.DialogResult = DialogResult.Yes;
             this.Close();
         }
-
         private void noButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.No;
@@ -71,7 +67,6 @@ namespace MouseController
         {
             AllocateFont();
         }
-
         private void AllocateFont()
         {
             FontLoader fontLoader = new FontLoader();
@@ -81,14 +76,11 @@ namespace MouseController
             fontLoader.AllocateFont(Constans.myFontFamily, this.yesButton, 8.25f);
             fontLoader.AllocateFont(Constans.myFontFamily, this.noButton, 8.25f);
             fontLoader.AllocateFont(Constans.myFontFamily, this.cancelButton, 8.25f);
-
         }
-
         private void closeButtonPictureBox_MouseEnter(object sender, EventArgs e)
         {
             closeButtonPictureBox.BackColor = Color.Gainsboro;
         }
-
         private void closeButtonPictureBox_MouseLeave(object sender, EventArgs e)
         {
             closeButtonPictureBox.BackColor = Color.White;

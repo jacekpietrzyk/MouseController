@@ -53,12 +53,10 @@ namespace MouseController
                 MessageBox.Show(ex.Message, "Exception occurred");
             }
         }
-
         public void CleanAreaObject()
         {
             newArea = new Area();
         }
-
         private bool IsNotTheSamePoint(int x1, int y1, int x2, int y2)
         {
             if (x1 != x2 && y1 != y2)
@@ -78,7 +76,6 @@ namespace MouseController
             nameTextBox.Enabled = false;
             cancelButton.Enabled = false;
         }
-
         private void nameTextBox_Enter(object sender, EventArgs e)
         {
             if (nameTextBox.Text == "Type a name here...")
@@ -86,7 +83,6 @@ namespace MouseController
                 nameTextBox.Text = "";
             }
         }
-
         private void nameTextBox_Leave(object sender, EventArgs e)
         {
             if (nameTextBox.Text == "")
@@ -94,7 +90,6 @@ namespace MouseController
                 nameTextBox.Text = "Type a name here...";
             }
         }
-
         private void AddAreaForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (_readingAreaPoints == true)
@@ -152,7 +147,6 @@ namespace MouseController
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
         private void acceptButton_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(nameTextBox.Text) && nameTextBox.Text != "Type a name here...")
@@ -166,14 +160,12 @@ namespace MouseController
                 MessageBox.Show("Name value can not be default or empty!");
             }
         }
-
         private void closePictureBox_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
         private void resetButton_Click(object sender, EventArgs e)
         {
             CleanAreaObject();
